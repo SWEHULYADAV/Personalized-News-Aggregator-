@@ -36,12 +36,12 @@ def get_top_headlines(api_key):
         return None
 
 # Function to save user data to the database
-def save_user_to_database(username, hashed_password):  # Add hashed_password as an argument
+def save_user_to_database(username, password):
     # Placeholder code to save user to the database
     # You need to replace this with your actual database logic
     conn = sqlite3.connect('news_aggregator.db')
     c = conn.cursor()
-    c.execute("INSERT INTO users (username, password) VALUES (?, ?)", (username, hashed_password))
+    c.execute("INSERT INTO users (username, password) VALUES (?, ?)", (username, password))
     conn.commit()
     conn.close()
 
@@ -94,17 +94,21 @@ def signup():
         hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
         # Placeholder logic for saving user to database, replace with actual logic
         save_user_to_database(username, hashed_password.decode('utf-8'))  # Decode hashed_password before passing to the function
-        flash('You have successfully signed up! Please log in.', 'success')  # Flash message for successful signup
+        flash('You have successfully signed up! Please log in.', 'success')
         # Redirect user to login page after successful signup
         return redirect(url_for('login'))
     # If GET request, simply render the signup form
     return render_template('signup.html')  # Assuming you have a signup.html template
 
+
 # Logout route
 @app.route('/logout')
 def logout():
-    # Logout logic goes here
-    pass
+    # Logout logic here
+    # For example, clearing session data
+    session.clear()
+    # Redirect to login page after logout
+    return redirect(url_for('login'))
 
 if __name__ == '__main__':
     init_db()
