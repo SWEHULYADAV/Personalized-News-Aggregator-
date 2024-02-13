@@ -38,7 +38,7 @@
             background-color: #333;
             color: #fff;
             text-align: center;
-            padding: 10px 0;
+            padding: 0px 0;
             position: fixed;
             bottom: 0;
             width: 100%;
@@ -234,20 +234,41 @@
             border: 1px solid #ccc;
             border-top: none;
         }
+	 .spacer {
+            height: 5px;
+            background-color: transparent; 
+      	  }
     </style>
+ <script>
+    // Dark mode toggle functionality
+    function toggleDarkMode() {
+        document.body.classList.toggle("dark-mode");
+    }
+
+    // Language selection functionality
+    function toggleLanguages() {
+        var languageOptions = document.getElementById("language-options");
+        languageOptions.style.display = (languageOptions.style.display === "block") ? "none" : "block";
+    }
+</script>
+
 </head>
 <body>
     <header>
         <div class="container">
             <h1>Welcome, {{ username }}</h1>
-            <a href="{{ url_for('logout') }}">Logout</a>
+	    <a href="/login" class="login-btn">Signup/Login</a>
+            <a href="{{ url_for('logout') }}">Logout</a> 
+	    <a href="/user_articles">Read Articles</a>
+
             <div>
-                <div id="mode-toggle" class="toggle-icon">🌙</div>
-                <!-- Language selection button -->
-                <button class="language-select" onmouseover="showLanguages()" onmouseout="hideLanguages()">Select Language</button>
-                <!-- Language options -->
-                <div class="language-options" onmouseover="showLanguages()" onmouseout="hideLanguages()">
-                    <a href="#">English</a>
+
+             <div id="mode-toggle" class="toggle-icon" onclick="toggleDarkMode()">🌙</div>
+             <!-- Language selection button -->
+            <button class="language-select" onclick="toggleLanguages()">Select Language</button>
+            <!-- Language options -->
+            <div class="language-options" id="language-options" onmouseover="showLanguages()" onmouseout="hideLanguages()">
+                <a href="#">English</a>
                     <a href="#">हिन्दी</a>
                     <a href="#">اردو</a>
                     <a href="#">தமிழ்</a>
@@ -288,12 +309,65 @@
                 <p>No headlines available</p>
             {% endif %}
         </div>
-        <div class="pagination">
-            <a href="#">1</a>
-            <a href="#">2</a>
-            <a href="#">3</a>
-            <a href="#">Next</a>
+
+
+
+      <div class="pagination">
+            <a href="#" id="first-page">1</a>
+            <a href="#" id="prev-page">Prev</a>
+            <a href="#" class="page-link">Current</a>
+            <a href="#" class="page-link">Next</a>
+            <a href="#" id="next-page">Next+1</a>
+            <a href="#" id="last-page">Last</a>
         </div>
+
+ <div class="spacer"></div>
+
+<script>
+    // Add event listeners to handle pagination logic
+    document.getElementById("first-page").addEventListener("click", function(e) {
+        e.preventDefault();
+        // Redirect to the first page
+        window.location.href = "/1"; // Replace "/1" with your actual URL structure
+    });
+
+    document.getElementById("last-page").addEventListener("click", function(e) {
+        e.preventDefault();
+        // Redirect to the last page
+        window.location.href = "/last"; // Replace "/last" with your actual URL structure
+    });
+
+    document.getElementById("prev-page").addEventListener("click", function(e) {
+        e.preventDefault();
+        // Get the current page number from the URL
+        let currentPage = getCurrentPage();
+        if (currentPage > 1) {
+            // Redirect to the previous page
+            window.location.href = "/" + (currentPage - 1); // Replace "/" with your actual URL structure
+        }
+    });
+
+    document.getElementById("next-page").addEventListener("click", function(e) {
+        e.preventDefault();
+        // Get the current page number from the URL
+        let currentPage = getCurrentPage();
+        // Redirect to the next page
+        window.location.href = "/" + (currentPage + 1); // Replace "/" with your actual URL structure
+    });
+
+    // Function to extract the current page number from the URL
+    function getCurrentPage() {
+        let url = window.location.href;
+        let matches = url.match(/\/(\d+)/); // Assuming the page number is in the URL as "/{page_number}"
+        if (matches && matches.length > 1) {
+            return parseInt(matches[1]);
+        }
+        return 1; // Default to page 1 if no page number is found in the URL
+    }
+</script>
+
+
+
         <div class="tab">
             <button class="tablinks" onclick="openForm(event, 'login')">Login</button>
             <button class="tablinks" onclick="openForm(event, 'signup')">Signup</button>
@@ -336,44 +410,57 @@
                 <button type="submit">Signup</button>
             </form>
         </div>
+	<div class="spacer"></div>
     </main>
     <footer>
         <p>© 2024 Personalized News Aggregator</p>
+	<div class="spacer"></div>
     </footer>
+   
+
     <script>
-        const modeToggle = document.getElementById('mode-toggle');
-        modeToggle.addEventListener('click', function() {
-            document.body.classList.toggle('dark-mode');
-            if (document.body.classList.contains('dark-mode')) {
-                modeToggle.innerHTML = '☀️'; // Change to day mode icon
-            } else {
-                modeToggle.innerHTML = '🌙'; // Change to dark mode icon
+        // Add event listeners to handle pagination logic
+        document.getElementById("first-page").addEventListener("click", function(e) {
+            e.preventDefault();
+            // Redirect to the first page
+            window.location.href = "/1"; // Replace "/1" with your actual URL structure
+        });
+
+        document.getElementById("last-page").addEventListener("click", function(e) {
+            e.preventDefault();
+            // Redirect to the last page
+            window.location.href = "/last"; // Replace "/last" with your actual URL structure
+        });
+
+        document.getElementById("prev-page").addEventListener("click", function(e) {
+            e.preventDefault();
+            // Get the current page number from the URL
+            let currentPage = getCurrentPage();
+            if (currentPage > 1) {
+                // Redirect to the previous page
+                window.location.href = "/" + (currentPage - 1); // Replace "/" with your actual URL structure
             }
         });
 
-        function showLanguages() {
-            const languageOptions = document.querySelector('.language-options');
-            languageOptions.style.display = 'block';
-        }
+        document.getElementById("next-page").addEventListener("click", function(e) {
+            e.preventDefault();
+            // Get the current page number from the URL
+            let currentPage = getCurrentPage();
+            // Redirect to the next page
+            window.location.href = "/" + (currentPage + 1); // Replace "/" with your actual URL structure
+        });
 
-        function hideLanguages() {
-            const languageOptions = document.querySelector('.language-options');
-            languageOptions.style.display = 'none';
-        }
-
-        function openForm(evt, formName) {
-            var i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tabcontent");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
+        // Function to extract the current page number from the URL
+        function getCurrentPage() {
+            let url = window.location.href;
+            let matches = url.match(/\/(\d+)/); // Assuming the page number is in the URL as "/{page_number}"
+            if (matches && matches.length > 1) {
+                return parseInt(matches[1]);
             }
-            tablinks = document.getElementsByClassName("tablinks");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].className = tablinks[i].className.replace(" active", "");
-            }
-            document.getElementById(formName).style.display = "block";
-            evt.currentTarget.className += " active";
+            return 1; // Default to page 1 if no page number is found in the URL
         }
     </script>
+
+
 </body>
 </html>
