@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Article Detail</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        /* Basic styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0; /* Default background color */
+            color: #333; /* Default text color */
+            transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+            position: relative;
+        }
+        header a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 10px;
+        }
+        main {
+            margin-top: 20px;
+        }
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        /* Article detail styles */
+        .article-detail {
+            margin: 20px 0;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+        .article-detail h2 {
+            margin-top: 0;
+        }
+        .article-detail p {
+            margin: 10px 0;
+        }
+        /* Toggle button styles */
+        .toggle-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        /* Dark mode styles */
+        body.dark-mode {
+            background-color: #222; /* Dark mode background color */
+            color: #ddd; /* Dark mode text color */
+        }
+        .dark-mode footer {
+            background-color: #111; /* Dark mode footer background color */
+        }
+        .dark-mode .toggle-btn {
+            background-color: #555; /* Dark mode toggle button background color */
+        }
+        /* Light mode styles */
+        body.light-mode {
+            background-color: #f0f0f0; /* Light mode background color */
+            color: #333; /* Light mode text color */
+        }
+        .light-mode footer {
+            background-color: #333; /* Light mode footer background color */
+        }
+        .light-mode .toggle-btn {
+            background-color: #ccc; /* Light mode toggle button background color */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Article Detail</h1>
+            <button class="toggle-btn" onclick="toggleMode()">Change Theme</button>
+            <a href="{{ url_for('index') }}">Home</a>
+        </div>
+    </header>
+    <main class="container">
+        <section class="article-detail">
+            <h2>{{ article.title }}</h2>
+            <p>{{ article.content }}</p>
+            <p>Source: {{ article.source }}</p>
+            <!-- Add more details as needed -->
+        </section>
+    </main>
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Personalized News Aggregator</p>
+        </div>
+    </footer>
+
+    <script>
+        // Function to toggle dark mode
+        function toggleMode() {
+            const body = document.body;
+            body.classList.toggle("dark-mode");
+            if (body.classList.contains("dark-mode")) {
+                // If dark mode is enabled, update button text
+                document.querySelector(".toggle-btn").textContent = "Light Mode";
+            } else {
+                // If light mode is enabled, update button text
+                document.querySelector(".toggle-btn")article_detail.textContent = "Dark Mode";
+            }
+        }
+    </script>
+</body>
+</html>

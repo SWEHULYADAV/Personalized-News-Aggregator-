@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personalized News Aggregator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        /* Basic styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0; /* Default background color */
+            color: #333; /* Default text color */
+            transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+            position: relative;
+        }
+        header a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 10px;
+        }
+        main {
+            margin-top: 20px;
+        }
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 0px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        /* Form styles */
+        .form-group {
+            margin-bottom: 10px;
+        }
+        label {
+            display: block;
+        }
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 5px;
+            margin-top: 5px;
+        }
+        button {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #555;
+        }
+        .error {
+            color: red;
+        }
+        /* Responsive styles */
+        @media only screen and (max-width: 600px) {
+            .container {
+                width: 100%;
+            }
+            .article {
+                width: calc(50% - 20px);
+            }
+        }
+        /* Dark mode styles */
+        body.dark-mode {
+            background-color: #222; /* Dark mode background color */
+            color: #ddd; /* Dark mode text color */
+        }
+        .dark-mode footer {
+            background-color: #111; /* Dark mode footer background color */
+        }
+        .dark-mode button {
+            background-color: #555; /* Dark mode button background color */
+        }
+        .dark-mode button:hover {
+            background-color: #777; /* Dark mode button hover background color */
+        }
+        /* News feed styles */
+        .news-feed {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px; /* Gap between articles */
+        }
+        .article {
+            width: calc(33.33% - 20px); /* Ensure 3 columns in a row */
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #fff;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            position: relative;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            border: 2px solid transparent; /* Default border */
+        }
+        .article:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border-color: #ffa500; /* Change border color on hover */
+        }
+        .article img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+            filter: grayscale(50%); /* Add grayscale filter to image */
+            border-radius: 5px; /* Add border-radius */
+            transition: all 0.3s ease; /* Smooth transition */
+        }
+        .article h3 {
+            font-size: 18px;
+            margin: 0;
+            color: inherit; /* Use the same color as parent */
+        }
+        .article p {
+            margin: 5px 0;
+            opacity: 0.8; /* Reduced opacity for better readability */
+            transition: opacity 0.3s ease; /* Smooth transition */
+            color: inherit; /* Use the same color as parent */
+        }
+        .article:hover p {
+            opacity: 1; /* Restore opacity on hover */
+        }
+        .pagination {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .pagination a {
+            display: inline-block;
+            margin: 0 5px;
+            padding: 5px 10px;
+            background-color: #333;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .pagination a:hover {
+            background-color: #555;
+        }
+        /* Positioning of toggle icons */
+        #mode-toggle {
+            cursor: pointer;
+            position: absolute;
+            right: 10px;
+            top: 10px;
+        }
+        #logout-button {
+            cursor: pointer;
+            position: absolute;
+            left: 10px;
+            top: 10px;
+        }
+        /* Language selection button */
+        .language-select {
+            position: absolute;
+            left: 10px;
+            top: 10px;
+            display: inline-block;
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+        .language-select:hover {
+            background-color: #555;
+        }
+        .language-options {
+            position: absolute;
+            left: 0;
+            top: 40px;
+            display: none;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            z-index: 1;
+        }
+        .language-options a {
+            display: block;
+            color: #333;
+            text-decoration: none;
+            padding: 5px 0;
+        }
+        .language-options a:hover {
+            background-color: #f0f0f0;
+        }
+        /* Tab styles */
+        .tab {
+            overflow: hidden;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+        }
+
+        .tab button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+            font-size: 17px;
+        }
+
+        .tab button:hover {
+            background-color: #ddd;
+        }
+
+        .tab button.active {
+            background-color: #ccc;
+        }
+
+        .tabcontent {
+            display: none;
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+            border-top: none;
+        }
+	 .spacer {
+            height: 5px;
+            background-color: transparent; 
+      	  }
+    </style>
+ <script>
+    // Dark mode toggle functionality
+    function toggleDarkMode() {
+        document.body.classList.toggle("dark-mode");
+    }
+
+    // Language selection functionality
+    function toggleLanguages() {
+        var languageOptions = document.getElementById("language-options");
+        languageOptions.style.display = (languageOptions.style.display === "block") ? "none" : "block";
+    }
+</script>
+
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Welcome, {{ username }}</h1>
+	    <a href="/login" class="login-btn">Signup/Login</a>
+            <a href="{{ url_for('logout') }}">Logout</a> 
+	    <a href="/user_articles">Read Articles</a>
+
+            <div>
+
+             <div id="mode-toggle" class="toggle-icon" onclick="toggleDarkMode()">🌙</div>
+             <!-- Language selection button -->
+            <button class="language-select" onclick="toggleLanguages()">Select Language</button>
+            <!-- Language options -->
+            <div class="language-options" id="language-options" onmouseover="showLanguages()" onmouseout="hideLanguages()">
+                <a href="#">English</a>
+                    <a href="#">हिन्दी</a>
+                    <a href="#">اردو</a>
+                    <a href="#">தமிழ்</a>
+                    <a href="#">తెలుగు</a>
+                    <a href="#">മലയാളം</a>
+                    <a href="#">ಕನ್ನಡ</a>
+                    <a href="#">ગુજરાતી</a>
+                    <a href="#">मराठी</a>
+                    <a href="#">বাংলা</a>
+                    <a href="#">ਪੰਜਾਬੀ</a>
+                    <a href="#">ଓଡ଼ିଆ</a>
+                    <a href="#">অসমীয়া</a>
+                    <a href="#">سنڌي</a>
+                    <a href="#">मणिपुरी</a>
+                    <a href="#">کشمیری</a>
+                    <a href="#">कोंकणी</a>
+                    <a href="#">डोगरी</a>
+                    <a href="#">नेपाली</a>
+                    <a href="#">मैथिली</a>
+                    <a href="#">बोडो</a>
+                    <!-- Add more options for other languages -->
+                </div>
+            </div>
+        </div>
+    </header>
+    <main class="container">
+        <h2>Personalized News Feed</h2>
+        <div class="news-feed">
+            {% if headlines %}
+                {% for article in headlines %}
+                    <a href="{{ article.url }}" class="article" style="background-color: {{ article.color }}">
+                        <img src="{{ article.urlToImage }}" alt="{{ article.title }}">
+                        <h3>{{ article.title }}</h3>
+                        <p>Source: {{ article.source.name }}</p>
+                    </a>
+                {% endfor %}
+            {% else %}
+                <p>No headlines available</p>
+            {% endif %}
+        </div>
+
+
+
+      <div class="pagination">
+            <a href="#" id="first-page">1</a>
+            <a href="#" id="prev-page">Prev</a>
+            <a href="#" class="page-link">Current</a>
+            <a href="#" class="page-link">Next</a>
+            <a href="#" id="next-page">Next+1</a>
+            <a href="#" id="last-page">Last</a>
+        </div>
+
+ <div class="spacer"></div>
+
+<script>
+    // Add event listeners to handle pagination logic
+    document.getElementById("first-page").addEventListener("click", function(e) {
+        e.preventDefault();
+        // Redirect to the first page
+        window.location.href = "/1"; // Replace "/1" with your actual URL structure
+    });
+
+    document.getElementById("last-page").addEventListener("click", function(e) {
+        e.preventDefault();
+        // Redirect to the last page
+        window.location.href = "/last"; // Replace "/last" with your actual URL structure
+    });
+
+    document.getElementById("prev-page").addEventListener("click", function(e) {
+        e.preventDefault();
+        // Get the current page number from the URL
+        let currentPage = getCurrentPage();
+        if (currentPage > 1) {
+            // Redirect to the previous page
+            window.location.href = "/" + (currentPage - 1); // Replace "/" with your actual URL structure
+        }
+    });
+
+    document.getElementById("next-page").addEventListener("click", function(e) {
+        e.preventDefault();
+        // Get the current page number from the URL
+        let currentPage = getCurrentPage();
+        // Redirect to the next page
+        window.location.href = "/" + (currentPage + 1); // Replace "/" with your actual URL structure
+    });
+
+    // Function to extract the current page number from the URL
+    function getCurrentPage() {
+        let url = window.location.href;
+        let matches = url.match(/\/(\d+)/); // Assuming the page number is in the URL as "/{page_number}"
+        if (matches && matches.length > 1) {
+            return parseInt(matches[1]);
+        }
+        return 1; // Default to page 1 if no page number is found in the URL
+    }
+</script>
+
+
+
+        <div class="tab">
+            <button class="tablinks" onclick="openForm(event, 'login')">Login</button>
+            <button class="tablinks" onclick="openForm(event, 'signup')">Signup</button>
+        </div>
+
+        <!-- Login Form -->
+        <div id="login" class="tabcontent">
+            <h1>Login</h1>
+            {% if login_error %}
+                <p class="error">{{ login_error }}</p>
+            {% endif %}
+            <form action="{{ url_for('login') }}" method="post">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+
+        <!-- Signup Form -->
+        <div id="signup" class="tabcontent">
+            <h1>Signup</h1>
+            {% if signup_error %}
+                <p class="error">{{ signup_error }}</p>
+            {% endif %}
+            <form action="{{ url_for('signup') }}" method="post">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit">Signup</button>
+            </form>
+        </div>
+	<div class="spacer"></div>
+    </main>
+    <footer>
+        <p>© 2024 Personalized News Aggregator</p>
+	<div class="spacer"></div>
+    </footer>
+   
+
+    <script>
+        // Add event listeners to handle pagination logic
+        document.getElementById("first-page").addEventListener("click", function(e) {
+            e.preventDefault();
+            // Redirect to the first page
+            window.location.href = "/1"; // Replace "/1" with your actual URL structure
+        });
+
+        document.getElementById("last-page").addEventListener("click", function(e) {
+            e.preventDefault();
+            // Redirect to the last page
+            window.location.href = "/last"; // Replace "/last" with your actual URL structure
+        });
+
+        document.getElementById("prev-page").addEventListener("click", function(e) {
+            e.preventDefault();
+            // Get the current page number from the URL
+            let currentPage = getCurrentPage();
+            if (currentPage > 1) {
+                // Redirect to the previous page
+                window.location.href = "/" + (currentPage - 1); // Replace "/" with your actual URL structure
+            }
+        });
+
+        document.getElementById("next-page").addEventListener("click", function(e) {
+            e.preventDefault();
+            // Get the current page number from the URL
+            let currentPage = getCurrentPage();
+            // Redirect to the next page
+            window.location.href = "/" + (currentPage + 1); // Replace "/" with your actual URL structure
+        });
+
+        // Function to extract the current page number from the URL
+        function getCurrentPage() {
+            let url = window.location.href;
+            let matches = url.match(/\/(\d+)/); // Assuming the page number is in the URL as "/{page_number}"
+            if (matches && matches.length > 1) {
+                return parseInt(matches[1]);
+            }
+            return 1; // Default to page 1 if no page number is found in the URL
+        }
+    </script>
+
+
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Read Blog Articles</title>
+    <style>
+        /* Header styles */
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+            position: relative;
+        }
+        header a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 10px;
+        }
+        /* Toggle button styles */
+        .header-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        #dark-mode-toggle {
+            right: 10px;
+        }
+        #create-article-btn {
+            left: 10px;
+        }
+        /* Articles container styles */
+        .articles {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        /* Article styles */
+        .article {
+            border-bottom: 1px solid #ccc;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+        }
+        .article h2 {
+            margin-bottom: 10px;
+        }
+        .article p {
+            margin-bottom: 10px;
+        }
+        .article a {
+            color: #333; /* Change link color */
+            text-decoration: none;
+            background-color: #ddd; /* Change background color */
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        .article a:hover {
+            background-color: #ccc; /* Change background color on hover */
+        }
+        /* Dark mode styles */
+        body.dark-mode {
+            background-color: #222;
+            color: #fff;
+        }
+        /* Footer styles */
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Read Blog Articles</h1>
+        <button id="dark-mode-toggle" class="header-button" onclick="toggleDarkMode()">
+            🌙 <!-- Moon icon -->
+        </button>
+        <a href="/">Home</a>
+        <!-- Remove the "About" link -->
+        <button id="create-article-btn" class="header-button" onclick="openCreateArticlePage()">Create Article</button>
+    </header>
+
+    <div class="articles" id="articles-container">
+        <!-- Articles will be dynamically added here -->
+    </div>
+
+    <footer>
+        <p>&copy; 2024 YourWebsiteName. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function openCreateArticlePage() {
+            window.location.href = '/articles'; // Change the URL to the appropriate route
+        }
+
+        // Dummy data for demonstration
+        const articlesData = [
+            { title: "Article 1", content: "Content of article 1" },
+            { title: "Article 2", content: "Content of article 2" },
+            { title: "Article 3", content: "Content of article 3" }
+            // Add more articles as needed
+        ];
+
+        // Function to display articles
+        function displayArticles() {
+            const articlesContainer = document.getElementById('articles-container');
+            articlesContainer.innerHTML = ''; // Clear existing content
+
+            // Loop through articlesData and create HTML elements for each article
+            articlesData.forEach(article => {
+                const articleDiv = document.createElement('div');
+                articleDiv.classList.add('article');
+
+                const titleElement = document.createElement('h2');
+                titleElement.textContent = article.title;
+
+                const contentElement = document.createElement('p');
+                contentElement.textContent = article.content;
+
+                articleDiv.appendChild(titleElement);
+                articleDiv.appendChild(contentElement);
+
+                articlesContainer.appendChild(articleDiv);
+            });
+        }
+
+        // Dark mode toggle functionality
+        function toggleDarkMode() {
+            document.body.classList.toggle("dark-mode");
+        }
+
+        // Call the function to display articles when the page loads
+        displayArticles();
+    </script>
+</body>
+</html>
