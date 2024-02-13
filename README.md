@@ -63,13 +63,13 @@ Here In My Case I'm Using Anaconda Prompt For Executing ....
     - This link connects to your local server, and you should see your personalized news aggregator application in action.
 -----------------------------------------------------
 =====================================================
+
+EXECUTING THE PROJECT OFFLINE - STEP-BY-STEP GUIDE:
+
+=====================================================
+
 -----------------------------------------------------
 
-
-
-=====================================================
-EXECUTING THE PROJECT OFFLINE - STEP-BY-STEP GUIDE:
-=====================================================
 1. Open Anaconda Navigator:
    - Launch the Anaconda Navigator application.
 
