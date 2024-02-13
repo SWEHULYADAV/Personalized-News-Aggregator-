@@ -1,8 +1,8 @@
 # Personalized-News-Aggregator-
 Personalized News Aggregator: A Flask-based web application that aggregates top news headlines and provides a personalized news feed based on user preferences. Users can sign up, log in, and customize their news feed by selecting preferred categories. Built with Python, Flask, SQLite, bcrypt, and News API.
-=============================================================================
+=====================================================
 Execution Of Project Via GitHub
-=============================================================================
+=====================================================
 1. Git Clone:
    - Open a command prompt.
 Here In My Case I'm Using Anaconda Prompt For Executing ....
@@ -61,15 +61,15 @@ Here In My Case I'm Using Anaconda Prompt For Executing ....
       ```
 
     - This link connects to your local server, and you should see your personalized news aggregator application in action.
------------------------------------------------------------------------------
-=============================================================================
------------------------------------------------------------------------------
+-----------------------------------------------------
+=====================================================
+-----------------------------------------------------
 
 
 
-=============================================================================
+=====================================================
 EXECUTING THE PROJECT OFFLINE - STEP-BY-STEP GUIDE:
-=============================================================================
+=====================================================
 1. Open Anaconda Navigator:
    - Launch the Anaconda Navigator application.
 
