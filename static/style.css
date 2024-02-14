@@ -1,49 +1,63 @@
+
 /* Basic styles */
+
+
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to right, #2c3e50, #f39c12); /* Horizontal gradient */
 }
+
 .container {
     width: 80%;
     margin: 0 auto;
 }
+
 header {
     background-color: #333;
     color: #fff;
     padding: 10px 0;
     text-align: center;
+    position: relative;
 }
+
 header a {
     color: #fff;
     text-decoration: none;
     margin-left: 10px;
 }
+
 main {
     margin-top: 20px;
 }
+
 footer {
     background-color: #333;
     color: #fff;
     text-align: center;
-    padding: 10px 0;
+    padding: 0px 0;
     position: fixed;
     bottom: 0;
     width: 100%;
 }
+
 /* Form styles */
 .form-group {
     margin-bottom: 10px;
 }
+
 label {
     display: block;
 }
+
 input[type="text"],
 input[type="password"] {
     width: 100%;
     padding: 5px;
     margin-top: 5px;
 }
+
 button {
     background-color: #333;
     color: #fff;
@@ -51,11 +65,205 @@ button {
     padding: 10px 20px;
     cursor: pointer;
 }
+
 button:hover {
     background-color: #555;
 }
+
 .error {
     color: red;
 }
 
+/* Responsive styles */
+@media only screen and (max-width: 600px) {
+    .container {
+        width: 100%;
+    }
+    .article {
+        width: calc(50% - 20px);
+    }
+}
 
+
+
+/* Dark mode styles */
+body.dark-mode {
+  background: linear-gradient(to right, #000, #333); /* Horizontal gradient for dark mode */
+}
+
+.dark-mode footer {
+    background-color: #111; /* Dark mode footer background color */
+}
+
+.dark-mode button {
+    background-color: #555; /* Dark mode button background color */
+}
+
+.dark-mode button:hover {
+    background-color: #777; /* Dark mode button hover background color */
+}
+
+/* News feed styles */
+.news-feed {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px; /* Gap between articles */
+}
+
+.article {
+    width: calc(33.33% - 20px); /* Ensure 3 columns in a row */
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    position: relative;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    border: 2px solid transparent; /* Default border */
+}
+
+.article:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    border-color: #ffa500; /* Change border color on hover */
+}
+
+.article img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+    filter: grayscale(50%); /* Add grayscale filter to image */
+    border-radius: 5px; /* Add border-radius */
+    transition: all 0.3s ease; /* Smooth transition */
+}
+
+.article h3 {
+    font-size: 18px;
+    margin: 0;
+    color: inherit; /* Use the same color as parent */
+}
+
+.article p {
+    margin: 5px 0;
+    opacity: 0.8; /* Reduced opacity for better readability */
+    transition: opacity 0.3s ease; /* Smooth transition */
+    color: inherit; /* Use the same color as parent */
+}
+
+.article:hover p {
+    opacity: 1; /* Restore opacity on hover */
+}
+
+.pagination {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.pagination a {
+    display: inline-block;
+    margin: 0 5px;
+    padding: 5px 10px;
+    background-color: #333;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.pagination a:hover {
+    background-color: #555;
+}
+
+/* Positioning of toggle icons */
+#mode-toggle {
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+#logout-button {
+    cursor: pointer;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+}
+
+/* Language selection button */
+.language-select {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    display: inline-block;
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.language-select:hover {
+    background-color: #555;
+}
+
+.language-options {
+    position: absolute;
+    left: 0;
+    top: 40px;
+    display: none;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    z-index: 1;
+}
+
+.language-options a {
+    display: block;
+    color: #333;
+    text-decoration: none;
+    padding: 5px 0;
+}
+
+.language-options a:hover {
+    background-color: #f0f0f0;
+}
+
+/* Tab styles */
+.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+.tab button:hover {
+    background-color: #ddd;
+}
+
+.tab button.active {
+    background-color: #ccc;
+}
+
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+
+.spacer {
+    height: 5px;
+    background-color: transparent;
+}
