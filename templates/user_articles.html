@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Read Blog Articles</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+        }
+
+        #dark-mode-toggle {
+            order: 1;
+            margin-left: auto;
+        }
+
+        #create-article-btn {
+            order: -1;
+            margin-right: auto;
+        }
+
+        .articles {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .article {
+            flex: 0 0 calc(33.33% - 20px);
+            border-bottom: 1px solid #ccc;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+        }
+
+        .article h2 {
+            margin-bottom: 10px;
+        }
+
+        .article p {
+            margin-bottom: 10px;
+        }
+
+        footer {
+            width: 100%;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <button id="create-article-btn" class="header-button" onclick="openCreateArticlePage()">Create Article</button>
+        <h1>Read Blog Articles</h1>
+        <button id="dark-mode-toggle" class="header-button" onclick="toggleDarkMode()">
+            🌙 <!-- Moon icon -->
+        </button>
+    </header>
+
+    <div class="articles" id="articles-container">
+        <!-- Articles will be dynamically added here -->
+    </div>
+
+    <footer>
+        <p>&copy; 2024 YourWebsiteName. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function openCreateArticlePage() {
+            window.location.href = '/articles'; // Change the URL to the appropriate route
+        }
+
+        // Dummy data for demonstration
+        const articlesData = [
+            { title: "Article 1", content: "Content of article 1" },
+            { title: "Article 2", content: "Content of article 2" },
+            { title: "Article 3", content: "Content of article 3" }
+            // Add more articles as needed
+        ];
+
+        // Function to display articles
+        function displayArticles() {
+            const articlesContainer = document.getElementById('articles-container');
+            articlesContainer.innerHTML = ''; // Clear existing content
+
+            // Loop through articlesData and create HTML elements for each article
+            articlesData.forEach(article => {
+                const articleDiv = document.createElement('div');
+                articleDiv.classList.add('article');
+
+                const titleElement = document.createElement('h2');
+                titleElement.textContent = article.title;
+
+                const contentElement = document.createElement('p');
+                contentElement.textContent = article.content;
+
+                articleDiv.appendChild(titleElement);
+                articleDiv.appendChild(contentElement);
+
+                articlesContainer.appendChild(articleDiv);
+            });
+        }
+
+        // Dark mode toggle functionality
+        function toggleDarkMode() {
+            document.body.classList.toggle("dark-mode");
+        }
+
+        // Call the function to display articles when the page loads
+        displayArticles();
+    </script>
+</body>
+</html>

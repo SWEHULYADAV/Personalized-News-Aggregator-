@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personalized News Aggregator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Welcome, {{ username }}</h1>
+            <a href="/SwehulYoutube">Youtube</a>
+            <a href="/login" class="login-btn">Signup/Login</a>
+            <a href="{{ url_for('logout') }}">Logout</a> 
+            <a href="/user_articles">Read Articles</a>
+
+            <div>
+                <div id="mode-toggle" class="toggle-icon" onclick="toggleDarkMode()">🌙</div>
+                <!-- Language selection button -->
+                <button class="language-select" onclick="toggleLanguages()">Select Language</button>
+                <!-- Language options -->
+                <div class="language-options" onmouseover="showLanguages()" onmouseout="hideLanguages()">
+                    <a href="#">English</a>
+                    <a href="#">हिन्दी</a>
+                    <a href="#">اردو</a>
+                    <a href="#">தமிழ்</a>
+                    <a href="#">తెలుగు</a>
+                    <a href="#">മലയാളം</a>
+                    <a href="#">ಕನ್ನಡ</a>
+                    <a href="#">ગુજરાતી</a>
+                    <a href="#">मराठी</a>
+                    <a href="#">বাংলা</a>
+                    <a href="#">ਪੰਜਾਬੀ</a>
+                    <a href="#">ଓଡ଼ିଆ</a>
+                    <a href="#">অসমীয়া</a>
+                    <a href="#">سنڌي</a>
+                    <a href="#">मणिपुरी</a>
+                    <a href="#">کشمیری</a>
+                    <a href="#">कोंकणी</a>
+                    <a href="#">डोगरी</a>
+                    <a href="#">नेपाली</a>
+                    <a href="#">मैथिली</a>
+                    <a href="#">बोडो</a>
+                    <!-- Add more options for other languages -->
+                </div>
+            </div>
+        </div>
+    </header>
+    <main class="container">
+        <h2>Personalized News Feed</h2>
+        <div class="news-feed">
+            {% if headlines %}
+                {% for article in headlines %}
+                    <a href="{{ article.url }}" class="article" style="background-color: {{ article.color }}">
+                        <img src="{{ article.urlToImage }}" alt="{{ article.title }}">
+                        <h3>{{ article.title }}</h3>
+                        <p>Source: {{ article.source.name }}</p>
+                    </a>
+                {% endfor %}
+            {% else %}
+                <p>No headlines available</p>
+            {% endif %}
+        </div>
+
+        <div class="pagination">
+            <a href="#" id="first-page">1</a>
+            <a href="#" id="prev-page">Prev</a>
+            <a href="#" class="page-link">Current</a>
+            <a href="#" class="page-link">Next</a>
+            <a href="#" id="next-page">Next+1</a>
+            <a href="#" id="last-page">Last</a>
+        </div>
+
+        <div class="spacer"></div>
+
+        <div class="tab">
+            <button class="tablinks" onclick="openForm(event, 'login')">Login</button>
+            <button class="tablinks" onclick="openForm(event, 'signup')">Signup</button>
+        </div>
+
+        <!-- Login Form -->
+        <div id="login" class="tabcontent">
+            <h1>Login</h1>
+            {% if login_error %}
+                <p class="error">{{ login_error }}</p>
+            {% endif %}
+            <form action="{{ url_for('login') }}" method="post">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+
+        <!-- Signup Form -->
+        <div id="signup" class="tabcontent">
+            <h1>Signup</h1>
+            {% if signup_error %}
+                <p class="error">{{ signup_error }}</p>
+            {% endif %}
+            <form action="{{ url_for('signup') }}" method="post">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit">Signup</button>
+            </form>
+        </div>
+
+        <div class="spacer"></div>
+    </main>
+    <footer>
+        <p>© 2024 Personalized News Aggregator</p>
+        <div class="spacer"></div>
+    </footer>
+
+    <script>
+        // Add event listeners to handle pagination logic
+        document.getElementById("first-page").addEventListener("click", function(e) {
+            e.preventDefault();
+            // Redirect to the first page
+            window.location.href = "/1"; // Replace "/1" with your actual URL structure
+        });
+
+        document.getElementById("last-page").addEventListener("click", function(e) {
+            e.preventDefault();
+            // Redirect to the last page
+            window.location.href = "/last"; // Replace "/last" with your actual URL structure
+        });
+
+        document.getElementById("prev-page").addEventListener("click", function(e) {
+            e.preventDefault();
+            // Get the current page number from the URL
+            let currentPage = getCurrentPage();
+            if (currentPage > 1) {
+                // Redirect to the previous page
+                window.location.href = "/" + (currentPage - 1); // Replace "/" with your actual URL structure
+            }
+        });
+
+        document.getElementById("next-page").addEventListener("click", function(e) {
+            e.preventDefault();
+            // Get the current page number from the URL
+            let currentPage = getCurrentPage();
+            // Redirect to the next page
+            window.location.href = "/" + (currentPage + 1); // Replace "/" with your actual URL structure
+        });
+
+        // Function to extract the current page number from the URL
+        function getCurrentPage() {
+            let url = window.location.href;
+            let matches = url.match(/\/(\d+)/); // Assuming the page number is in the URL as "/{page_number}"
+            if (matches && matches.length > 1) {
+                return parseInt(matches[1]);
+            }
+            return 1; // Default to page 1 if no page number is found in the URL
+        }
+
+        // Dark mode toggle functionality
+        function toggleDarkMode() {
+            document.body.classList.toggle("dark-mode");
+        }
+
+        // Language selection functionality
+        function toggleLanguages() {
+            var languageOptions = document.querySelector(".language-options");
+            languageOptions.style.display = (languageOptions.style.display === "block") ? "none" : "block";
+        }
+
+        // Function to hide language options on mouseout
+        function hideLanguages() {
+            var languageOptions = document.querySelector(".language-options");
+            languageOptions.style.display = "none";
+        }
+
+        // Function to show language options on mouseover
+        function showLanguages() {
+            var languageOptions = document.querySelector(".language-options");
+            languageOptions.style.display = "block";
+        }
+    </script>
+</body>
+</html>

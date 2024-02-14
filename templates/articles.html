@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personalized News Aggregator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Welcome, {{ username }}</h1>
+            <div id="mode-toggle" onclick="toggleMode()">🌙</div>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </div>
+    </header>
+    <main class="container">
+        <!-- Content Management Section -->
+        <section>
+            <h1>Content Management</h1>
+            <!-- Create Article Form -->
+            <h2>Create Article</h2>
+            <form id="create-article-form" enctype="multipart/form-data">
+                <label for="title">Title:</label>
+                <input type="text" id="title" name="title" maxlength="150" required><br>
+                <label for="content">Content:</label>
+                <textarea id="content" name="content" rows="10" maxlength="10000000" required></textarea><br>
+                <label for="source">Source:</label>
+                <input type="text" id="source" name="source" maxlength="10000" required><br>
+                <div class="dropdown">
+                    <button class="dropbtn">+ Add</button>
+                    <div class="dropdown-content">
+                        <label for="file-upload" style="cursor: pointer;">Add Image</label>
+                        <input type="file" id="file-upload" style="display: none;"><br>
+                        <label for="audio-upload" style="cursor: pointer;">Add Audio File</label>
+                        <input type="file" id="audio-upload" style="display: none;"><br>
+                        <label for="video-upload" style="cursor: pointer;">Add Video File</label>
+                        <input type="file" id="video-upload" style="display: none;"><br>
+                        <label for="document-upload" style="cursor: pointer;">Add Document</label>
+                        <input type="file" id="document-upload" style="display: none;"><br>
+                    </div>
+                </div>
+                <button id="submit-btn" type="submit">Submit</button>
+            </form>
+        </section>
+        <div class="spacer"></div>
+    </main>
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Personalized News Aggregator</p>
+        </div>
+    </footer>
+    <script>
+        // Function to toggle dark mode
+        const toggleMode = () => {
+            const body = document.body;
+            body.classList.toggle("dark-mode");
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Swehul Tech</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Swehul Tech</h1>
+    <nav>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Contact</a></li>
+		<li><a href="https://youtube.com/@SWEHUL">YouTube Channel</a></li>
+		<button onclick="toggleDarkMode()">Dark Mode</button>
+      </ul>
+    </nav>
+  </header>
+  <canvas id="myCanvas"></canvas>
+  <main>
+    <h2 class="light-mode">Welcome to Swehul Tech</h2>
+    <section id="videos">
+    <h3>Latest Videos</h3>
+	<div id="video-container"></div>
+    <!-- Add your video embed codes or links here -->
+    <div class="video">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/HDQ-14ONKuw?si=BALyPhvUzBrpB5p6" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <div class="video">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/kcva-S44Wpk?si=ysp5xHUkuT2vMJnt" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <div class="video">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/C9K_2fJstp4?si=2LlzmZyE1-QSBmeP" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+  </section>
+  </main>
+  <footer>
+    <p>&copy; Swehul Tech 2020</p>
+  </footer>
+  <style>
+    /* Add CSS styles here */
+    body {
+      background: linear-gradient(to bottom, #2c3e50, #f39c12);
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+      transition: background-color 0.3s;
+    }
+    h1 {
+      margin: 0;
+    }
+    nav ul {
+      display: flex;
+      justify-content: center;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    nav a {
+      color: #fff;
+      display: block;
+      padding: 10px 20px;
+      text-decoration: none;
+    }
+    main {
+      padding: 20px;
+      text-align: center;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    footer {
+      background-color: #333;
+      color: #fff;
+      padding: 10px;
+      text-align: center;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    #myCanvas {
+      position: absolute;
+      top: 100px;
+      left: 0;
+      width: 100%;
+      height: calc(100% - 200px);
+      z-index: -1;
+    }
+    
+    .light-mode {
+      color: #000;
+    }
+    
+    /* Dark mode styles */
+    body.dark-mode {
+      background: linear-gradient(to bottom, #000, #333);
+    }
+    header.dark-mode {
+      background-color: #000;
+    }
+    nav a.dark-mode,
+    main h2.dark-mode,
+    footer.dark-mode {
+      color: #fff;
+    }
+    
+    main.dark-mode .light-mode {
+      color: #fff;
+    }
+  </style>
+  <script>
+    /* Add JavaScript code here */
+    /* Bubble Animation */
+    var canvas = document.getElementById("myCanvas");
+    var ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight - 200;
+  
+    function getRandomColor() {
+      var letters = "0123456789ABCDEF";
+      var color = "#";
+      for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    }
+  
+    function drawCircle(x, y, radius) {
+      ctx.beginPath();
+      ctx.arc(x, y, radius, 0, 2 * Math.PI);
+      ctx.fillStyle = getRandomColor();
+      ctx.fill();
+    }
+  
+    var bubbles = [];
+  
+    function createBubble() {
+      var x = Math.random() * canvas.width;
+      var y = Math.random() * canvas.height;
+      var radius = Math.random() * 50;
+      var speed = Math.random() * 1 + 0.5;
+  
+      bubbles.push({x: x, y: y, radius: radius, speed: speed});
+    }
+  
+    function animateBubbles() {
+      requestAnimationFrame(animateBubbles);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+  
+      for (var i = 0; i < bubbles.length; i++) {
+        var bubble = bubbles[i];
+  
+        bubble.y -= bubble.speed;
+  
+        if (bubble.y + bubble.radius < 0) {
+          bubbles.splice(i, 1);
+        }
+  
+        drawCircle(bubble.x, bubble.y, bubble.radius);
+      }
+  
+      if (Math.random() < 0.02) {
+        createBubble();
+      }
+    }
+  
+    animateBubbles();
+  
+    // Dark mode toggle function
+    function toggleDarkMode() {
+      document.body.classList.toggle("dark-mode");
+      document.querySelector('header').classList.toggle("dark-mode");
+      document.querySelector('main').classList.toggle("dark-mode");
+      document.querySelector('footer').classList.toggle("dark-mode");
+      document.querySelector('.light-mode').classList.toggle("dark-mode");
+    }
+  </script>
+  
+</body>
+</html>

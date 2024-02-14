@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login/Signup - Personalized News Aggregator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="tab">
+            <button class="tablinks" onclick="openForm(event, 'login')">Login</button>
+            <button class="tablinks" onclick="openForm(event, 'signup')">Signup</button>
+        </div>
+
+        <!-- Login Form -->
+        <div id="login" class="tabcontent">
+            <h1>Login</h1>
+            {% if login_error %}
+                <p class="error">{{ login_error }}</p>
+            {% endif %}
+            <form action="{{ url_for('login') }}" method="post">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+
+        <!-- Signup Form -->
+        <div id="signup" class="tabcontent">
+            <h1>Signup</h1>
+            {% if signup_error %}
+                <p class="error">{{ signup_error }}</p>
+            {% endif %}
+            <form action="{{ url_for('signup') }}" method="post">
+                <div class="form-group">
+                    <label for="username">Choose a Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Choose a Password:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit">Create Account</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function openForm(evt, formName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(formName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+    </script>
+</body>
+</html>
