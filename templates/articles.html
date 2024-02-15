@@ -1,10 +1,11 @@
+<!-- articles.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personalized News Aggregator</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <header>
@@ -12,24 +13,27 @@
             <h1>Welcome, {{ username }}</h1>
             <div id="mode-toggle" onclick="toggleMode()">🌙</div>
             <a href="{{ url_for('logout') }}">Logout</a>
+	
+            <h1><center>Content Management</center></h1>
         </div>
     </header>
     <main class="container">
-        <!-- Content Management Section -->
+        
         <section>
-            <h1>Content Management</h1>
             <!-- Create Article Form -->
-            <h2>Create Article</h2>
-            <form id="create-article-form" enctype="multipart/form-data">
-                <label for="title">Title:</label>
+            <h2><center>Create Article</center></h2>
+            <form id="create-article-form" enctype="application/x-www-form-urlencoded">
+                <label for="title"><h3>Title:</h3></label>
                 <input type="text" id="title" name="title" maxlength="150" required><br>
-                <label for="content">Content:</label>
-                <textarea id="content" name="content" rows="10" maxlength="10000000" required></textarea><br>
-                <label for="source">Source:</label>
+                <label for="content"><h3>Content:</h3></label>
+                <textarea id="content" name="content" rows="25" cols="71.5" maxlength="10000000" required></textarea><br>
+                <label for="source"><h3>Source:</h3></label>
                 <input type="text" id="source" name="source" maxlength="10000" required><br>
-                <div class="dropdown">
-                    <button class="dropbtn">+ Add</button>
+                <div class="file-options">
+		</br>
+                    <button class="dropbtn" onclick="toggleOptions()">+ Add FILES</button>
                     <div class="dropdown-content">
+			</br>
                         <label for="file-upload" style="cursor: pointer;">Add Image</label>
                         <input type="file" id="file-upload" style="display: none;"><br>
                         <label for="audio-upload" style="cursor: pointer;">Add Audio File</label>
@@ -40,22 +44,48 @@
                         <input type="file" id="document-upload" style="display: none;"><br>
                     </div>
                 </div>
-                <button id="submit-btn" type="submit">Submit</button>
+		</br>
+                <button type="submit" onclick="submitForm()">Submit</button>
+                <button type="reset" onclick="resetForm()">Reset</button>
+                <div class="lists-container">
+                    <!-- Your lists go here -->
+                </div>
+                {% for _ in range(15) %}
+                    <div class="spacer"></div>
+                {% endfor %}
             </form>
         </section>
         <div class="spacer"></div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                // Hide dropdown and lists on page load
+                const dropdownContent = document.querySelector('.dropdown-content');
+                const listsContainer = document.querySelector('.lists-container');
+                dropdownContent.style.display = 'none';
+                listsContainer.style.display = 'none';
+            });
+
+            const toggleOptions = () => {
+                const dropdownContent = document.querySelector('.dropdown-content');
+                const listsContainer = document.querySelector('.lists-container');
+
+                dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
+                listsContainer.style.display = 'none'; // Hide lists when toggling options
+            };
+
+            // Function to toggle dark mode
+        const toggleMode = () => {
+            const body = document.body;
+            body.classList.toggle("dark-mode");
+        };
+        </script>
     </main>
+
     <footer>
         <div class="container">
             <p>&copy; 2024 Personalized News Aggregator</p>
         </div>
     </footer>
-    <script>
-        // Function to toggle dark mode
-        const toggleMode = () => {
-            const body = document.body;
-            body.classList.toggle("dark-mode");
-        };
-    </script>
 </body>
 </html>
