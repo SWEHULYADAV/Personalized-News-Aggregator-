@@ -117,6 +117,12 @@ def logout():
     # Redirect to login page after logout
     return redirect(url_for('login'))
 
+# Add a new route for /SwehulYoutube
+@app.route('/SwehulYoutube')
+def swehul_youtube():
+    # Render the SwehulYoutube.html template
+    return render_template('SwehulYoutube.html')
+
 # Article Detail Page route
 @app.route('/article/<int:article_id>')
 def article_detail(article_id):
@@ -145,7 +151,7 @@ def articles():
             if user_id:
                 save_article_to_database(title, content, source, user_id)
                 flash('Article submitted successfully!', 'success')
-                return redirect(url_for('articles'))  # Redirect to articles page after submitting article
+                return redirect(url_for('user_articles'))  # Redirect to user_articles page after submitting article
             else:
                 flash('User ID not found in session. Please log in again.', 'danger')
                 return redirect(url_for('login'))
@@ -156,25 +162,27 @@ def articles():
         flash('You need to login first to view articles.', 'danger')
         return redirect(url_for('login'))
 
-# New route for handling article submission
+
+# Route for handling article submission
 @app.route('/submit_article', methods=['POST'])
 def submit_article():
     if request.method == 'POST':
-        # Retrieve data from the form
+        # Form se data retrieve karein
         title = request.form['title']
         content = request.form['content']
         source = request.form['source']
-        # Get user ID from session
+        # Session se user ID retrieve karein
         user_id = session.get('user_id')
         if user_id:
-            # Save article to the database
+            # Article ko database mein save karein
             save_article_to_database(title, content, source, user_id)
             flash('Article submitted successfully!', 'success')
-            # Redirect to user_articles page after successfully submitting article
-            return redirect(url_for('user_articles'))  # Redirect to user_articles route
+            # Article submit karne ke baad user_articles route pe redirect karein
+            return redirect(url_for('user_articles'))  # user_articles route pe redirect karein
         else:
             flash('User ID not found in session. Please log in again.', 'danger')
             return redirect(url_for('login'))
+
 
 
 # Route for displaying user articles
@@ -191,7 +199,6 @@ def user_articles():
     else:
         flash('You need to login first to view your articles.', 'danger')
         return redirect(url_for('login'))
-
 
 if __name__ == '__main__':
     init_db()
