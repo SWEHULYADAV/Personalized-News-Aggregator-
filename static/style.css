@@ -6,7 +6,7 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background: linear-gradient(to right, #2c3e50, #f39c12); /* Horizontal gradient */
+  background: linear-gradient(to right, #E0D2C7, #44B09E); /* Normal mode background color */
 }
 
 .container {
@@ -88,7 +88,7 @@ button:hover {
 
 /* Dark mode styles */
 body.dark-mode {
-  background: linear-gradient(to right, #000, #333); /* Horizontal gradient for dark mode */
+  background: #111; /* Dark mode background color */
 }
 
 .dark-mode footer {
@@ -267,3 +267,30 @@ body.dark-mode {
     height: 5px;
     background-color: transparent;
 }
+
+/* Font Colors */
+body {
+    color: #333; /* Default font color */
+}
+
+body.dark-mode {
+    color: #ddd; /* Font color in dark mode */
+}
+
+header a {
+    color: #fff; /* Link color in normal mode */
+}
+
+body.dark-mode header a {
+    color: #ddd; /* Link color in dark mode */
+}
+
+label {
+    color: #333; /* Form label color in normal mode */
+}
+
+body.dark-mode label {
+    color: #ddd; /* Form label color in dark mode */
+}
+
+/* Add more styles as needed */
