@@ -46,18 +46,50 @@
         }
 
         .article {
-            flex: 0 0 calc(33.33% - 20px);
+            flex: 0 0 calc(25% - 20px);
             border-bottom: 1px solid #ccc;
             margin-bottom: 20px;
-            padding-bottom: 20px;
+            padding-bottom: calc((25% - 20px) * 0.75);
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
         }
 
         .article h2 {
             margin-bottom: 10px;
+            font-size: 18px; /* Set font size for the title */
         }
 
         .article p {
             margin-bottom: 10px;
+            max-height: 100px; /* Set max height for content */
+            overflow: hidden; /* Hide overflow content */
+        }
+
+        .article .author {
+            margin-top: auto; /* Push author name to bottom */
+            font-style: italic; /* Make author name italic */
+        }
+
+        .options {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            display: none;
+        }
+
+        .article:hover .options {
+            display: block;
+        }
+
+        .options span {
+            margin-left: 5px;
+            cursor: pointer;
+            color: blue;
         }
 
         footer {
@@ -96,67 +128,74 @@
     </header>
 
     <div class="articles" id="articles-container">
-        <!-- Articles will be dynamically added here -->
-        {% for article in user_articles %}
-        <div class="article">
-            <h2>{{ article[1] }}</h2>
-            <p>{{ article[2] }}</p>
-        </div>
-        {% endfor %}
+   <!-- Articles will be dynamically added here -->
+{% for article in user_articles %}
+<div class="article">
+  <h2>{{ article[1] }}</h2>
+  <p>{{ article[2] }}</p>
+  <p class="author">Author: {{ article[3] }}</p>
+  <div class="options">
+    <!-- Button to redirect to the edit_article page -->
+    <a href="{{ url_for('edit_article', article_id=article[0]) }}">Edit</a>
+    <!-- Button to delete the article -->
+    <button onclick="deleteArticle('{{ article[0] }}')">Delete</button>
+  </div>
+</div>
+{% endfor %}
+
     </div>
 
     <footer>
         <p>&copy; 2024 Swehul's News Aggregator. All rights reserved.</p>
     </footer>
 
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        // Call the function to display articles when the page loads
-        displayArticles();
-
-        // Connect the button click event to the function
-        const createArticleBtn = document.getElementById('create-article-btn');
-        createArticleBtn.addEventListener('click', () => {
-            console.log('Button Clicked');
-            openCreateArticlePage();
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Connect the button click event to the function
+            const createArticleBtn = document.getElementById('create-article-btn');
+            createArticleBtn.addEventListener('click', () => {
+                openCreateArticlePage();
+            });
         });
-    });
 
-    function openCreateArticlePage() {
-        console.log('Redirecting...');
-        window.location.href = '/articles'; // URL ko aapke route ke hisab se update karna
-    }
+        function openCreateArticlePage() {
+            window.location.href = '/articles';
+        }
 
-    // Function to display articles
-    function displayArticles() {
-        const articlesContainer = document.getElementById('articles-container');
-        articlesContainer.innerHTML = ''; // Clear existing content
+        function openArticle(articleId) {
+            fetch(`/article/${articleId}`)
+                .then(response => response.json())
+                .then(article => {
+                    // Redirect to a temporary page to show the full article content
+                    window.location.href = `/article/${article.id}`;
+                })
+                .catch(error => {
+                    console.error('Error fetching article:', error);
+                });
+        }
 
-        // Loop through user_articles and create HTML elements for each article
-        {% for article in user_articles %}
-            const articleDiv{{ loop.index }} = document.createElement('div');
-            articleDiv{{ loop.index }}.classList.add('article');
+        function editArticle(articleId) {
+            window.location.href = `/edit/${articleId}`;
+        }
 
-            const titleElement{{ loop.index }} = document.createElement('h2');
-            titleElement{{ loop.index }}.textContent = '{{ article[1] }}';
+        function deleteArticle(articleId) {
+            // Implement delete functionality here
+        }
 
-            const contentElement{{ loop.index }} = document.createElement('p');
-            contentElement{{ loop.index }}.textContent = '{{ article[2] }}';
+        function toggleDarkMode() {
+            document.body.classList.toggle("dark-mode");
+        }
 
-            articleDiv{{ loop.index }}.appendChild(titleElement{{ loop.index }});
-            articleDiv{{ loop.index }}.appendChild(contentElement{{ loop.index }});
+        function showOptions(element) {
+            const options = element.querySelector('.options');
+            options.style.display = 'block';
+        }
 
-            articlesContainer.appendChild(articleDiv{{ loop.index }});
-        {% endfor %}
-    }
-
-    // Dark mode toggle functionality
-    function toggleDarkMode() {
-        document.body.classList.toggle("dark-mode");
-    }
-</script>
-
-
+        function hideOptions(element) {
+            const options = element.querySelector('.options');
+            options.style.display = 'none';
+        }
+    </script>
 </body>
 
 </html>
