@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personalized News Aggregator</title>
-	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <header>
@@ -13,7 +13,7 @@
             <h1>Welcome, {{ username }}</h1>
             <div id="mode-toggle" onclick="toggleMode()">🌙</div>
             <a href="{{ url_for('logout') }}">Logout</a>
-	
+    
             <h1><center>Content Management</center></h1>
         </div>
     </header>
@@ -22,31 +22,24 @@
         <section>
             <!-- Create Article Form -->
             <h2><center>Create Article</center></h2>
-            <form id="create-article-form" enctype="application/x-www-form-urlencoded">
+            <form id="create-article-form" method="POST" enctype="multipart/form-data">
                 <label for="title"><h3>Title:</h3></label>
-                <input type="text" id="title" name="title" maxlength="150" required><br>
+                <input type="text" id="title" name="title" maxlength="150" required value="{{ request.args.get('title', '') }}"><br>
                 <label for="content"><h3>Content:</h3></label>
                 <textarea id="content" name="content" rows="25" cols="71.5" maxlength="10000000" required></textarea><br>
                 <label for="source"><h3>Source:</h3></label>
-                <input type="text" id="source" name="source" maxlength="10000" required><br>
+                <input type="text" id="source" name="source" maxlength="10000" required value="{{ request.args.get('source', '') }}"><br>
                 <div class="file-options">
-		</br>
                     <button class="dropbtn" onclick="toggleOptions()">+ Add FILES</button>
                     <div class="dropdown-content">
-			</br>
                         <label for="file-upload" style="cursor: pointer;">Add Image</label>
-                        <input type="file" id="file-upload" style="display: none;"><br>
-                        <label for="audio-upload" style="cursor: pointer;">Add Audio File</label>
-                        <input type="file" id="audio-upload" style="display: none;"><br>
-                        <label for="video-upload" style="cursor: pointer;">Add Video File</label>
-                        <input type="file" id="video-upload" style="display: none;"><br>
-                        <label for="document-upload" style="cursor: pointer;">Add Document</label>
-                        <input type="file" id="document-upload" style="display: none;"><br>
+                        <input type="file" id="file-upload" name="file_upload" style="display: none;"><br>
+                        <!-- Add more file upload inputs as needed -->
                     </div>
                 </div>
-		</br>
-                <button type="submit" onclick="submitForm()">Submit</button>
-                <button type="reset" onclick="resetForm()">Reset</button>
+                <br>
+                <button type="submit">Submit</button>
+                <button type="reset">Reset</button>
                 <div class="lists-container">
                     <!-- Your lists go here -->
                 </div>
@@ -75,10 +68,10 @@
             };
 
             // Function to toggle dark mode
-        const toggleMode = () => {
-            const body = document.body;
-            body.classList.toggle("dark-mode");
-        };
+            const toggleMode = () => {
+                const body = document.body;
+                body.classList.toggle("dark-mode");
+            };
         </script>
     </main>
 
