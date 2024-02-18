@@ -1,11 +1,27 @@
 # Import required libraries
-from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask import Flask, render_template, request, redirect, url_for,g, session, flash
 import sqlite3
 import bcrypt
 import requests
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
+
+
+# Function to get a connection to the SQLite database
+def get_db():
+    if 'db' not in g:
+        g.db = sqlite3.connect('news_aggregator.db')
+        g.db.row_factory = sqlite3.Row
+    return g.db
+
+# Function to close the database connection
+@app.teardown_appcontext
+def close_db(error):
+    if 'db' in g:
+        g.db.close()
+
+
 
 # Function to initialize database
 def init_db():
@@ -156,8 +172,11 @@ def articles():
                 flash('User ID not found in session. Please log in again.', 'danger')
                 return redirect(url_for('login'))
         else:
-            # Render the articles page with the form to submit articles
-            return render_template('articles.html', username=session['username'])
+            # Check if old content is passed along with the redirect
+            old_title = request.args.get('title')
+            old_source = request.args.get('source')
+            # Render the articles page with the form to submit articles and display old content for editing
+            return render_template('articles.html', username=session['username'], old_title=old_title, old_source=old_source)
     else:
         flash('You need to login first to view articles.', 'danger')
         return redirect(url_for('login'))
@@ -199,6 +218,91 @@ def user_articles():
     else:
         flash('You need to login first to view your articles.', 'danger')
         return redirect(url_for('login'))
+
+# Function to fetch articles from database
+def fetch_articles_from_database():
+    conn = sqlite3.connect('news_aggregator.db')
+    c = conn.cursor()
+    c.execute("SELECT * FROM articles")
+    articles = c.fetchall()
+    conn.close()
+    return articles
+
+
+def is_admin():
+    return 'username' in session and session['username'] == 'admin'
+
+def is_author(article_id):
+    conn = get_db()
+    c = conn.cursor()
+    c.execute("SELECT user_id FROM articles WHERE id = ?", (article_id,))
+    article_user_id = c.fetchone()[0]
+    conn.close()
+    return 'username' in session and session['user_id'] == article_user_id
+
+# Update the deleteArticle function to include the authorization logic
+
+@app.route('/delete_article/<int:article_id>', methods=['POST'])
+def delete_article(article_id):
+    if is_logged_in() and (is_admin() or is_author(article_id)):
+        # Implement delete functionality here
+        conn = get_db()
+        c = conn.cursor()
+        c.execute("DELETE FROM articles WHERE id = ?", (article_id,))
+        conn.commit()
+        conn.close()
+        flash('Article deleted successfully!', 'success')
+    else:
+        flash('You are not authorized to delete this article.', 'danger')
+    return redirect(url_for('user_articles'))
+
+
+# Update the edit_article function to include the authorization logic
+@app.route('/edit_article/<int:article_id>', methods=['GET', 'POST'])
+def edit_article(article_id):
+    if is_logged_in():
+        if is_admin() or is_author(article_id):
+            if request.method == 'POST':
+                # Form se data retrieve karein
+                title = request.form['title']
+                content = request.form['content']
+                source = request.form['source']
+                # Session se user ID retrieve karein
+                user_id = session.get('user_id')
+                if user_id:
+                    # Article ko database mein update karein
+                    conn = sqlite3.connect('news_aggregator.db')
+                    c = conn.cursor()
+                    c.execute("UPDATE articles SET title = ?, content = ?, source = ? WHERE id = ?", (title, content, source, article_id))
+                    conn.commit()
+                    conn.close()
+                    flash('Article updated successfully!', 'success')
+                    # Article update karne ke baad articles route pe redirect karein
+                    return redirect(url_for('articles', title=title, source=source))  # articles route pe redirect karein with old content
+                else:
+                    flash('User ID not found in session. Please log in again.', 'danger')
+                    return redirect(url_for('login'))
+            else:
+                # Fetch the old content of the article from the database
+                conn = sqlite3.connect('news_aggregator.db')
+                c = conn.cursor()
+                c.execute("SELECT * FROM articles WHERE id = ?", (article_id,))
+                article = c.fetchone()
+                conn.close()
+                if article:
+                    # Redirect the user to the articles page for editing along with the old content
+                    return redirect(url_for('articles', title=article[1], source=article[3]))
+                else:
+                    flash('Article not found.', 'danger')
+                    return redirect(url_for('user_articles'))
+        else:
+            # Agar user authorized nahi hai, toh user ko user_articles page pe redirect karein aur error message dikhayein
+            flash('You are not authorized to edit this article.', 'danger')
+            return redirect(url_for('user_articles'))
+    else:
+        flash('You need to login first to edit articles.', 'danger')
+        return redirect(url_for('login'))
+
 
 if __name__ == '__main__':
     init_db()
