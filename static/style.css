@@ -29,7 +29,8 @@ header a {
 }
 
 main {
-    margin-top: 20px;
+    margin-top: 40px;
+    margin-bottom: 40px;
 }
 
 footer {
@@ -291,6 +292,356 @@ label {
 
 body.dark-mode label {
     color: #ddd; /* Form label color in dark mode */
+}
+
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+
+#horizontal-scroll-container {
+    width: 75%;
+    padding: 3px;
+    display: flex; /* Use flexbox for layout */
+    overflow-x: auto; /* Enable horizontal scrolling */
+    overflow-y: hidden; /* Hide vertical scrolling */
+    flex-wrap: nowrap; /* Prevent items from wrapping to the next row */
+    border: 1px solid #ccc; /* Add border */
+    border-radius: 10px; /* Add border radius for curved corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+    position: relative; /* Positioning for absolute buttons */
+}
+
+
+
+#horizontal-scroll-container ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#horizontal-scroll-container ul li {
+    margin-bottom: 1rem;
+    padding: 1rem; /* Adjust padding */
+    border: 1px solid #ccc; /* Add border */
+    border-radius: 10px; /* Add border radius for curved corners */
+    transition: all 0.3s ease;
+}
+
+#horizontal-scroll-container ul li:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+    border-color: rgb(255, 0, 221);
+}
+
+
+
+#my-channels {
+    width: 25%;
+    padding: 1rem;
+    min-height: 200px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    flex: 0 0 15%; /* Flex-grow, Flex-shrink, Flex-basis */
+    padding: 1rem;
+}
+
+#my-channels ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+
+#my-channels ul li {
+    margin-bottom: 1rem;
+    width: calc(100% - 2rem); /* Adjust width */
+    padding: 1rem; /* Adjust padding */
+    border: 1px solid #ccc; /* Add border */
+    border-radius: 10px; /* Add border radius for curved corners */
+    transition: all 0.3s ease;
+}
+
+#my-channels ul li:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+    border-color: #ffa500;
+}
+
+
+
+/* Genre selection box */
+.genreSelection {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+}
+
+
+
+.genreSelection:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    border-color: #ffa500;
+    opacity: 1;
+}
+
+.genreSelection img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+    filter: grayscale(50%);
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.genreSelection h3 {
+    font-size: 18px;
+    margin: 0;
+    color: inherit;
+}
+
+.genreSelection p {
+    margin: 5px 0;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+    color: inherit;
+}
+
+.genreSelection:hover p {
+    opacity: 1;
+}
+
+
+/* Text Suggestion In Search Bar */
+#search-form {
+    position: relative;
+    
+}
+
+#suggestions {
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
+    width: calc(100% - 2px);
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-top: none;
+    border-radius: 4px;
+    z-index: 999;
+}
+
+.suggestion-item {
+    padding: 5px;
+    cursor: pointer;
+}
+
+
+.suggestion-item:hover {
+    background-color: #f0f0f0;
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    border-color: #ffa500;
+}
+
+#search-input {
+    border-bottom: none;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    border-color: #ffa500;
+}
+
+
+#discover {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+#discover p {
+    margin-bottom: 1rem;
+}
+
+#discover form {
+    display: flex;
+    align-items: center;
+}
+
+#discover form input {
+    flex: 1 1 auto;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+#discover form button {
+    margin-left: 1rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+}
+
+header h1 {
+    font-size: 1.5rem;
+}
+
+
+#recommended-topics ul {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping to the next line if necessary */
+    justify-content: flex-start; /* Align items to the start of the container */
+    margin: 0;
+    padding: 0;
+}
+
+#recommended-topics ul li {
+    flex: 0 0 calc(10% - 2rem); /* Adjust width for 10 items per row */
+    padding: 0.5rem 1rem; /* Adjust padding */
+    background-color: #eee;
+    border-radius: 4px;
+    margin: 0.5rem;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+
+/* Recommended Topics section */
+#recommended-topics {
+    position: relative;
+    border: 1px solid #ccc; /* Add border */
+    border-radius: 10px; /* Add border radius */
+    padding: 1rem;
+    margin-top: 20px; /* Add top margin */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+
+#recommended-topics ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin: 0 -0.5rem;
+    padding: 0;
+    #recommended-topics {
+    position: relative;
+     display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin: 0 -0.5rem;
+    padding: 0;
+    flex-direction: row;
+}
+
+#horizontal-scroll-container {
+    position: relative; /* Positioning for absolute buttons */
+    width: 75%;
+    padding: 3px;
+    display: flex; /* Use flexbox for layout */
+    overflow-x: auto; /* Enable horizontal scrolling */
+    overflow-y: hidden; /* Hide vertical scrolling */
+    flex-wrap: nowrap; /* Prevent items from wrapping to the next row */
+    border: 1px solid #ccc; /* Add border */
+    border-radius: 10px; /* Add border radius for curved corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+    margin-top: 20px; /* Add top margin */
+}
+
+/* Scroll buttons */
+.scroll-btn {
+    position: absolute; /* Position the buttons absolutely inside the container */
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%); /* Adjust for vertical centering */
+    width: 40px; /* Adjust width */
+    height: 40px; /* Adjust height */
+    background: transparent; /* Transparent background */
+    border: none; /* No border */
+    font-size: 20px; /* Button font size */
+    cursor: pointer; /* Cursor style */
+    z-index: 1; /* Ensure buttons are above the content */
+}
+
+.prev {
+    left: 0; /* Position the previous button to the left */
+}
+
+.next {
+    right: 0; /* Position the next button to the right */
+}
+
+
+
+
+#recommended-topics ul li {
+    flex: 1 0 calc(10% - 1rem);
+    padding: 0.5rem 1rem;
+    background-color: #eee;
+    border-radius: 4px;
+    margin: 0.5rem;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+}
+
+/* Responsive styles */
+@media only screen and (max-width: 600px) {
+    .container {
+        width: 100%;
+    }
+    .genreSelection {
+        width: calc(50% - 20px);
+    }
+}
+
+
+/* Set up layout for screen sharing */
+.wrapper {
+    display: flex;
+    justify-content: space-between; /* Pushes #recommended-topics to the right */
+    width: 100%;
+}
+
+@media only screen and (min-width: 600px) {
+    .wrapper {
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+/* Adding Cancel Button */
+#search-container {
+    position: relative;
+    display: inline-block;
+}
+
+#search-input {
+    width: 100%;
+    padding: 50px 15px;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    padding-right: 30px;
+    margin-top: -0.75px;
+}
+
+#cancel-btn {
+    position: absolute;
+    top: 50%;
+    right: 5px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #555; /* Adjust color as needed */
+}
+
+#cancel-btn:hover {
+    color: #777; /* Adjust hover color as needed */
 }
 
 /* Add more styles as needed */
