@@ -43,7 +43,7 @@ def get_top_headlines(api_key):
     url = 'https://newsapi.org/v2/top-headlines'
     params = {
         'apiKey': api_key,
-        'country': 'us'  # Country code as per ISO 3166-1 alpha-2
+        'country': 'IN'  # Country code as per ISO 3166-1 alpha-2
     }
     response = requests.get(url, params=params)
     data = response.json()
@@ -68,17 +68,17 @@ def save_article_to_database(title, content, source, user_id):
     conn.commit()
     conn.close()
 
+
 # Homepage route
 @app.route('/')
 def index():
-    if is_logged_in():
-        api_key = 'fbe4e4dc0f944629b23db0c5f03a210b'
-        headlines = get_top_headlines(api_key)
-        if headlines:
-            return render_template('index.html', username=session['username'], headlines=headlines)
-        else:
-            return "Failed to fetch top headlines."
-    return redirect(url_for('login'))
+    api_key = 'fbe4e4dc0f944629b23db0c5f03a210b'
+    headlines = get_top_headlines(api_key)
+    if headlines:
+        return render_template('index.html', headlines=headlines)
+    else:
+        return "Failed to fetch top headlines."
+
 
 # Login route
 @app.route('/login', methods=['GET', 'POST'])
@@ -133,7 +133,7 @@ def logout():
     # Redirect to login page after logout
     return redirect(url_for('login'))
 
-# Add a new route for /SwehulYoutube
+# SwehulYoutube route
 @app.route('/SwehulYoutube')
 def swehul_youtube():
     # Render the SwehulYoutube.html template
@@ -201,6 +201,13 @@ def submit_article():
         else:
             flash('User ID not found in session. Please log in again.', 'danger')
             return redirect(url_for('login'))
+
+
+# PersonalisedGenresSelection route
+@app.route('/PersonalisedGenresSelection')
+def personalised_genres_selection():
+    # Render the PersonalisedGenresSelection.html template
+    return render_template('PersonalisedGenresSelection.html')
 
 
 
