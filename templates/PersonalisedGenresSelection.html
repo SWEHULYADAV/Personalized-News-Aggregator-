@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>My Channels and Discover</title>
+        <link rel="stylesheet" href="C:\Users\12\Desktop\12\static\style.css">
+    </head>
+    <body>
+        <header>
+            <div class="container">
+                <h1>Welcome {{ username }}</h1>
+                <a href="/SwehulYoutube">Youtube</a>
+                <a href="/login" class="login-btn">Signup/Login</a><br/>
+                <div id="mode-toggle" class="toggle-icon" onclick="toggleDarkMode()">🌙</div>
+            </div>
+        </header>
+        <main>
+            <div class="logo">
+                <center><h1>Select Your News Feed</h1></center>
+            </div>
+            <center><h2>Discover</h2></center>
+            <section id="discover">
+                <p>Find channels to follow for a personalized feed. The content will appear in your Following feed.</p>
+                <form id="search-form" action="#">
+                    <div id="search-container">
+                        <input type="text" id="search-input" placeholder="Search Your Genre">
+                        <div id="cancel-btn">X</div> <!-- Cancel button -->
+                    </div>
+                    <div id="suggestions"></div>
+                    <button type="submit">Search</button>
+                </form>
+            </section>
+            
+    
+            <div class="wrapper">  
+                <section id="my-channels">
+                    <h2>My Channels</h2>
+                    <ul>
+                        <li><a href="#">Discover</a></li>
+                        <li><a href="#">Following</a></li>
+                        <li><a href="#">Blocked</a></li>
+                    </ul>
+                </section>
+                <div class="wrapper"> 
+                    <div id="recommended-topics">
+                        <br><h3>Recommended Topics</h3><br>
+                        <button class="scroll-btn prev">◄</button>
+                        <button class="scroll-btn next">►</button>
+
+                        <div id="horizontal-scroll-container">
+                            <!-- Scroll buttons -->
+                            <ul>
+                                <!-- 1st element -->
+                                <li class="genreSelection">
+                                    <a href="#" class="genreLink">
+                                        <img src="C:\Users\12\Desktop\1.jpg" alt="Image 1">
+                                        <h3>Agriculture</h3>
+                                    </a>
+                                </li>
+                            
+                                <!-- 2nd element -->
+                                <li class="genreSelection">
+                                    <a href="#" class="genreLink">
+                                        <img src="C:\Users\12\Desktop\1.jpg" alt="Image 2">
+                                        <h3>Analysis</h3>
+                                    </a>
+                                </li>
+                            
+                                <!-- 3rd element -->
+                                <li class="genreSelection">
+                                    <a href="#" class="genreLink">
+                                        <img src="C:\Users\12\Desktop\1.jpg" alt="Image 3">
+                                        <h3>Arts & Culture</h3>
+                                    </a>
+                                </li>
+                            
+                                <!-- 4th element -->
+                                <li class="genreSelection">
+                                    <a href="#" class="genreLink">
+                                        <img src="C:\Users\12\Desktop\1.jpg" alt="Image 4">
+                                        <h3>Awareness</h3>
+                                    </a>
+                                </li>
+                            
+                                <!-- 5th element -->
+                                <li class="genreSelection">
+                                    <a href="#" class="genreLink">
+                                        <img src="C:\Users\12\Desktop\1.jpg" alt="Image 5">
+                                        <h3>Business</h3>
+                                    </a>
+                                </li>
+                            
+                                <!-- 6th element -->
+                                <li class="genreSelection">
+                                    <a href="#" class="genreLink">
+                                        <img src="C:\Users\12\Desktop\1.jpg" alt="Image 6">
+                                        <h3>Business Perspectives</h3>
+                                    </a>
+                                </li>
+                            
+                                <!-- 7th element -->
+                                <li class="genreSelection">
+                                    <a href="#" class="genreLink">
+                                        <img src="C:\Users\12\Desktop\1.jpg" alt="Image 7">
+                                        <h3>Children</h3>
+                                    </a>
+                                </li>
+                            
+                                <!-- 8th element -->
+                                <li class="genreSelection">
+                                    <a href="#" class="genreLink">
+                                        <img src="C:\Users\12\Desktop\1.jpg" alt="Image 8">
+                                        <h3>Commerce</h3>
+                                    </a>
+                                </li>
+                            
+                                <!-- 9th element -->
+                                <li class="genreSelection">
+                                    <a href="#" class="genreLink">
+                                        <img src="C:\Users\12\Desktop\1.jpg" alt="Image 9">
+                                        <h3>Community Service</h3>
+                                    </a>
+                                </li>
+                            
+                                <!-- 10th element -->
+                                <li class="genreSelection">
+                                    <a href="#" class="genreLink">
+                                        <img src="C:\Users\12\Desktop\1.jpg" alt="Image 10">
+                                        <h3>Culture</h3>
+                                    </a>
+                                </li>
+                            
+                                <!-- 11th element -->
+                                <li class="genreSelection">
+                                    <a href="#" class="genreLink">
+                                        <img src="C:\Users\12\Desktop\1.jpg" alt="Image 11">
+                                        <h3>Diplomacy</h3>
+                                    </a>
+                                </li>
+                            
+                                <!-- 12th element -->
+                                <li class="genreSelection">
+                                    <a href="#" class="genreLink">
+                                        <img src="C:\Users\12\Desktop\1.jpg" alt="Image 12">
+                                        <h3>Education</h3>
+                                    </a>
+                                </li>
+                            
+                                <!-- 13th element -->
+                                <li class="genreSelection">
+                                    <a href="#" class="genreLink">
+                                        <img src="C:\Users\12\Desktop\1.jpg" alt="Image 13">
+                                        <h3>Entertainment</h3>
+                                    </a>
+                                </li>
+                            
+                                <!-- 14th element -->
+                                <li class="genreSelection">
+                                    <a href="#" class="genreLink">
+                                        <img src="C:\Users\12\Desktop\1.jpg" alt="Image 14">
+                                        <h3>Environment</h3>
+                                    </a>
+                                </li>
+                            
+                                <!-- 15th element -->
+                                <li class="genreSelection">
+                                    <a href="#" class="genreLink">
+                                        <img src="C:\Users\12\Desktop\1.jpg" alt="Image 15">
+                                        <h3>Events</h3>
+                                    </a>
+                                </li>
+                            
+                                <!-- 16th element -->
+                                <li class="genreSelection">
+                                    <a href="#" class="genreLink">
+                                        <img src="C:\Users\12\Desktop\1.jpg" alt="Image 16">
+                                        <h3>Field-specific</h3>
+                                    </a>
+                                </li>
+                            
+                                <!-- 17th element -->
+                                <li class="genreSelection">
+                                    <a href="#" class="genreLink">
+                                        <img src="C:\Users\12\Desktop\1.jpg" alt="Image 17">
+                                        <h3>Food</h3>
+                                    </a>
+                                </li>
+                            
+                                <!-- 18th element -->
+                                <li class="genreSelection">
+                                    <a href="#" class="genreLink">
+                                        <img src="C:\Users\12\Desktop\1.jpg" alt="Image 18">
+                                        <h3>Health</h3>
+                                    </a>
+                                </li>
+                            
+                                <!-- 19th element -->
+                                <li class="genreSelection">
+                                    <a href="#" class="genreLink">
+                                        <img src="C:\Users\12\Desktop\1.jpg" alt="Image 19">
+                                        <h3>Heritage</h3>
+                                    </a>
+                                </li>
+                            
+                                <!-- 20th element -->
+                                <li class="genreSelection">
+                                    <a href="#" class="genreLink">
+                                        <img src="C:\Users\12\Desktop\1.jpg" alt="Image 20">
+                                        <h3>History</h3>
+                                    </a>
+                                </li>
+                            
+                                <!-- 21st element -->
+                                <li class="genreSelection">
+                                    <a href="#" class="genreLink">
+                                        <img src="C:\Users\12\Desktop\1.jpg" alt="Image 21">
+                                        <h3>Imagination</h3>
+                                    </a>
+                                </li>
+                            
+                                <!-- 22nd element -->
+                                <li class="genreSelection">
+                                    <a href="#" class="genreLink">
+                                        <img src="C:\Users\12\Desktop\1.jpg" alt="Image 22">
+                                        <h3>International</h3>
+                                    </a>
+                                </li>
+                            
+                                <!-- 23rd element -->
+                                <li class="genreSelection">
+                                    <a href="#" class="genreLink">
+                                        <img src="C:\Users\12\Desktop\1.jpg" alt="Image 23">
+                                        <h3>International Relations</h3>
+                                    </a>
+                                </li>
+                                
+                                <!-- 24th element -->
+                                <li class="genreSelection">
+                                    <a href="#" class="genreLink">
+                                        <img src="C:\Users\12\Desktop\1.jpg" alt="Image 24">
+                                        <h3>Innovation</h3>
+                                    </a>
+                                </li>
+                                
+                                <!-- 25th element -->
+                                <li class="genreSelection">
+                                    <a href="#" class="genreLink">
+                                        <img src="C:\Users\12\Desktop\1.jpg" alt="Image 25">
+                                        <h3>Legal</h3>
+                                    </a>
+                                </li>
+                                
+                                <!-- 26th element -->
+                                <li class="genreSelection">
+                                    <a href="#" class="genreLink">
+                                        <img src="C:\Users\12\Desktop\1.jpg" alt="Image 26">
+                                        <h3>Lifestyle</h3>
+                                    </a>
+                                </li>
+                                
+                                <!-- 27th element -->
+                                <li class="genreSelection">
+                                    <a href="#" class="genreLink">
+                                        <img src="C:\Users\12\Desktop\1.jpg" alt="Image 27">
+                                        <h3>Literature</h3>
+                                    </a>
+                                </li>
+                                
+                                <!-- 28th element -->
+                                <li class="genreSelection">
+                                    <a href="#" class="genreLink">
+                                        <img src="C:\Users\12\Desktop\1.jpg" alt="Image 28">
+                                        <h3>Local</h3>
+                                    </a>
+                                </li>
+                                
+                                <!-- 29th element -->
+                                <li class="genreSelection">
+                                    <a href="#" class="genreLink">
+                                        <img src="C:\Users\12\Desktop\1.jpg" alt="Image 29">
+                                        <h3>Opinion/Editorials</h3>
+                                    </a>
+                                </li>
+                                
+                                <!-- 30th element -->
+                                <li class="genreSelection">
+                                    <a href="#" class="genreLink">
+                                        <img src="C:\Users\12\Desktop\1.jpg" alt="Image 30">
+                                        <h3>Personal Development</h3>
+                                    </a>
+                                </li>
+                                
+                                <!-- 31st element -->
+                                <li class="genreSelection">
+                                    <a href="#" class="genreLink">
+                                        <img src="C:\Users\12\Desktop\1.jpg" alt="Image 31">
+                                        <h3>Policy</h3>
+                                    </a>
+                                </li>
+                                
+                                <!-- 32nd element -->
+                                <li class="genreSelection">
+                                    <a href="#" class="genreLink">
+                                        <img src="C:\Users\12\Desktop\1.jpg" alt="Image 32">
+                                        <h3>Politics</h3>
+                                    </a>
+                                </li>
+                                
+                                <!-- 33rd element -->
+                                <li class="genreSelection">
+                                    <a href="#" class="genreLink">
+                                        <img src="C:\Users\12\Desktop\1.jpg" alt="Image 33">
+                                        <h3>Psychology</h3>
+                                    </a>
+                                </li>
+                                
+                                <!-- 34th element -->
+                                <li class="genreSelection">
+                                    <a href="#" class="genreLink">
+                                        <img src="C:\Users\12\Desktop\1.jpg" alt="Image 34">
+                                        <h3>Public Interest</h3>
+                                    </a>
+                                </li>
+                                
+                                <!-- 35th element -->
+                                <li class="genreSelection">
+                                    <a href="#" class="genreLink">
+                                        <img src="C:\Users\12\Desktop\1.jpg" alt="Image 35">
+                                        <h3>Reflection</h3>
+                                    </a>
+                                </li>
+                                
+                                <!-- 36th element -->
+                                <li class="genreSelection">
+                                    <a href="#" class="genreLink">
+                                        <img src="C:\Users\12\Desktop\1.jpg" alt="Image 36">
+                                        <h3>Regional</h3>
+                                    </a>
+                                </li>
+                                
+                                <!-- 37th element -->
+                                <li class="genreSelection">
+                                    <a href="#" class="genreLink">
+                                        <img src="C:\Users\12\Desktop\1.jpg" alt="Image 37">
+                                        <h3>Relationships</h3>
+                                    </a>
+                                </li>
+                                
+                                <!-- 38th element -->
+                                <li class="genreSelection">
+                                    <a href="#" class="genreLink">
+                                        <img src="C:\Users\12\Desktop\1.jpg" alt="Image 38">
+                                        <h3>Religion</h3>
+                                    </a>
+                                </li>
+                                
+                                <!-- 39th element -->
+                                <li class="genreSelection">
+                                    <a href="#" class="genreLink">
+                                        <img src="C:\Users\12\Desktop\1.jpg" alt="Image 39">
+                                        <h3>Research</h3>
+                                    </a>
+                                </li>
+                                
+                                <!-- 40th element -->
+                                <li class="genreSelection">
+                                    <a href="#" class="genreLink">
+                                        <img src="C:\Users\12\Desktop\1.jpg" alt="Image 40">
+                                        <h3>Science</h3>
+                                    </a>
+                                </li>
+                                
+                                <!-- 41st element -->
+                                <li class="genreSelection">
+                                    <a href="#" class="genreLink">
+                                        <img src="C:\Users\12\Desktop\1.jpg" alt="Image 41">
+                                        <h3>Security</h3>
+                                    </a>
+                                </li>
+                                
+                                <!-- 42nd element -->
+                                <li class="genreSelection">
+                                    <a href="#" class="genreLink">
+                                        <img src="C:\Users\12\Desktop\1.jpg" alt="Image 42">
+                                        <h3>Social</h3>
+                                    </a>
+                                </li>
+                                
+                                <!-- 43rd element -->
+                                <li class="genreSelection">
+                                    <a href="#" class="genreLink">
+                                        <img src="C:\Users\12\Desktop\1.jpg" alt="Image 43">
+                                        <h3>Special Reports</h3>
+                                    </a>
+                                </li>
+                                
+                                <!-- 44th element -->
+                                <li class="genreSelection">
+                                    <a href="#" class="genreLink">
+                                        <img src="C:\Users\12\Desktop\1.jpg" alt="Image 44">
+                                        <h3>Sports</h3>
+                                    </a>
+                                </li>
+                                
+                                <!-- 45th element -->
+                                <li class="genreSelection">
+                                    <a href="#" class="genreLink">
+                                        <img src="C:\Users\12\Desktop\1.jpg" alt="Image 45">
+                                        <h3>Technology</h3>
+                                    </a>
+                                </li>
+                                
+                                <!-- 46th element -->
+                                <li class="genreSelection">
+                                    <a href="#" class="genreLink">
+                                        <img src="C:\Users\12\Desktop\1.jpg" alt="Image 46">
+                                        <h3>Travel</h3>
+                                    </a>
+                                </li>
+                                
+                                <!-- 47th element -->
+                                <li class="genreSelection">
+                                    <a href="#" class="genreLink">
+                                        <img src="C:\Users\12\Desktop\1.jpg" alt="Image 47">
+                                        <h3>Women</h3>
+                                    </a>
+                                </li>
+                                
+                                <!-- 48th element -->
+                                <li class="genreSelection">
+                                    <a href="#" class="genreLink">
+                                        <img src="C:\Users\12\Desktop\1.jpg" alt="Image 48">
+                                        <h3>Youth</h3>
+                                    </a>
+                                </li>
+                                
+                                <!-- 49th element -->
+                                <li class="genreSelection">
+                                    <a href="#" class="genreLink">
+                                        <img src="C:\Users\12\Desktop\1.jpg" alt="Image 49">
+                                        <h3>International Relations</h3>
+                                    </a>
+                                </li>
+                                
+                                <!-- 50th element -->
+                                <li class="genreSelection">
+                                    <a href="#" class="genreLink">
+                                        <img src="C:\Users\12\Desktop\1.jpg" alt="Image 50">
+                                        <h3>Lifestyle</h3>
+                                    </a>
+                                </li>
+                            </ul>     
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer>
+            <p>&copy; 2024 My Channels</p>
+        </footer>
+        <script>
+            // Dark mode toggle functionality
+            function toggleDarkMode() {
+                document.body.classList.toggle("dark-mode");
+            }
+            document.addEventListener('DOMContentLoaded', function() {
+                const topics = [
+                    "Agriculture", "Analysis", "Arts & Culture", "Awareness", "Business", "Business Perspectives",
+                    "Children", "Commerce", "Community Service", "Culture", "Diplomacy", "Education", "Entertainment",
+                    "Environment", "Events", "Field-specific", "Food", "Health", "Heritage", "History", "Imagination",
+                    "International", "International Relations", "Legal", "Lifestyle", "Literature", "Local", "Opinion/Editorials",
+                    "Personal Development", "Policy", "Politics", "Psychology", "Public Interest", "Reflection", "Regional",
+                    "Relationships", "Religion", "Research", "Science", "Security", "Social", "Special Reports", "Sports",
+                    "Technology", "Travel", "Women", "Youth"];
+                const searchInput = document.getElementById('search-input');
+                const suggestionsContainer = document.getElementById('suggestions');
+    
+                searchInput.addEventListener('input', function() {
+                    const inputValue = this.value.toLowerCase();
+                    const suggestions = topics.filter(topic => topic.toLowerCase().startsWith(inputValue));
+                    renderSuggestions(suggestions);
+                });
+    
+                function renderSuggestions(suggestions) {
+                    suggestionsContainer.innerHTML = '';
+                    suggestions.forEach(suggestion => {
+                        const suggestionItem = document.createElement('div');
+                        suggestionItem.classList.add('suggestion-item');
+                        suggestionItem.textContent = suggestion;
+                        suggestionsContainer.appendChild(suggestionItem);
+                        suggestionItem.addEventListener('click', () => {
+                            redirectToTopicPage(suggestion);
+                        });
+                    });
+                }
+    
+                document.getElementById('search-form').addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    const searchQuery = searchInput.value.trim();
+                    if (searchQuery) {
+                        redirectToTopicPage(searchQuery);
+                    }
+                });
+    
+                function redirectToTopicPage(topic) {
+                    // Assuming the topic page URLs follow a certain pattern, you can construct the URL here
+                    const topicPageUrl = `/topics/${topic.toLowerCase().replace(/\s+/g, '-')}`;
+                    // Redirect to the topic page URL
+                    window.location.href = topicPageUrl;
+                }
+            });
+    
+            document.addEventListener('DOMContentLoaded', function() {
+                const scrollContainer = document.getElementById('horizontal-scroll-container');
+                const prevButton = document.querySelector('.scroll-btn.prev');
+                const nextButton = document.querySelector('.scroll-btn.next');
+                const scrollStep = 200; // Adjust this value to control the scroll step
+    
+                prevButton.addEventListener('click', function() {
+                    scrollContainer.scrollBy(-scrollStep, 0);
+                });
+    
+                nextButton.addEventListener('click', function() {
+                    scrollContainer.scrollBy(scrollStep, 0);
+                });
+            });// Get elements
+const searchInput = document.getElementById('search-input');
+const suggestions = document.getElementById('suggestions');
+const cancelBtn = document.getElementById('cancel-btn');
+
+// Add click event listener to cancel button
+cancelBtn.addEventListener('click', () => {
+    // Clear search input
+    searchInput.value = '';
+    // Close suggestions dropdown
+    suggestions.innerHTML = ''; // Clear suggestions
+});
+
+            
+        </script>                        
+    </body>
+    
+</html>
