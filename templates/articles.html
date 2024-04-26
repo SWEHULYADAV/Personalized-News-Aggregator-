@@ -1,4 +1,3 @@
-<!-- articles.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,75 +5,162 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personalized News Aggregator</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .file-upload-box {
+            position: relative;
+            width: 300px;
+            height: 150px;
+            border: 2px dashed #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.5); /* transparent background */
+            margin-top: 20px;
+            overflow: auto; /* Enable scroll for uploaded files list */
+            min-height: 150px; /* Minimum height */
+        transition: height 0.3s ease; /* Smooth transition for height change */
+
+        }
+
+        .file-upload-box.drag-over {
+            background-color: rgba(255, 255, 255, 0.8); /* lighter background on drag over */
+        }
+
+        .add-files-btn {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #uploadedFilesList {
+            margin: 10px 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        #uploadedFilesList li {
+            margin: 5px 0;
+            margin-right: 10px; /* Add some margin to the right of each list item */
+            display: inline; /* Display files horizontally */
+        }
+    </style>
 </head>
 <body>
     <header>
         <div class="container">
+            <!-- Header content -->
             <h1>Welcome, {{ username }}</h1>
             <div id="mode-toggle" onclick="toggleMode()">🌙</div>
             <a href="{{ url_for('logout') }}">Logout</a>
-    
             <h1><center>Content Management</center></h1>
         </div>
     </header>
     <main class="container">
-        
         <section>
             <!-- Create Article Form -->
             <h2><center>Create Article</center></h2>
             <form id="create-article-form" method="POST" enctype="multipart/form-data">
+                <!-- Title input -->
                 <label for="title"><h3>Title:</h3></label>
                 <input type="text" id="title" name="title" maxlength="150" required value="{{ request.args.get('title', '') }}"><br>
+                <!-- Content textarea -->
                 <label for="content"><h3>Content:</h3></label>
                 <textarea id="content" name="content" rows="25" cols="71.5" maxlength="10000000" required></textarea><br>
+                <!-- Source input -->
                 <label for="source"><h3>Source:</h3></label>
                 <input type="text" id="source" name="source" maxlength="10000" required value="{{ request.args.get('source', '') }}"><br>
-                <div class="file-options">
-                    <button class="dropbtn" onclick="toggleOptions()">+ Add FILES</button>
-                    <div class="dropdown-content">
-                        <label for="file-upload" style="cursor: pointer;">Add Image</label>
-                        <input type="file" id="file-upload" name="file_upload" style="display: none;"><br>
-                        <!-- Add more file upload inputs as needed -->
-                    </div>
+                <!-- File upload box -->
+                <div class="file-upload-box" id="fileUploadBox" ondragover="handleDragOver(event)" ondrop="handleDrop(event)">
+                    <label for="file-upload" class="add-files-btn">+ Add Files</label>
+                    <input type="file" id="file-upload" name="file_upload" style="display: none;">
+                    <p>Drag and drop files here or click the button</p>
+                    <ul id="uploadedFilesList"></ul> <!-- Display uploaded files -->
                 </div>
                 <br>
+                <!-- Form buttons -->
                 <button type="submit">Submit</button>
                 <button type="reset">Reset</button>
+                <!-- Lists container -->
                 <div class="lists-container">
                     <!-- Your lists go here -->
                 </div>
+                <!-- Spacer for layout -->
                 {% for _ in range(15) %}
                     <div class="spacer"></div>
                 {% endfor %}
             </form>
         </section>
         <div class="spacer"></div>
-
-        <script>
-            document.addEventListener('DOMContentLoaded', () => {
-                // Hide dropdown and lists on page load
-                const dropdownContent = document.querySelector('.dropdown-content');
-                const listsContainer = document.querySelector('.lists-container');
+    </main>
+    <!-- JavaScript for dropdown, dark mode toggle, and file upload -->
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            // Hide dropdown and lists on page load
+            const dropdownContent = document.querySelector('.dropdown-content');
+            const listsContainer = document.querySelector('.lists-container');
+            if (dropdownContent && listsContainer) {
                 dropdownContent.style.display = 'none';
                 listsContainer.style.display = 'none';
+            }
+        });
+
+        const toggleMode = () => {
+            const body = document.body;
+            body.classList.toggle("dark-mode");
+        };
+
+        function handleDragOver(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            fileUploadBox.classList.add('drag-over');
+        }
+
+        function handleDrop(event) {
+            event.preventDefault();
+            fileUploadBox.classList.remove('drag-over');
+            const files = event.dataTransfer.files;
+            if (files.length > 0) {
+                const fileInput = document.getElementById('file-upload');
+                fileInput.files = files;
+                displayUploadedFiles(Array.from(files)); // Convert to array
+            }
+        }
+
+        function handleFileUpload(event) {
+            const fileList = event.target.files;
+            displayUploadedFiles(Array.from(fileList)); // Convert to array
+        }
+
+        function displayUploadedFiles(fileList) {
+            const uploadedFilesList = document.getElementById('uploadedFilesList');
+            uploadedFilesList.innerHTML = ''; // Clear existing list
+
+            fileList.forEach((file, index) => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `${file.name} uploaded`;
+                uploadedFilesList.appendChild(listItem);
             });
 
-            const toggleOptions = () => {
-                const dropdownContent = document.querySelector('.dropdown-content');
-                const listsContainer = document.querySelector('.lists-container');
+            // Adjust file-upload-box height based on the number of uploaded files
+            const fileUploadBox = document.getElementById('fileUploadBox');
+            const minHeight = 150; // Minimum height
+            const additionalHeight = fileList.length * 20; // Assuming 20px per file
+            fileUploadBox.style.height = `${minHeight + additionalHeight}px`;
+        }
 
-                dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
-                listsContainer.style.display = 'none'; // Hide lists when toggling options
-            };
+        const fileUploadBox = document.getElementById('fileUploadBox');
+        fileUploadBox.addEventListener('dragover', handleDragOver);
+        fileUploadBox.addEventListener('drop', handleDrop);
+        document.getElementById('file-upload').addEventListener('change', handleFileUpload);
+    </script>
 
-            // Function to toggle dark mode
-            const toggleMode = () => {
-                const body = document.body;
-                body.classList.toggle("dark-mode");
-            };
-        </script>
-    </main>
-
+    <!-- Footer -->
     <footer>
         <div class="container">
             <p>&copy; 2024 Personalized News Aggregator</p>
