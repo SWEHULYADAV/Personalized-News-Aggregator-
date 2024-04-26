@@ -16,13 +16,9 @@
         <!-- Login Form -->
         <div id="login" class="tabcontent">
             <h1>Login</h1>
-            {% with messages = get_flashed_messages(with_categories=true) %}
-                {% if messages %}
-                    {% for category, message in messages %}
-                        <div class="alert alert-{{ category }}">{{ message }}</div>
-                    {% endfor %}
-                {% endif %}
-            {% endwith %}
+            {% if login_error %}
+                <p class="error">{{ login_error }}</p>
+            {% endif %}
             <form action="{{ url_for('login') }}" method="post">
                 <div class="form-group">
                     <label for="username">Username:</label>
@@ -39,6 +35,9 @@
         <!-- Signup Form -->
         <div id="signup" class="tabcontent">
             <h1>Signup</h1>
+            {% if signup_error %}
+                <p class="error">{{ signup_error }}</p>
+            {% endif %}
             <form action="{{ url_for('signup') }}" method="post">
                 <div class="form-group">
                     <label for="username">Choose a Username:</label>
