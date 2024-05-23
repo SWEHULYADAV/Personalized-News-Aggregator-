@@ -4,16 +4,16 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>My Channels and Discover</title>
-        <link rel="stylesheet" href="C:\Users\12\Desktop\12\static\style.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     </head>
     <body>
         <header>
             <div class="container">
                 <h1>Welcome {{ username }}</h1>
                 <a href="/SwehulYoutube">Youtube</a>
-                <a href="{{ url_for('logout') }}">Logout</a>
                 <a href="/login" class="login-btn">Signup/Login</a><br/>
                 <div id="mode-toggle" class="toggle-icon" onclick="toggleDarkMode()">🌙</div>
+                <a href="{{ url_for('logout') }}">Logout</a>
             </div>
         </header>
         <main>
