@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Database Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+        }
+
+        h1, h2 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        #table-list, #table-view, #add-record, #edit-record {
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #table-list ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #table-list li {
+            margin-bottom: 10px;
+        }
+
+        #table-list a {
+            text-decoration: none;
+            color: #337ab7;
+        }
+
+        #table-list a:hover {
+            color: #23527c;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f2f2f2;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        form input[type="text"], form input[type="submit"] {
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        form input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        form input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        label input[type="text"] {
+            width: 100%;
+        }
+
+        /* Dynamic styling for table */
+        table {
+            font-size: 0.8em;
+        }
+
+        @media (min-width: 768px) {
+            table {
+                font-size: 1em;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            table {
+                font-size: 1.2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Admin Database Management</h1>
+
+    <!-- Section to display list of tables -->
+    <div id="table-list">
+        <h2>Tables in Database</h2>
+        <ul>
+            {% for table in tables %}
+                <li><a href="{{ url_for('view_table', table_name=table[0]) }}">{{ table[0] }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- Section to display records of a specific table -->
+    <div id="table-view" style="display: none;">
+        <h2>Table: {{ table_name }}</h2>
+        <a href="{{ url_for('add_record', table_name=table_name) }}">Add Record</a>
+        <table>
+            <tr>
+                {% for field in fields %}
+                    <th>{{ field }}</th>
+                {% endfor %}
+                <th>Actions</th>
+            </tr>
+            {% for record in records %}
+                <tr>
+                    {% for value in record %}
+                        <td>{{ value }}</td>
+                    {% endfor %}
+                    <td>
+                        <a href="{{ url_for('edit_record', table_name=table_name, record_id=record.record_id) }}">Edit</a>
+                        <form action="{{ url_for('delete_record', table_name=table_name, record_id=record['id']) }}" method="post">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <!-- Section to add a new record -->
+    <div id="add-record" style="display: none;">
+        <h2>Add Record to {{ table_name }}</h2>
+        <form action="{{ url_for('add_record', table_name=table_name) }}" method="post">
+            {% for column, name in columns %}
+                {% if column != 'id' %}
+                    <label for="{{ column }}">{{ name }}</label>
+                    <input type="text" name="{{ column }}" id="{{ column }}">
+                {% endif %}
+            {% endfor %}
+            <input type="submit" value="Add Record">
+        </form>
+    </div>
+
+    <!-- Section to edit an existing record -->
+    <div id="edit-record" style="display: none;">
+        <h2>Edit Record in {{ table_name }}</h2>
+        <form action="{{ url_for('edit_record', table_name=table_name, record_id=record_id) }}" method="post">
+            {% for column, value in columns|zip_lists(record) %}
+                {% if column != 'id' %}
+                    <label for="{{ column }}">{{ column }}</label>
+                    <input type="text" name="{{ column }}" id="{{ column }}" value="{{ value }}">
+                {% endif %}
+            {% endfor %}
+            <input type="submit" value="Update Record">
+        </form>
+    </div>
+    <script>
+        // JavaScript to handle showing/hiding different sections
+        const urlParams = new URLSearchParams(window.location.search);
+        const section = urlParams.get('section');
+    
+        if (section === 'view') {
+            document.getElementById('table-view').style.display = 'block';
+            document.getElementById('table-list').style.display = 'none';
+        } else if (section === 'add') {
+            document.getElementById('add-record').style.display = 'block';
+            document.getElementById('table-list').style.display = 'none';
+        } else if (section === 'edit') {
+            document.getElementById('edit-record').style.display = 'block';
+            document.getElementById('table-list').style.display = 'none';
+        } else if (section === 'view_articles') {
+            document.getElementById('view-articles').style.display = 'block';
+            document.getElementById('table-list').style.display = 'none';
+        } else if (section === 'add_article') {
+            document.getElementById('add-article').style.display = 'block';
+            document.getElementById('table-list').style.display = 'none';
+        } else if (section === 'edit_article') {
+            document.getElementById('edit-article').style.display = 'block';
+            document.getElementById('table-list').style.display = 'none';
+        } else {
+            document.getElementById('table-list').style.display = 'block';
+        }
+    
+        // Dynamic styling for table
+        const table = document.querySelector('table');
+        const updateTableFontSize = () => {
+            const windowWidth = window.innerWidth;
+            table.style.fontSize = windowWidth > 1024 ? '1.2em' : windowWidth > 768 ? '1em' : '0.8em';
+        };
+    
+        updateTableFontSize();
+        window.addEventListener('resize', updateTableFontSize);
+    </script>
+</body>
+</html>

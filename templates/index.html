@@ -5,146 +5,331 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personalized News Aggregator</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+    /* Existing CSS for Hamburger Menu */
+    .menu-toggle {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 5px;
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .bar {
+        background-color: white;
+        display: block;
+        height: 2px;
+        margin: 4px 0;
+        transition: 0.4s;
+        width: 25px;
+    }
+
+    .bar:nth-child(2) {
+        width: 20px;
+    }
+
+    .bar:nth-child(3) {
+        width: 15px;
+    }
+
+    .menu-open .bar:nth-child(1) {
+        transform: rotate(-45deg) translate(-5px, 6px);
+    }
+
+    .menu-open .bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    .menu-open .bar:nth-child(3) {
+        transform: rotate(45deg) translate(-5px, -6px);
+    }
+
+    /* Updated CSS for Google Translate Widget and Header */
+    .header {
+        background-color: #333;
+        color: white;
+        padding: 10px;
+        position: relative;
+    }
+
+    .translate-widget {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        z-index: 10; /* Ensure the widget is above other content */
+    }
+
+    .options {
+        display: none;
+        position: absolute;
+        right: 10px;
+        top: 40px;
+        background-color: #333;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        padding: 10px;
+    }
+
+    .options ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .options li {
+        margin-bottom: 5px;
+    }
+
+    .options a {
+        color: white;
+        text-decoration: none;
+    }
+
+    .options a:hover {
+        color: #ddd;
+    }
+
+    /* Existing CSS styles remain unchanged */
+
+/* Updated CSS for pagination */
+.pagination {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.pagination a {
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin: 0 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.pagination a:hover {
+    background-color: #555;
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+/* Center the pagination links */
+.prev, .next {
+    display: inline-block;
+}
+
+/* Space the pagination links */
+.prev {
+    margin-right: 20px;
+}
+
+
+    </style>
+
+    <!-- Google Translate widget script -->
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
 </head>
 <body>
     <header>
-        <div class="container">
+        <div class="header">
+            <div class="translate-widget">
+                <div id="google_translate_element"></div>
+            </div>
             <h1>Welcome {{ username }}</h1>
-            <a href="/SwehulYoutube">Youtube</a>
-            <!-- <a href="/login" class="login-btn">Signup/Login</a> Remove this line -->
-            <a href="/login" class="login-btn">Login/Signup</a> <!-- Change here -->
-            <a href="/user_articles">Read Articles</a>
-
-            <div>
-                <div id="mode-toggle" class="toggle-icon" onclick="toggleDarkMode()">🌙</div>
-                <!-- Language selection button -->
-                <button class="language-select" onclick="toggleLanguages()">Select Language</button>
-                <!-- Language options -->
-                <div class="language-options" onmouseover="showLanguages()" onmouseout="hideLanguages()">
-                    <a href="#">English</a>
-                    <a href="#">हिन्दी</a>
-                    <a href="#">اردو</a>
-                    <a href="#">தமிழ்</a>
-                    <a href="#">తెలుగు</a>
-                    <a href="#">മലയാളം</a>
-                    <a href="#">ಕನ್ನಡ</a>
-                    <a href="#">ગુજરાતી</a>
-                    <a href="#">मराठी<<a href="/login" class="login-btn">Login/Signup</a> <!-- Change here -->/a>
-                    <a href="#">বাংলা</a>
-                    <a href="#">ਪੰਜਾਬੀ</a>
-                    <a href="#">ଓଡ଼ିଆ</a>
-                    <a href="#">অসমীয়া</a>
-                    <a href="#">سنڌي</a>
-                    <a href="#">मणिपुरी</a>
-                    <a href="#">کشمیری</a>
-                    <a href="#">कोंकणी</a>
-                    <a href="#">डोगरी</a>
-                    <a href="#">नेपाली</a>
-                    <a href="#">मैथिली</a>
-                    <a href="#">बोडो</a>
-                    <!-- Add more options for other languages -->
-                </div>
+            <button class="menu-toggle" onclick="showOptions()">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+            <div class="options">
+                <ul>
+                    <li><a href="#" onclick="toggleDarkMode()">Dark/Light Mode</a></li>
+                    <li><a href="/SwehulYoutube">Youtube</a></li>
+                    <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                    <li><a href="/user_articles">Read Articles</a></li>
+                    <li><a href="#">Option 5</a></li>
+                    <li><a href="#">Option 6</a></li>
+                </ul>
             </div>
         </div>
     </header>
-    <main class="container">
-        <h2>Personalized News Feed</h2>
-        <div class="news-feed">
-            {% if headlines %}
-                {% for article in headlines %}
-                    <a href="{{ article.url }}" class="article" style="background-color: {{ article.color }}">
-                        <img src="{{ article.urlToImage }}" alt="{{ article.title }}">
-                        <h3>{{ article.title }}</h3>
-                        <p>Source: {{ article.source.name }}</p>
-                    </a>
-                {% endfor %}
-            {% else %}
-                <p>No headlines available</p>
-            {% endif %}
-        </div>
+    <div>
+        <main class="container">
+            <div id="MyClockDisplay" class="clock" onload="showTime()"></div>
 
-        <div class="pagination">
-            <a href="#" id="first-page">1</a>
-            <a href="#" id="prev-page">Prev</a>
-            <a href="#" class="page-link">Current</a>
-            <a href="#" class="page-link">Next</a>
-            <a href="#" id="next-page">Next+1</a>
-            <a href="#" id="last-page">Last</a>
-        </div>
+            <form action="/" method="GET" class="country-form">
+                <label for="country">Select Country:</label>
+                <select name="country" id="country">
+                    <option value="0">-- Select Country --</option>
+                    <option value="IN">India</option>
+                    <option value="US">United States</option>
+                    <option value="CN">China</option>
+                    <option value="RU">Russia</option>
+                    <option value="BR">Brazil</option>
+                    <option value="GB">United Kingdom</option>
+                    <option value="FR">France</option>
+                    <option value="DE">Germany</option>
+                    <option value="JP">Japan</option>
+                    <option value="CA">Canada</option>
+                    <option value="AU">Australia</option>
+                    <option value="KR">South Korea</option>
+                    <option value="IT">Italy</option>
+                    <option value="ES">Spain</option>
+                    <option value="MX">Mexico</option>
+                    <option value="ID">Indonesia</option>
+                    <option value="TR">Turkey</option>
+                    <option value="SA">Saudi Arabia</option>
+                    <option value="ZA">South Africa</option>
+                    <option value="AR">Argentina</option>
+                    <option value="NG">Nigeria</option>
+                    <option value="EG">Egypt</option>
+                    <option value="PK">Pakistan</option>
+                    <option value="IR">Iran</option>
+                    <option value="VN">Vietnam</option>
+                    <!-- Add more options for other countries as needed -->
+                </select>  
+                <button type="submit">Get News</button>
+            </form>
+            <h2><span id="country-name">India</span> News Feed</h2>
+            <div class="news-feed">
+                {% if headlines %}
+                    {% for article in headlines %}
+                        <a href="{{ article.url }}" class="article" style="background-color: {{ article.color }}">
+                            <img src="{{ article.urlToImage }}" alt="{{ article.title }}">
+                            <h3>{{ article.title }}</h3>
+                            <p>Source: {{ article.source.name }}</p>
+                        </a>
+                    {% endfor %}
+                {% else %}
+                    <p>No headlines available</p>
+                {% endif %}
+            </div>
+            <!-- Pagination Links -->
+            <div class="pagination">
+                {% if page_number > 1 %}
+                    <a href="?page={{ page_number - 1 }}&country={{ country }}" class="prev">Previous</a>
+                {% endif %}
+                {% if headlines %}
+                    <a href="?page={{ page_number + 1 }}&country={{ country }}" class="next">Next</a>
+                {% endif %}
+            </div>
+            
+            
+            
+            <div class="spacer"></div>
+        </main>
 
-        <div class="spacer"></div>
+        <br><br>
+        <footer>
+            <p>© 2024 Personalized News Aggregator</p>
+            <div class="spacer"></div>
+        </footer>
+        <br><br><br>
+    </div>
 
-    </main>
-    <footer>
-        <p>© 2024 Personalized News Aggregator</p>
-        <div class="spacer"></div>
-    </footer>
-
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     <script>
-        // Add event listeners to handle pagination logic
-        document.getElementById("first-page").addEventListener("click", function(e) {
-            e.preventDefault();
-            // Redirect to the first page
-            window.location.href = "/1"; // Replace "/1" with your actual URL structure
-        });
-
-        document.getElementById("last-page").addEventListener("click", function(e) {
-            e.preventDefault();
-            // Redirect to the last page
-            window.location.href = "/last"; // Replace "/last" with your actual URL structure
-        });
-
-        document.getElementById("prev-page").addEventListener("click", function(e) {
-            e.preventDefault();
-            // Get the current page number from the URL
-            let currentPage = getCurrentPage();
-            if (currentPage > 1) {
-                // Redirect to the previous page
-                window.location.href = "/" + (currentPage - 1); // Replace "/" with your actual URL structure
+        document.querySelector('.country-form').addEventListener('submit', function(event) {
+            // Prevent default form submission
+            event.preventDefault();
+    
+            // Get the selected country value
+            var selectedCountry = document.getElementById('country').value;
+    
+            // Check if a country is selected
+            if (selectedCountry === '0') {
+                // If no country is selected, show an alert
+                alert('Please select a country.');
+            } else {
+                // Redirect to the URL with the selected country
+                window.location.href = "/?country=" + selectedCountry;
             }
         });
-
-        document.getElementById("next-page").addEventListener("click", function(e) {
+    
+        // Toggle options menu
+        function showOptions() {
+            const options = document.querySelector('.options'); 
+            const menuToggle = document.querySelector('.menu-toggle');
+            options.style.display = options.style.display === 'none' ? 'block' : 'none';
+            menuToggle.classList.toggle('menu-open');
+        }
+    
+        // Function to update the selected country name
+        function updateCountryName() {
+            var selectedCountry = document.getElementById('country');
+            var countryName = selectedCountry.options[selectedCountry.selectedIndex].text;
+            document.getElementById('country-name').textContent = countryName;
+            localStorage.setItem('selectedCountry', countryName);
+        }
+    
+        // Add event listener to handle country selection
+        document.getElementById('country').addEventListener('change', updateCountryName);
+    
+        // Check if a country name is stored in localStorage
+        var storedCountry = localStorage.getItem('selectedCountry');
+        if (storedCountry) {
+            document.getElementById('country-name').textContent = storedCountry;
+        } else {
+            document.getElementById('country').value = 'IN'; // Default to India
+            updateCountryName(); // Update country name display
+        }
+    
+        // Add event listeners to handle pagination logic
+        document.getElementById("first-page").addEventListener("click", navigateToPage);
+        document.getElementById("last-page").addEventListener("click", navigateToPage);
+        document.getElementById("prev-page").addEventListener("click", navigateToPage);
+        document.getElementById("next-page").addEventListener("click", navigateToPage);
+    
+        // Function to handle pagination
+        function navigateToPage(e) {
             e.preventDefault();
-            // Get the current page number from the URL
-            let currentPage = getCurrentPage();
-            // Redirect to the next page
-            window.location.href = "/" + (currentPage + 1); // Replace "/" with your actual URL structure
-        });
-
+            var currentPage = getCurrentPage();
+            var targetPage;
+            switch (e.target.id) {
+                case "first-page":
+                    targetPage = 1;
+                    break;
+                case "last-page":
+                    targetPage = getLastPageNumber();
+                    break;
+                case "prev-page":
+                    targetPage = currentPage > 1? currentPage - 1 : 1;
+                    break;
+                case "next-page":
+                    targetPage = currentPage + 1;
+                    break;
+                default:
+                    targetPage = currentPage;
+            }
+            window.location.href = "/" + targetPage;
+        }
+    
         // Function to extract the current page number from the URL
         function getCurrentPage() {
-            let url = window.location.href;
-            let matches = url.match(/\/(\d+)/); // Assuming the page number is in the URL as "/{page_number}"
-            if (matches && matches.length > 1) {
-                return parseInt(matches[1]);
-            }
-            return 1; // Default to page 1 if no page number is found in the URL
+            var url = window.location.href;
+            var matches = url.match(/\/(\d+)/);
+            return matches && matches.length > 1? parseInt(matches[1]) : 1;
         }
-
+    
+        // Function to get the last page number
+        function getLastPageNumber() {
+            // Replace this with your logic to get the last page number
+            return 10; // Example: Assuming there are 10 pages
+        }
+    
         // Dark mode toggle functionality
         function toggleDarkMode() {
             document.body.classList.toggle("dark-mode");
         }
-
-        // Language selection functionality
-        function toggleLanguages() {
-            var languageOptions = document.querySelector(".language-options");
-            languageOptions.style.display = (languageOptions.style.display === "block") ? "none" : "block";
-        }
-
-        // Function to hide language options on mouseout
-        function hideLanguages() {
-            var languageOptions = document.querySelector(".language-options");
-            languageOptions.style.display = "none";
-        }
-
-        // Function to show language options on mouseover
-        function showLanguages() {
-            var languageOptions = document.querySelector(".language-options");
-            languageOptions.style.display = "block";
-        }
     </script>
-
 </body>
-</html>
+</html>    

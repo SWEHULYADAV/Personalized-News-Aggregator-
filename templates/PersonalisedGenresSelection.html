@@ -11,6 +11,7 @@
             <div class="container">
                 <h1>Welcome {{ username }}</h1>
                 <a href="/SwehulYoutube">Youtube</a>
+                <a href="{{ url_for('logout') }}">Logout</a>
                 <a href="/login" class="login-btn">Signup/Login</a><br/>
                 <div id="mode-toggle" class="toggle-icon" onclick="toggleDarkMode()">🌙</div>
             </div>

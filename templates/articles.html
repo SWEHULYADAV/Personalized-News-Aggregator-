@@ -17,8 +17,7 @@
             margin-top: 20px;
             overflow: auto; /* Enable scroll for uploaded files list */
             min-height: 150px; /* Minimum height */
-        transition: height 0.3s ease; /* Smooth transition for height change */
-
+            transition: height 0.3s ease; /* Smooth transition for height change */
         }
 
         .file-upload-box.drag-over {
@@ -53,27 +52,36 @@
 <body>
     <header>
         <div class="container">
-            <!-- Header content -->
             <h1>Welcome, {{ username }}</h1>
-            <div id="mode-toggle" onclick="toggleMode()">🌙</div>
             <a href="{{ url_for('logout') }}">Logout</a>
             <h1><center>Content Management</center></h1>
         </div>
     </header>
     <main class="container">
         <section>
-            <!-- Create Article Form -->
             <h2><center>Create Article</center></h2>
             <form id="create-article-form" method="POST" enctype="multipart/form-data">
-                <!-- Title input -->
                 <label for="title"><h3>Title:</h3></label>
-                <input type="text" id="title" name="title" maxlength="150" required value="{{ request.args.get('title', '') }}"><br>
-                <!-- Content textarea -->
+                <input type="text" id="title" name="title" maxlength="150" required value="{{ old_title }}">
+
                 <label for="content"><h3>Content:</h3></label>
-                <textarea id="content" name="content" rows="25" cols="71.5" maxlength="10000000" required></textarea><br>
+                <textarea id="content" name="content" rows="25" cols="71.5" maxlength="10000000" required>{{ old_content }}</textarea>
+
+                {% if old_files %}
+                <div>
+                    <h3>Uploaded Files:</h3>
+                    <ul>
+                    {% for file_name in old_files.split(',') %}
+                    <li>{{ file_name }} <a href="{{ url_for('delete_file', article_id=old_article_id, file_name=file_name) }}">Delete</a></li>
+                    {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+
                 <!-- Source input -->
                 <label for="source"><h3>Source:</h3></label>
-                <input type="text" id="source" name="source" maxlength="10000" required value="{{ request.args.get('source', '') }}"><br>
+                <input type="text" id="source" name="source" maxlength="10000" required value="{{ old_source }}">
+
                 <!-- File upload box -->
                 <div class="file-upload-box" id="fileUploadBox" ondragover="handleDragOver(event)" ondrop="handleDrop(event)">
                     <label for="file-upload" class="add-files-btn">+ Add Files</label>
@@ -81,14 +89,16 @@
                     <p>Drag and drop files here or click the button</p>
                     <ul id="uploadedFilesList"></ul> <!-- Display uploaded files -->
                 </div>
-                <br>
+
                 <!-- Form buttons -->
                 <button type="submit">Submit</button>
                 <button type="reset">Reset</button>
+
                 <!-- Lists container -->
                 <div class="lists-container">
                     <!-- Your lists go here -->
                 </div>
+
                 <!-- Spacer for layout -->
                 {% for _ in range(15) %}
                     <div class="spacer"></div>
@@ -97,9 +107,8 @@
         </section>
         <div class="spacer"></div>
     </main>
-    <!-- JavaScript for dropdown, dark mode toggle, and file upload -->
+
     <script>
-        
         document.addEventListener('DOMContentLoaded', () => {
             // Hide dropdown and lists on page load
             const dropdownContent = document.querySelector('.dropdown-content');
@@ -132,18 +141,20 @@
             }
         }
 
+        // Handle file upload and display uploaded files
         function handleFileUpload(event) {
             const fileList = event.target.files;
             displayUploadedFiles(Array.from(fileList)); // Convert to array
         }
 
+        // Display uploaded files in the list
         function displayUploadedFiles(fileList) {
             const uploadedFilesList = document.getElementById('uploadedFilesList');
             uploadedFilesList.innerHTML = ''; // Clear existing list
 
             fileList.forEach((file, index) => {
                 const listItem = document.createElement('li');
-                listItem.textContent = `${file.name} uploaded`;
+                listItem.textContent = "${file.name} uploaded";
                 uploadedFilesList.appendChild(listItem);
             });
 
@@ -154,9 +165,7 @@
             fileUploadBox.style.height = `${minHeight + additionalHeight}px`;
         }
 
-        const fileUploadBox = document.getElementById('fileUploadBox');
-        fileUploadBox.addEventListener('dragover', handleDragOver);
-        fileUploadBox.addEventListener('drop', handleDrop);
+        // Event listener for file upload input
         document.getElementById('file-upload').addEventListener('change', handleFileUpload);
     </script>
 
