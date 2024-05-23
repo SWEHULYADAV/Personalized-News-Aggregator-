@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Swehul Tech</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="/static/style.css">
+  <style>
+    /* Add CSS styles here */
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      margin-bottom: 0;
+    }
+
+    main {
+      margin-bottom: 0;
+    }
+
+    footer {
+      margin-top: 0;
+    }
+
+    #myCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    #video-container {
+      position: relative;
+    }
+
+    .video {
+      position: relative;
+      display: inline-block;
+      margin: 20px;
+    }
+
+    .header-button {
+      color: white;
+      background-color: #333;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      margin-right: 10px;
+      text-decoration: none;
+    }
+
+    .header-button:hover {
+      background-color: #555;
+    }
+
+    .mode-toggle {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      color: white;
+      background-color: #333;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .mode-toggle:hover {
+      background-color: #555;
+    }
+
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      text-align: center; /* Center the navigation items */
+    }
+
+    nav ul li {
+      display: inline;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      padding: 10px;
+      margin-right: 10px;
+    }
+
+    nav ul li a:hover {
+      background-color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Welcome to Swehul Tech</h1>
+    <nav>
+      
+      <ul>
+        <li><a href="/" class="header-button">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="https://youtube.com/@SWEHUL">YouTube Channel</a></li>
+      </ul>
+    </nav>
+    <button class="mode-toggle" onclick="toggleDarkMode()">
+      <span id="mode-icon">🌞</span> <!-- Sun icon -->
+    </button>
+  </header>
+  <main>
+    
+    <section id="videos">
+      <h3>Latest Videos</h3>
+      <div id="video-container">
+        <div class="video">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/HDQ-14ONKuw?si=BALyPhvUzBrpB5p6" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="video">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/kcva-S44Wpk?si=ysp5xHUkuT2vMJnt" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="video">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/C9K_2fJstp4?si=2LlzmZyE1-QSBmeP" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; Swehul Tech 2020</p>
+  </footer>
+  
+  <canvas id="myCanvas"></canvas>
+
+
+<script>
+    /* Add JavaScript code here */
+    /* Bubble Animation */
+    var canvas = document.getElementById("myCanvas");
+    var ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  
+    function getRandomColor() {
+      var letters = "0123456789ABCDEF";
+      var color = "#";
+      for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    }
+  
+    function drawCircle(x, y, radius) {
+      ctx.beginPath();
+      ctx.arc(x, y, radius, 0, 2 * Math.PI);
+      ctx.fillStyle = getRandomColor();
+      ctx.fill();
+    }
+  
+    var bubbles = [];
+  
+    function createBubble() {
+      var x = Math.random() * canvas.width;
+      var y = Math.random() * canvas.height;
+      var radius = Math.random() * 50;
+      var speed = Math.random() * 1 + 0.5;
+  
+      bubbles.push({x: x, y: y, radius: radius, speed: speed});
+    }
+  
+    function animateBubbles() {
+      requestAnimationFrame(animateBubbles);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+  
+      for (var i = 0; i < bubbles.length; i++) {
+        var bubble = bubbles[i];
+  
+        bubble.y -= bubble.speed;
+  
+        if (bubble.y + bubble.radius < 0) {
+          bubbles.splice(i, 1);
+        }
+  
+        drawCircle(bubble.x, bubble.y, bubble.radius);
+      }
+  
+      if (Math.random() < 0.02) {
+        createBubble();
+      }
+    }
+  
+    animateBubbles();
+</script>
+
+</body>
+</html>
