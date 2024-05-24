@@ -380,6 +380,11 @@ def personalised_genres_selection():
     # Render the PersonalisedGenresSelection.html template
     return render_template('PersonalisedGenresSelection.html')
 
+# PersonalisedGenresSelection route
+@app.route('/about')
+def render_about_page():
+    return render_template('about.html')
+
 # Function to fetch articles from database
 def fetch_articles_from_database():
     conn = sqlite3.connect('news_aggregator.db')
