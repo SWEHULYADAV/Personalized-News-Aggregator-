@@ -4,131 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personalized News Aggregator</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <style>
-    /* Existing CSS for Hamburger Menu */
-    .menu-toggle {
-        background: none;
-        border: none;
-        cursor: pointer;
-        padding: 5px;
-        position: absolute;
-        right: 10px;
-        top: 50%;
-        transform: translateY(-50%);
-    }
-
-    .bar {
-        background-color: white;
-        display: block;
-        height: 2px;
-        margin: 4px 0;
-        transition: 0.4s;
-        width: 25px;
-    }
-
-    .bar:nth-child(2) {
-        width: 20px;
-    }
-
-    .bar:nth-child(3) {
-        width: 15px;
-    }
-
-    .menu-open .bar:nth-child(1) {
-        transform: rotate(-45deg) translate(-5px, 6px);
-    }
-
-    .menu-open .bar:nth-child(2) {
-        opacity: 0;
-    }
-
-    .menu-open .bar:nth-child(3) {
-        transform: rotate(45deg) translate(-5px, -6px);
-    }
-
-    /* Updated CSS for Google Translate Widget and Header */
-    .header {
-        background-color: #333;
-        color: white;
-        padding: 10px;
-        position: relative;
-    }
-
-    .translate-widget {
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        z-index: 10; /* Ensure the widget is above other content */
-    }
-
-    .options {
-        display: none;
-        position: absolute;
-        right: 10px;
-        top: 40px;
-        background-color: #333;
-        border-radius: 5px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        padding: 10px;
-    }
-
-    .options ul {
-        list-style-type: none;
-        padding: 0;
-    }
-
-    .options li {
-        margin-bottom: 5px;
-    }
-
-    .options a {
-        color: white;
-        text-decoration: none;
-    }
-
-    .options a:hover {
-        color: #ddd;
-    }
-
-    /* Existing CSS styles remain unchanged */
-
-/* Updated CSS for pagination */
-.pagination {
-    text-align: center;
-    margin-top: 20px;
-}
-
-.pagination a {
-    background-color: #333;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
-    text-decoration: none;
-    margin: 0 10px;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.pagination a:hover {
-    background-color: #555;
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
-    transform: translateY(-2px);
-}
-
-/* Center the pagination links */
-.prev, .next {
-    display: inline-block;
-}
-
-/* Space the pagination links */
-.prev {
-    margin-right: 20px;
-}
-
-
-    </style>
-
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
     <!-- Google Translate widget script -->
     <script type="text/javascript">
         function googleTranslateElementInit() {
@@ -225,15 +101,6 @@
             
             <div class="spacer"></div>
         </main>
-
-        <br><br>
-        <footer>
-            <p>© 2024 Personalized News Aggregator</p>
-            <div class="spacer"></div>
-        </footer>
-        <br><br><br>
-    </div>
-
 <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     <script>
         document.querySelector('.country-form').addEventListener('submit', function(event) {
@@ -329,5 +196,13 @@
             document.body.classList.toggle("dark-mode");
         }
     </script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+<br>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Personalized News Aggregator</p>
+        </div>
+    </footer>
 </body>
 </html>    
