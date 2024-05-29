@@ -1,0 +1,190 @@
+/* Typography */
+body {
+    font-family: 'Roboto', sans-serif; /* Use Roboto font for body text */
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif; /* Use Montserrat font for headings */
+}
+
+/* Color Scheme */
+:root {
+    --primary-color: #007bff; /* Define primary color */
+    --secondary-color: #6c757d; /* Define secondary color */
+    --text-color: #333; /* Define text color */
+    --background-gradient: linear-gradient(to right, #E0D2C7, #44B09E); /* Define background gradient */
+    --background-dark: #000; /* Define dark mode background color */
+}
+
+/* Global Styles */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Open Sans', sans-serif; /* Use Open Sans font for general text */
+    overflow-x: hidden; /* Prevent horizontal overflow */
+    background: var(--background-gradient); /* Use background gradient */
+}
+
+.container {
+    width: 90%;
+    margin: 0 auto;
+}
+
+/* Header Styles */
+header {
+    background-color: var(--primary-color); /* Use primary color for header background */
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+    position: relative;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+header a {
+    color: #fff;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+/* Main Content Styles */
+main {
+    margin-top: 80px; /* Adjust margin to accommodate header */
+    margin-bottom: 100px;
+    padding-bottom: 100px;
+    display: flex;
+    justify-content: center;
+}
+
+section {
+    width: 90%; /* Adjust width for better responsiveness */
+    max-width: 600px; /* Limit width for larger screens */
+}
+
+/* Form Styles */
+form {
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.5); 
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="password"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0 20px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; /* Include padding and border in width calculation */
+}
+
+button {
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #555;
+}
+
+/* Drag and Drop Styles */
+.file-upload-box {
+    border: 2px dashed #999;
+    padding: 20px;
+    text-align: center;
+    transition: border-color 0.3s;
+    cursor: pointer;
+}
+
+.file-upload-box:hover {
+    border-color: #333;
+}
+
+/* Uploaded Files List Styles */
+#uploadedFilesList {
+    list-style: none;
+    padding: 0;
+}
+
+#uploadedFilesList li {
+    margin-bottom: 10px;
+}
+
+/* Footer Styles */
+footer {
+    background-color: var(--primary-color);
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+/* Responsive Design */
+@media only screen and (max-width: 768px) {
+    header {
+        padding: 10px 0; /* Adjust header padding for smaller screens */
+    }
+
+    main {
+        margin-top: 60px; /* Adjust main margin for smaller screens */
+    }
+
+    section {
+        width: 100%; /* Adjust section width for smaller screens */
+    }
+}
+
+/* Dark mode styles */
+.dark-mode {
+    background: var(--background-dark); /* Use dark background color */
+    color: #fff; /* Light text color */
+}
+
+/* Update background color for the entire screen in dark mode */
+.dark-mode body {
+    background: var(--background-dark); /* Black background color */
+}
+
+/* Update text color and background color for all form elements in dark mode */
+.dark-mode input[type="text"],
+.dark-mode input[type="password"],
+.dark-mode textarea {
+    color: #fff; /* Light text color */
+    background-color: #333; /* Dark background color for input fields */
+    border: 1px solid #ff0000; /* Adjust border color */
+}
+
+/* Update background color for form in dark mode */
+.dark-mode form {
+    background-color: rgba(255, 255, 255, 0.3); /* Semi-transparent white background */
+}
+
+/* Update hover color for form elements */
+.dark-mode input[type="text"]:hover,
+.dark-mode input[type="password"]:hover,
+.dark-mode textarea:hover,
+.dark-mode button:hover {
+    background-color: rgb(181, 245, 173); 
+    color: #000000; 
+}
