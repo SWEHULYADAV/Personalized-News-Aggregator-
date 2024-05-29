@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Read Blog Articles</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='user_articles.css') }}">
  
 </head>
 
@@ -25,18 +25,29 @@
     <div class="articles" id="articles-container">
         <!-- Articles will be dynamically added here -->
         {% for article in user_articles %}
-        <div class="article">
-            <h2>{{ article[1] }}</h2>
-            <p>{{ article[2] }}</p>
-            <p class="author">Author: {{ article[3] }}</p>
-            <div class="options">
-                <!-- Button to redirect to the edit_article page -->
-                <a href="{{ url_for('edit_article', article_id=article[0]) }}">Edit</a>
-                <!-- Button to delete the article -->
-                <button onclick="deleteArticle('{{ article[0] }}')">Delete</button>
-            </div>
-        </div>
-        {% endfor %}
+<div class="article">
+    <h2>{{ article[1] }}</h2>
+    {% if article[2].startswith('<img') %}
+    <div class="article-media">
+        {{ article[2] }}
+    </div>
+    {% elif article[2].startswith('<video') %}
+    <div class="article-media">
+        {{ article[2] }}
+    </div>
+    {% else %}
+    <p>{{ article[2] }}</p>
+    {% endif %}
+    <div class="options">
+        <!-- Button to redirect to the edit_article page -->
+        <a href="{{ url_for('edit_article', article_id=article[0]) }}">Edit</a>
+        <!-- Button to Read the article -->
+        <button onclick="readArticle('{{ article[0] }}')">Read</button>
+        <!-- Button to delete the article -->
+        <button onclick="deleteArticle('{{ article[0] }}')">Delete</button>
+    </div>
+</div>
+{% endfor %}
     </div>
 
     <!-- Existing code... -->
@@ -46,12 +57,6 @@
     </div>
     {% endif %}
     <input type="hidden" id="csrf_token" value="{{ csrf_token }}">
-
-     <footer>
-        <p>&copy; 2024 Swehul's News Aggregator. All rights reserved.</p>
-    </footer>
-    <br><br>
-
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Connect the button click event to the function
@@ -172,7 +177,13 @@
         }
         
     </script>
-    
-</body>
-
-</html>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <br><br><br><br>
+        <!-- Footer -->
+        <footer>
+            <div class="container">
+                <p>&copy; 2024 Personalized News Aggregator</p>
+            </div>
+        </footer>
+    </body>
+    </html>    
