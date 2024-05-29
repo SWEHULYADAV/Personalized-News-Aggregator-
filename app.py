@@ -14,6 +14,14 @@ from flask import flash, get_flashed_messages
 app = Flask(__name__)
 app.secret_key = 'SectetKey'
 
+# Function to get the database connection
+def get_db():
+    db = getattr(g, '_database', None)
+    if db is None:
+        db = g._database = sqlite3.connect('news_aggregator.db')
+    return db
+
+
 # Custom filter to zip two lists together
 def zip_lists(a, b):
     return zip(a, b)
@@ -78,9 +86,12 @@ def init_db():
 # Call the init_db() function to create tables if they don't exist
 init_db()
 
-# Function to check if user is logged in
+# Function to check if user or admin is logged in
 def is_logged_in():
-    return 'username' in session
+    return session.get('logged_in')
+
+def is_admin():
+    return session.get('is_admin')
 
 # Function to fetch top headlines from News API
 def get_top_headlines(api_key, selected_country, page_size=10, page_number=1):
@@ -405,9 +416,9 @@ def is_author(article_id):
     c = conn.cursor()
     c.execute("SELECT user_id FROM articles WHERE id = ?", (article_id,))
     result = c.fetchone()
-    article_user_id = result[0] if result else None
-    conn.close()
-    return 'username' in session and session.get('user_id') == article_user_id
+    if result and result[0] == session.get('user_id'):
+        return True
+    return False
 
 # Route for Deleting an article
 @app.route('/delete_file/<int:article_id>/<path:file_name>', methods=['GET', 'POST'])
@@ -442,7 +453,7 @@ def delete_file(article_id, file_name):
         flash('You need to login first to delete files.', 'danger')
     return redirect(url_for('user_articles'))
 
-#Route For Editing An Article
+# Route for Editing An Article
 @app.route('/edit_article/<int:article_id>', methods=['GET', 'POST'])
 def edit_article(article_id):
     if is_logged_in():
@@ -467,12 +478,11 @@ def edit_article(article_id):
                     return redirect(url_for('login'))
             else:
                 # Fetch the old content of the article from the database
-                conn = sqlite3.connect('news_aggregator.db')
+                conn = get_db()
                 c = conn.cursor()
                 c.execute("SELECT * FROM articles WHERE id = ?", (article_id,))
                 article = c.fetchone()
-                conn.close()
-
+                
                 if article:
                     # Convert old_files to string explicitly
                     old_files = str(article[4]) if article[4] is not None else ''
@@ -487,6 +497,13 @@ def edit_article(article_id):
     else:
         flash('You need to login first to edit articles.', 'danger')
         return redirect(url_for('login'))
+
+# Function to update article data in the database
+def update_article_in_database(article_id, title, content, source, user_id, edit_count):
+    conn = get_db()
+    c = conn.cursor()
+    c.execute("UPDATE articles SET title = ?, content = ?, source = ?, user_id = ?, edit_count = ? WHERE id = ?", (title, content, source, user_id, edit_count, article_id))
+    conn.commit()
 
 # Function to save data to SQLite database and JSON file
 def save_data_to_files(data, filename):
