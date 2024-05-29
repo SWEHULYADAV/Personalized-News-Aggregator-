@@ -11,6 +11,7 @@ from werkzeug.security import check_password_hash
 from flask import flash, get_flashed_messages
 
 
+
 app = Flask(__name__)
 app.secret_key = 'SectetKey'
 
@@ -777,6 +778,28 @@ def delete_user_article(user_id, article_id):
     return redirect(url_for('view_user_articles', user_id=user_id))
 
 ###################################################
+@app.route('/AdminDBManage')
+def admin_db_manage():
+    # Function logic here
+    return render_template('AdminDBManage.html')
+
+@app.route('/show_database_data')
+def show_database_data():
+    try:
+        conn = get_db()
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM articles")  # Change 'articles' to your table name
+        data = cursor.fetchall()
+        conn.close()
+        
+        if data:
+            return render_template('AdminDBManage.html', data=data)
+        else:
+            return "No data found in the database."
+
+    except Exception as e:
+        return f"An error occurred: {str(e)}"
+
 
 if __name__ == '__main__':
     try:

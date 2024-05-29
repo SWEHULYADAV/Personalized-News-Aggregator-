@@ -119,17 +119,17 @@
 
     <!-- Section to display list of tables -->
     <div id="table-list">
-        <h2>Tables in Database</h2>
+        <h2>Databases</h2>
         <ul>
-            {% for table in tables %}
-                <li><a href="{{ url_for('view_table', table_name=table[0]) }}">{{ table[0] }}</a></li>
+            {% for database in databases %}
+                <li><a href="{{ url_for('view_database', database_name=database.name) }}">{{ database.name }}</a></li>
             {% endfor %}
         </ul>
     </div>
 
-    <!-- Section to display records of a specific table -->
-    <div id="table-view" style="display: none;">
-        <h2>Table: {{ table_name }}</h2>
+    <!-- Section to display records of a specific database -->
+    <div id="database-view" style="display: none;">
+        <h2>Database: {{ database_name }}</h2>
         <a href="{{ url_for('add_record', table_name=table_name) }}">Add Record</a>
         <table>
             <tr>
@@ -144,8 +144,8 @@
                         <td>{{ value }}</td>
                     {% endfor %}
                     <td>
-                        <a href="{{ url_for('edit_record', table_name=table_name, record_id=record.record_id) }}">Edit</a>
-                        <form action="{{ url_for('delete_record', table_name=table_name, record_id=record['id']) }}" method="post">
+                        <a href="{{ url_for('edit_record', database_name=database_name, record_id=record.record_id) }}">Edit</a>
+                        <form action="{{ url_for('delete_record', database_name=database_name, record_id=record['id']) }}" method="post">
                             <button type="submit">Delete</button>
                         </form>
                     </td>
@@ -168,41 +168,57 @@
         </form>
     </div>
 
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Content</th>
+                <!-- Add more table headers as needed -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in data %}
+            <tr>
+                <td>{{ row[0] }}</td> <!-- Assuming the ID is the first column -->
+                <td>{{ row[1] }}</td> <!-- Assuming the Title is the second column -->
+                <td>{{ row[2] }}</td> <!-- Assuming the Content is the third column -->
+                <!-- Add more table cells as needed -->
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>    
+
     <!-- Section to edit an existing record -->
     <div id="edit-record" style="display: none;">
-        <h2>Edit Record in {{ table_name }}</h2>
-        <form action="{{ url_for('edit_record', table_name=table_name, record_id=record_id) }}" method="post">
-            {% for column, value in columns|zip_lists(record) %}
-                {% if column != 'id' %}
-                    <label for="{{ column }}">{{ column }}</label>
-                    <input type="text" name="{{ column }}" id="{{ column }}" value="{{ value }}">
-                {% endif %}
-            {% endfor %}
-            <input type="submit" value="Update Record">
-        </form>
+        <h2>Edit Record in {{ database_name }}</h2>
+        {% if record_id %}
+            <form action="{{ url_for('edit_record', database_name=database_name, record_id=record_id) }}" method="post">
+                {% for column, value in columns|zip_lists(record) %}
+                    {% if column != 'id' %}
+                        <label for="{{ column }}">{{ column }}</label>
+                        <input type="text" name="{{ column }}" id="{{ column }}" value="{{ value }}">
+                    {% endif %}
+                {% endfor %}
+                <input type="submit" value="Update Record">
+            </form>
+        {% else %}
+            <p>No record selected for editing.</p>
+        {% endif %}
     </div>
-    <script>
+      <script>
         // JavaScript to handle showing/hiding different sections
         const urlParams = new URLSearchParams(window.location.search);
         const section = urlParams.get('section');
     
         if (section === 'view') {
-            document.getElementById('table-view').style.display = 'block';
+            document.getElementById('database-view').style.display = 'block';
             document.getElementById('table-list').style.display = 'none';
         } else if (section === 'add') {
             document.getElementById('add-record').style.display = 'block';
             document.getElementById('table-list').style.display = 'none';
         } else if (section === 'edit') {
             document.getElementById('edit-record').style.display = 'block';
-            document.getElementById('table-list').style.display = 'none';
-        } else if (section === 'view_articles') {
-            document.getElementById('view-articles').style.display = 'block';
-            document.getElementById('table-list').style.display = 'none';
-        } else if (section === 'add_article') {
-            document.getElementById('add-article').style.display = 'block';
-            document.getElementById('table-list').style.display = 'none';
-        } else if (section === 'edit_article') {
-            document.getElementById('edit-article').style.display = 'block';
             document.getElementById('table-list').style.display = 'none';
         } else {
             document.getElementById('table-list').style.display = 'block';

@@ -1,320 +1,311 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>My Channels and Discover</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    </head>
-    <body>
-        <header>
-            <div class="container">
-                <h1>Welcome {{ username }}</h1>
-                <a href="/SwehulYoutube">Youtube</a>
-                <a href="/login" class="login-btn">Signup/Login</a><br/>
-                <div id="mode-toggle" class="toggle-icon" onclick="toggleDarkMode()">🌙</div>
-                <a href="{{ url_for('logout') }}">Logout</a>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Channels and Discover</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='PersonalisedGenresSelection.css') }}">
+</head>
+<body>
+<header>
+    <div class="container">
+        <h1>Welcome {{ username }}</h1>
+        <a href="/SwehulYoutube">Youtube</a>
+        <a href="/login" class="login-btn">Signup/Login</a><br/>
+        <button id="dark-mode-toggle" class="header-button" onclick="toggleDarkMode()">
+            🌙 <!-- Moon icon -->
+        </button>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+</header>
+<main>
+    <div class="logo">
+        <center><h1>Select Your News Feed</h1></center>
+    </div>
+    <center><h2>Discover</h2></center>
+    <section id="discover">
+        <p>Find channels to follow for a personalized feed. The content will appear in your Following feed.</p>
+        <form id="search-form" action="#">
+            <div id="search-container">
+                <input type="text" id="search-input" placeholder="Search Your Genre">
+                <div id="cancel-btn">X</div> <!-- Cancel button -->
             </div>
-        </header>
-        <main>
-            <div class="logo">
-                <center><h1>Select Your News Feed</h1></center>
-            </div>
-            <center><h2>Discover</h2></center>
-            <section id="discover">
-                <p>Find channels to follow for a personalized feed. The content will appear in your Following feed.</p>
-                <form id="search-form" action="#">
-                    <div id="search-container">
-                        <input type="text" id="search-input" placeholder="Search Your Genre">
-                        <div id="cancel-btn">X</div> <!-- Cancel button -->
-                    </div>
-                    <div id="suggestions"></div>
-                    <button type="submit">Search</button>
-                </form>
-            </section>
-            
-    
-            <div class="wrapper">  
-                <section id="my-channels">
-                    <h2>My Channels</h2>
-                    <ul>
-                        <li><a href="#">Discover</a></li>
-                        <li><a href="#">Following</a></li>
-                        <li><a href="#">Blocked</a></li>
-                    </ul>
-                </section>
-                <div class="wrapper"> 
-                    <div id="recommended-topics">
-                        <br><h3>Recommended Topics</h3><br>
-                        <button class="scroll-btn prev">◄</button>
-                        <button class="scroll-btn next">►</button>
+            <div id="suggestions"></div>
+            <button type="submit">Search</button>
+        </form>
+    </section>
 
-                        <div id="horizontal-scroll-container">
-                            <!-- Scroll buttons -->
-                            <ul>
-                                <!-- 1st element -->
-                                <li class="genreSelection">
-                                    <a href="https://www.agweb.com/" class="genreLink">1. Agriculture</a>
-                                </li>
-                            
-                                <!-- 2nd element -->
-                                <li class="genreSelection">
-                                    <a href="https://www.economist.com/" class="genreLink">2. Analysis</a>
-                                </li>
-                            
-                                <!-- 3rd element -->
-                                <li class="genreSelection">
-                                    <a href="https://www.artsy.net/" class="genreLink">3. Arts & Culture</a>
-                                </li>
-                            
-                                <!-- 4th element -->
-                                <li class="genreSelection">
-                                    <a href="https://www.globalissues.org/" class="genreLink">4. Awareness</a>
-                                </li>
-                            
-                                <!-- 5th element -->
-                                <li class="genreSelection">
-                                    <a href="https://www.bloomberg.com/" class="genreLink">5. Business</a>
-                                </li>
-                            
-                                <!-- 6th element -->
-                                <li class="genreSelection">
-                                    <a href="https://hbr.org/" class="genreLink">6. Business Perspectives</a>
-                                </li>
-                            
-                                <!-- 7th element -->
-                                <li class="genreSelection">
-                                    <a href="https://www.unicef.org/" class="genreLink">7. Children</a>
-                                </li>
-                            
-                                <!-- 8th element -->
-                                <li class="genreSelection">
-                                    <a href="https://www.wto.org/" class="genreLink">8. Commerce</a>
-                                </li>
-                            
-                                <!-- 9th element -->
-                                <li class="genreSelection">
-                                    <a href="https://www.habitat.org/" class="genreLink">9. Community Service</a>
-                                </li>
-                            
-                                <!-- 10th element -->
-                                <li class="genreSelection">
-                                    <a href="https://www.nationalgeographic.com/" class="genreLink">10. Culture</a>
-                                </li>
-                                
-                                <!-- 11th element -->
-                                <li class="genreSelection">
-                                    <a href="https://www.foreignaffairs.com/" class="genreLink">11. Diplomacy</a>
-                                </li>
-                                
-                                <!-- 12th element -->
-                                <li class="genreSelection">
-                                    <a href="https://www.edutopia.org/" class="genreLink">12. Education</a>
-                                </li>
-                                
-                                <!-- 13th element -->
-                                <li class="genreSelection">
-                                    <a href="https://www.hollywoodreporter.com/" class="genreLink">13. Entertainment</a>
-                                </li>
-                                
-                                <!-- 14th element -->
-                                <li class="genreSelection">
-                                    <a href="https://www.nationalgeographic.com/environment/" class="genreLink">14. Environment</a>
-                                </li>
-                                
-                                <!-- 15th element -->
-                                <li class="genreSelection">
-                                    <a href="https://www.timeout.com/" class="genreLink">15. Events</a>
-                                </li>
-                                
-                                <!-- 16th element -->
-                                <li class="genreSelection">
-                                    <a href="https://www.britannica.com/topic/field-specific-ethics" class="genreLink">16. Field-specific</a>
-                                </li>
-                                
-                                <!-- 17th element -->
-                                <li class="genreSelection">
-                                    <a href="https://www.eater.com/" class="genreLink">17. Food</a>
-                                </li>
-                                
-                                <!-- 18th element -->
-                                <li class="genreSelection">
-                                    <a href="https://www.who.int/" class="genreLink">18. Health</a>
-                                </li>
-                                
-                                <!-- 19th element -->
-                                <li class="genreSelection">
-                                    <a href="https://www.heritage.org/" class="genreLink">19. Heritage</a>
-                                </li>
-                                
-                                <!-- 20th element -->
-                                <li class="genreSelection">
-                                    <a href="https://www.history.com/" class="genreLink">20. History</a>
-                                </li>
-                                
-                                <!-- 21st element -->
-                                <li class="genreSelection">
-                                    <a href="https://www.ted.com/" class="genreLink">21. Imagination</a>
-                                </li>
-                                
-                                <!-- 22nd element -->
-                                <li class="genreSelection">
-                                    <a href="https://www.bbc.com/news/world" class="genreLink">22. International</a>
-                                </li>
-                                
-                                <!-- 23rd element -->
-                                <li class="genreSelection">
-                                    <a href="https://www.foreignpolicy.com/" class="genreLink">23. International Relations</a>
-                                </li>
-                                
-                                <!-- 24th element -->
-                                <li class="genreSelection">
-                                    <a href="https://www.fastcompany.com/section/innovation" class="genreLink">24. Innovation</a>
-                                </li>
-                                
-                                <!-- 25th element -->
-                                <li class="genreSelection">
-                                    <a href="https://www.law.com/international-edition/" class="genreLink">25. Legal</a>
-                                </li>
-                                
-                                <!-- 26th element -->
-                                <li class="genreSelection">
-                                    <a href="https://www.nytimes.com/section/fashion" class="genreLink">26. Lifestyle</a>
-                                </li>
-                                
-                                <!-- 27th element -->
-                                <li class="genreSelection">
-                                    <a href="https://www.nytimes.com/section/books" class="genreLink">27. Literature</a>
-                                </li>
-                                
-                                <!-- 28th element -->
-                                <li class="genreSelection">
-                                    <a href="https://www.localnews.com/" class="genreLink">28. Local</a>
-                                </li>
-                                
-                                <!-- 29th element -->
-                                <li class="genreSelection">
-                                    <a href="https://www.theguardian.com/uk/commentisfree" class="genreLink">29. Opinion/Editorials</a>
-                                </li>
-                                
-                                <!-- 30th element -->
-                                <li class="genreSelection">
-                                    <a href="https://www.success.com/" class="genreLink">30. Personal Development</a>
-                                </li>
-                                
-                                <!-- 31st element -->
-                                <li class="genreSelection">
-                                    <a href="https://www.brookings.edu/research/" class="genreLink">31. Policy</a>
-                                </li>
-                                
-                                <!-- 32nd element -->
-                                <li class="genreSelection">
-                                    <a href="https://www.politico.com/" class="genreLink">32. Politics</a>
-                                </li>
-                                
-                                <!-- 33rd element -->
-                                <li class="genreSelection">
-                                    <a href="https://www.psychologytoday.com/us" class="genreLink">33. Psychology</a>
-                                </li>
-                                
-                                <!-- 34th element -->
-                                <li class="genreSelection">
-                                    <a href="https://www.publicintegrity.org/" class="genreLink">34. Public Interest</a>
-                                </li>
-                                
-                                <!-- 35th element -->
-                                <li class="genreSelection">
-                                    <a href="https://www.refinery29.com/en-us" class="genreLink">35. Reflection</a>
-                                </li>
-                                
-                                <!-- 36th element -->
-                                <li class="genreSelection">
-                                    <a href="https://www.npr.org/sections/world/" class="genreLink">36. Regional</a>
-                                </li>
-                                
-                                <!-- 37th element -->
-                                <li class="genreSelection">
-                                    <a href="https://www.psychologytoday.com/us" class="genreLink">37. Relationships</a>
-                                </li>
-                                
-                                <!-- 38th element -->
-                                <li class="genreSelection">
-                                    <a href="https://www.bbc.com/news/world" class="genreLink">38. Religion</a>
-                                </li>
-                                
-                                <!-- 39th element -->
-                                <li class="genreSelection">
-                                    <a href="https://www.researchgate.net/" class="genreLink">39. Research</a>
-                                </li>
-                                
-                                <!-- 40th element -->
-                                <li class="genreSelection">
-                                    <a href="https://www.sciencemag.org/" class="genreLink">40. Science</a>
-                                </li>
-                                
-                                <!-- 41st element -->
-                                <li class="genreSelection">
-                                    <a href="#" class="genreLink">41. Security</a>
-                                </li>
-                                
-                                <!-- 42nd element -->
-                                <li class="genreSelection">
-                                    <a href="#" class="genreLink">42. Social</a>
-                                </li>
-                                
-                                <!-- 43rd element -->
-                                <li class="genreSelection">
-                                    <a href="#" class="genreLink">43. Special Reports</a>
-                                </li>
-                                
-                                <!-- 44th element -->
-                                <li class="genreSelection">
-                                    <a href="#" class="genreLink">44. Sports</a>
-                                </li>
-                                
-                                <!-- 45th element -->
-                                <li class="genreSelection">
-                                    <a href="#" class="genreLink">45. Technology</a>
-                                </li>
-                                
-                                <!-- 46th element -->
-                                <li class="genreSelection">
-                                    <a href="#" class="genreLink">46. Travel</a>
-                                </li>
-                                
-                                <!-- 47th element -->
-                                <li class="genreSelection">
-                                    <a href="#" class="genreLink">47. Women</a>
-                                </li>
-                                
-                                <!-- 48th element -->
-                                <li class="genreSelection">
-                                    <a href="#" class="genreLink">48. Youth</a>
-                                </li>
-                                
-                                <!-- 49th element -->
-                                <li class="genreSelection">
-                                    <a href="#" class="genreLink">49. International Relations</a>
-                                </li>
-                                
-                                <!-- 50th element -->
-                                <li class="genreSelection">
-                                    <a href="#" class="genreLink">50. Lifestyle</a>
-                                </li>
-                            </ul>     
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </main>
-        <footer>
-            <p>&copy; 2024 My Channels</p>
-        </footer>
+    <div class="wrapper">  
+        <section id="recommended-topics">
+            <h2>Recommended Topics</h2>
+            <div id="horizontal-scroll-container">
+                <!-- Scroll buttons -->
+                <ul>
+                    <!-- 1st element -->
+                    <li class="genreSelection">
+                        <a href="https://www.agweb.com/" class="genreLink"><img src="agriculture-icon.png" alt="Agriculture Icon"> 1. Agriculture</a>
+                    </li>
+                    
+                    <!-- 2nd element -->
+                    <li class="genreSelection">
+                        <a href="https://www.economist.com/" class="genreLink"><img src="analysis-icon.png" alt="Analysis Icon"> 2. Analysis</a>
+                    </li>
+                    
+                    <!-- 3rd element -->
+                    <li class="genreSelection">
+                        <a href="https://www.artsy.net/" class="genreLink"><img src="arts-culture-icon.png" alt="Arts & Culture Icon"> 3. Arts & Culture</a>
+                    </li>
+                    
+                    <!-- 4th element -->
+                    <li class="genreSelection">
+                        <a href="https://www.globalissues.org/" class="genreLink"><img src="awareness-icon.png" alt="Awareness Icon"> 4. Awareness</a>
+                    </li>
+                    
+                    <!-- 5th element -->
+                    <li class="genreSelection">
+                        <a href="https://www.bloomberg.com/" class="genreLink"><img src="business-icon.png" alt="Business Icon"> 5. Business</a>
+                    </li>
+                    
+                    <!-- 6th element -->
+                    <li class="genreSelection">
+                        <a href="https://hbr.org/" class="genreLink"><img src="business-perspectives-icon.png" alt="Business Perspectives Icon"> 6. Business Perspectives</a>
+                    </li>
+                    
+                    <!-- 7th element -->
+                    <li class="genreSelection">
+                        <a href="https://www.unicef.org/" class="genreLink"><img src="children-icon.png" alt="Children Icon"> 7. Children</a>
+                    </li>
+                    
+                    <!-- 8th element -->
+                    <li class="genreSelection">
+                        <a href="https://www.wto.org/" class="genreLink"><img src="commerce-icon.png" alt="Commerce Icon"> 8. Commerce</a>
+                    </li>
+                    
+                    <!-- 9th element -->
+                    <li class="genreSelection">
+                        <a href="https://www.habitat.org/" class="genreLink"><img src="community-service-icon.png" alt="Community Service Icon"> 9. Community Service</a>
+                    </li>
+                    
+                    <!-- 10th element -->
+                    <li class="genreSelection">
+                        <a href="https://www.nationalgeographic.com/" class="genreLink"><img src="culture-icon.png" alt="Culture Icon"> 10. Culture</a>
+                    </li>
+                    
+                    <!-- 11th element -->
+                    <li class="genreSelection">
+                        <a href="https://www.foreignaffairs.com/" class="genreLink"><img src="diplomacy-icon.png" alt="Diplomacy Icon"> 11. Diplomacy</a>
+                    </li>
+                    
+                    <!-- 12th element -->
+                    <li class="genreSelection">
+                        <a href="https://www.edutopia.org/" class="genreLink"><img src="education-icon.png" alt="Education Icon"> 12. Education</a>
+                    </li>
+                    
+                    <!-- 13th element -->
+                    <li class="genreSelection">
+                        <a href="https://www.hollywoodreporter.com/" class="genreLink"><img src="entertainment-icon.png" alt="Entertainment Icon"> 13. Entertainment</a>
+                    </li>
+                    
+                    <!-- 14th element -->
+                    <li class="genreSelection">
+                        <a href="https://www.nationalgeographic.com/environment/" class="genreLink"><img src="environment-icon.png" alt="Environment Icon"> 14. Environment</a>
+                    </li>
+                    
+                    <!-- 15th element -->
+                    <li class="genreSelection">
+                        <a href="https://www.timeout.com/" class="genreLink"><img src="events-icon.png" alt="Events Icon"> 15. Events</a>
+                    </li>
+                    
+                    <!-- 16th element -->
+                    <li class="genreSelection">
+                        <a href="https://www.britannica.com/topic/field-specific-ethics" class="genreLink"><img src="field-specific-icon.png" alt="Field-specific Icon"> 16. Field-specific</a>
+                    </li>
+                    
+                    <!-- 17th element -->
+                    <li class="genreSelection">
+                        <a href="https://www.eater.com/" class="genreLink"><img src="food-icon.png" alt="Food Icon"> 17. Food</a>
+                    </li>
+                    
+                    <!-- 18th element -->
+                    <li class="genreSelection">
+                        <a href="https://www.who.int/" class="genreLink"><img src="health-icon.png" alt="Health Icon"> 18. Health</a>
+                    </li>
+                    
+                    <!-- 19th element -->
+                    <li class="genreSelection">
+                        <a href="https://www.heritage.org/" class="genreLink"><img src="heritage-icon.png" alt="Heritage Icon"> 19. Heritage</a>
+                    </li>
+                    
+                    <!-- 20th element -->
+                    <li class="genreSelection">
+                        <a href="https://www.history.com/" class="genreLink"><img src="history-icon.png" alt="History Icon"> 20. History</a>
+                    </li>
+                    
+                    <!-- 21st element -->
+                    <li class="genreSelection">
+                        <a href="https://www.ted.com/" class="genreLink"><img src="imagination-icon.png" alt="Imagination Icon"> 21. Imagination</a>
+                    </li>
+                    
+                    <!-- 22nd element -->
+                    <li class="genreSelection">
+                        <a href="https://www.bbc.com/news/world" class="genreLink"><img src="international-icon.png" alt="International Icon"> 22. International</a>
+                    </li>
+                    
+                    <!-- 23rd element -->
+                    <li class="genreSelection">
+                        <a href="https://www.foreignpolicy.com/" class="genreLink"><img src="international-relations-icon.png" alt="International Relations Icon"> 23. International Relations</a>
+                    </li>
+                    
+                    <!-- 24th element -->
+                    <li class="genreSelection">
+                        <a href="https://www.fastcompany.com/section/innovation" class="genreLink"><img src="innovation-icon.png" alt="Innovation Icon"> 24. Innovation</a>
+                    </li>
+                    
+                    <!-- 25th element -->
+                    <li class="genreSelection">
+                        <a href="https://www.law.com/international-edition/" class="genreLink"><img src="legal-icon.png" alt="Legal Icon"> 25. Legal</a>
+                    </li>
+                    
+                    <!-- 26th element -->
+                    <li class="genreSelection">
+                        <a href="https://www.nytimes.com/section/fashion" class="genreLink"><img src="lifestyle-icon.png" alt="Lifestyle Icon"> 26. Lifestyle</a>
+                    </li>
+                    
+                    <!-- 27th element -->
+                    <li class="genreSelection">
+                        <a href="https://www.nytimes.com/section/books" class="genreLink"><img src="literature-icon.png" alt="Literature Icon"> 27. Literature</a>
+                    </li>
+                    
+                    <!-- 28th element -->
+                    <li class="genreSelection">
+                        <a href="https://www.localnews.com/" class="genreLink"><img src="local-icon.png" alt="Local Icon"> 28. Local</a>
+                    </li>
+                    
+                    <!-- 29th element -->
+                    <li class="genreSelection">
+                        <a href="https://www.theguardian.com/uk/commentisfree" class="genreLink"><img src="opinion-editorials-icon.png" alt="Opinion/Editorials Icon"> 29. Opinion/Editorials</a>
+                    </li>
+                    
+                    <!-- 30th element -->
+                    <li class="genreSelection">
+                        <a href="https://www.success.com/" class="genreLink"><img src="personal-development-icon.png" alt="Personal Development Icon"> 30. Personal Development</a>
+                    </li><!-- 31st element -->
+                    <li class="genreSelection">
+                        <a href="https://www.brookings.edu/research/" class="genreLink"><img src="policy-icon.png" alt="Policy Icon"> 31. Policy</a>
+                    </li>
+                    
+                    <!-- 32nd element -->
+                    <li class="genreSelection">
+                        <a href="https://www.politico.com/" class="genreLink"><img src="politics-icon.png" alt="Politics Icon"> 32. Politics</a>
+                    </li>
+                    
+                    <!-- 33rd element -->
+                    <li class="genreSelection">
+                        <a href="https://www.psychologytoday.com/us" class="genreLink"><img src="psychology-icon.png" alt="Psychology Icon"> 33. Psychology</a>
+                    </li>
+                    
+                    <!-- 34th element -->
+                    <li class="genreSelection">
+                        <a href="https://www.publicintegrity.org/" class="genreLink"><img src="public-interest-icon.png" alt="Public Interest Icon"> 34. Public Interest</a>
+                    </li>
+                    
+                    <!-- 35th element -->
+                    <li class="genreSelection">
+                        <a href="https://www.refinery29.com/en-us" class="genreLink"><img src="reflection-icon.png" alt="Reflection Icon"> 35. Reflection</a>
+                    </li>
+                    
+                    <!-- 36th element -->
+                    <li class="genreSelection">
+                        <a href="https://www.npr.org/sections/world/" class="genreLink"><img src="regional-icon.png" alt="Regional Icon"> 36. Regional</a>
+                    </li>
+                    
+                    <!-- 37th element -->
+                    <li class="genreSelection">
+                        <a href="https://www.psychologytoday.com/us" class="genreLink"><img src="relationships-icon.png" alt="Relationships Icon"> 37. Relationships</a>
+                    </li>
+                    
+                    <!-- 38th element -->
+                    <li class="genreSelection">
+                        <a href="https://www.bbc.com/news/world" class="genreLink"><img src="religion-icon.png" alt="Religion Icon"> 38. Religion</a>
+                    </li>
+                    
+                    <!-- 39th element -->
+                    <li class="genreSelection">
+                        <a href="https://www.researchgate.net/" class="genreLink"><img src="research-icon.png" alt="Research Icon"> 39. Research</a>
+                    </li>
+                    
+                    <!-- 40th element -->
+                    <li class="genreSelection">
+                        <a href="https://www.sciencemag.org/" class="genreLink"><img src="science-icon.png" alt="Science Icon"> 40. Science</a>
+                    </li>
+                    
+                    <!-- 41st element -->
+                    <li class="genreSelection">
+                        <a href="#" class="genreLink"><img src="security-icon.png" alt="Security Icon"> 41. Security</a>
+                    </li>
+                    
+                    <!-- 42nd element -->
+                    <li class="genreSelection">
+                        <a href="#" class="genreLink"><img src="social-icon.png" alt="Social Icon"> 42. Social</a>
+                    </li>
+                    
+                    <!-- 43rd element -->
+                    <li class="genreSelection">
+                        <a href="#" class="genreLink"><img src="special-reports-icon.png" alt="Special Reports Icon"> 43. Special Reports</a>
+                    </li>
+                    
+                    <!-- 44th element -->
+                    <li class="genreSelection">
+                        <a href="#" class="genreLink"><img src="sports-icon.png" alt="Sports Icon"> 44. Sports</a>
+                    </li>
+                    
+                    <!-- 45th element -->
+                    <li class="genreSelection">
+                        <a href="#" class="genreLink"><img src="technology-icon.png" alt="Technology Icon"> 45. Technology</a>
+                    </li>
+                    
+                    <!-- 46th element -->
+                    <li class="genreSelection">
+                        <a href="#" class="genreLink"><img src="travel-icon.png" alt="Travel Icon"> 46. Travel</a>
+                    </li>
+                    
+                    <!-- 47th element -->
+                    <li class="genreSelection">
+                        <a href="#" class="genreLink"><img src="women-icon.png" alt="Women Icon"> 47. Women</a>
+                    </li>
+                    
+                    <!-- 48th element -->
+                    <li class="genreSelection">
+                        <a href="#" class="genreLink"><img src="youth-icon.png" alt="Youth Icon"> 48. Youth</a>
+                    </li>
+                    
+                    <!-- 49th element -->
+                    <li class="genreSelection">
+                        <a href="#" class="genreLink"><img src="international-relations-icon.png" alt="International Relations Icon"> 49. International Relations</a>
+                    </li>
+                    
+                    <!-- 50th element -->
+                    <li class="genreSelection">
+                        <a href="#" class="genreLink"><img src="lifestyle-icon.png" alt="Lifestyle Icon"> 50. Lifestyle</a>
+                    </li>                    
+                </ul>  
+        </section>
+        <div class="wrapper"> 
+            <section id="my-channels">
+                <br><h3>My Channels</h3><br>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/user_articles">Read Articles</a>
+                        <li><a href="/about">About</a></li>
+                </ul>  
+            </section>
+        </div>
+    </div>
+</main>
         <script>
-            // Dark mode toggle functionality
             function toggleDarkMode() {
-                document.body.classList.toggle("dark-mode");
-            }
+            document.body.classList.toggle("dark-mode");
+        }
             
             document.addEventListener('DOMContentLoaded', function() {
                 const topics = [
@@ -393,11 +384,18 @@
                 searchInput.value = '';
                 // Close suggestions dropdown
                 suggestions.innerHTML = ''; // Clear suggestions
-            });
+            }); 
+    </script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <br><br><br><br>
+        <!-- Footer -->
+        <footer>
+            <div class="container">
+                <p>&copy; 2024 Personalized News Aggregator</p>
+            </div>
+        </footer>
+        <script>
+            
         </script>
-        
-        
-
     </body>
-    
-</html>
+    </html>    

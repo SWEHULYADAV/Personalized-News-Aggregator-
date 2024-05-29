@@ -1,0 +1,341 @@
+/* Typography */
+body {
+    font-family: 'Roboto', sans-serif; /* Use Roboto font for body text */
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif; /* Use Montserrat font for headings */
+}
+
+/* Color Scheme */
+:root {
+    --primary-color: #007bff; /* Define primary color */
+    --secondary-color: #6c757d; /* Define secondary color */
+    --text-color: #333; /* Define text color */
+    --background-gradient: linear-gradient(to right, #E0D2C7, #44B09E); /* Define background gradient */
+    --background-dark: #000; /* Define dark mode background color */
+}
+
+/* Reset default margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f5f5;
+    overflow-x: hidden; /* Prevent horizontal overflow */
+    background: var(--background-gradient); /* Use background gradient */
+    color: #333;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    background-color: #0078D4; /* Microsoft Edge blue */
+    color: white;
+    padding: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+header h1 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+header a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+    font-size: 16px;
+}
+
+header .login-btn {
+    background-color: transparent;
+    border: 1px solid white;
+    border-radius: 4px;
+    padding: 5px 10px;
+}
+
+#mode-toggle {
+    cursor: pointer;
+    font-size: 20px;
+}
+
+main {
+    padding: 20px;
+}
+
+.logo h1 {
+    font-size: 36px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+section {
+    margin-bottom: 20px;
+    background-color: rgba(255, 255, 255, 0.486);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+section h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+form {
+    margin-top: 20px;
+}
+
+#search-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+#search-input {
+    flex: 1;
+    padding: 8px;
+    border: none; /* Remove border */
+    border-bottom: 1px solid #ccc; /* Add bottom border */
+    border-radius: 0; /* Remove border radius */
+    outline: none; /* Remove outline */
+    transition: border-color 0.3s ease; /* Smooth border color transition */
+}
+
+
+#search-input:focus {
+    border-color: #ffa500; /* Orange color when input is focused */
+    outline: none; /* Remove default focus outline */
+}
+
+#cancel-btn {
+    background-color: #ccc;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin-left: 10px;
+    font-size: 18px; 
+    transition: background-color 0.3s ease; /* Smooth transition for background color */
+}
+
+#cancel-btn:hover {
+    background-color: #999; /* Darker background color on hover */
+}
+
+#suggestions {
+    position: absolute;
+    background-color: white;
+    border: 1px solid #0078D4; /* Microsoft Edge blue */
+    border-top: none;
+    width: calc(100% - 22px); /* Adjust width to account for border and padding */
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1;
+    margin-top: 5px; /* Adjust margin-top for better alignment */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add shadow for dropdown */
+}
+
+.suggestion-item {
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Smooth transition for background color */
+}
+
+.suggestion-item:hover {
+    background-color: #f0f0f0; /* Lighter background color on hover */
+}
+
+.wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+#my-channels, #recommended-topics {
+    flex: 1;
+    min-width: 300px;
+}
+
+#my-channels ul {
+    list-style: none;
+    padding: 0;
+}
+
+#my-channels li {
+    margin-bottom: 10px;
+}
+
+#my-channels a {
+    text-decoration: none;
+    color: #0078D4;
+    font-size: 18px;
+}
+
+#recommended-topics {
+    margin-top: 20px;
+}
+
+#recommended-topics h3 {
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+#horizontal-scroll-container {
+    display: flex;
+    overflow-x: auto;
+    gap: 20px;
+    padding: 10px 0;
+}
+
+.genreSelection {
+    flex: 1 0 calc(20% - 20px);
+    max-width: calc(20% - 20px);
+    padding: 20px;
+    background-color: transparent;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+}
+
+.genreSelection:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    border-color: #ffa500;
+}
+
+.genreSelection img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+    filter: grayscale(50%);
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.genreSelection h3 {
+    font-size: 18px;
+    margin: 0;
+    color: inherit;
+}
+
+.genreSelection p {
+    margin: 5px 0;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+    color: inherit;
+}
+
+.genreSelection:hover p {
+    opacity: 1;
+}
+
+.scroll-btn {
+    background-color: transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+}
+
+.scroll-btn.prev {
+    left: 0;
+}
+
+.scroll-btn.next {
+    right: 0;
+}
+
+footer {
+    background-color: #0078D4; /* Microsoft Edge blue */
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    header {
+        padding: 10px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    header h1 {
+        font-size: 20px;
+    }
+
+    .login-btn {
+        font-size: 14px;
+    }
+
+    .logo h1 {
+        font-size: 24px;
+        }
+        #search-input {
+            padding: 8px;
+        }
+        
+        footer {
+            font-size: 14px;
+        }
+        
+        .wrapper {
+            flex-direction: column;
+        }
+        
+        .genreSelection {
+            width: 100%;
+        }
+        
+        #horizontal-scroll-container {
+            flex-direction: column;
+        }
+    }
+
+    #horizontal-scroll-container ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Adjust the gap between elements */
+    }        
+
+/* Dark mode styles */
+.dark-mode {
+    background: var(--background-dark); /* Use dark background color */
+    color: #03fff6;
+}
+
+/* Update background color for the entire screen in dark mode */
+.dark-mode body {
+    background: var(--background-dark); /* Black background color */
+}
