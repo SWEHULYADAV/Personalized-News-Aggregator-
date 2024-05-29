@@ -17,7 +17,10 @@ Here In My Case I'm Using Anaconda Prompt For Executing ....
      ```
      git clone https://github.com/SWEHULYADAV/Personalized-News-Aggregator-.git
      ```
+And Install Packages By Command
 
+     pip install Flask Flask-WTF bcrypt requests Werkzeug
+     ```
 2. Navigate to Project Directory:
    - Change your directory to the cloned project folder:
 
