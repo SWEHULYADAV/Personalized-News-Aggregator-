@@ -1,0 +1,511 @@
+/* Basic styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to right, #E0D2C7, #44B09E); /* Normal mode background color */
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+    position: relative;
+}
+
+header a {
+    color: #fff;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+main {
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 0px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Form styles */
+.form-group {
+    margin-bottom: 10px;
+}
+
+label {
+    display: block;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 5px;
+    margin-top: 5px;
+}
+
+button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #555;
+}
+
+.error {
+    color: red;
+}
+
+/* Responsive styles */
+@media only screen and (max-width: 600px) {
+    .container {
+        width: 100%;
+    }
+    .article {
+        width: calc(50% - 20px);
+    }
+}
+
+/* Dark mode styles */
+body.dark-mode {
+    background: #111; /* Dark mode background color */
+}
+
+.dark-mode footer {
+    background-color: #111; /* Dark mode footer background color */
+}
+
+.dark-mode button {
+    background-color: #555; /* Dark mode button background color */
+}
+
+.dark-mode button:hover {
+    background-color: #777; /* Dark mode button hover background color */
+}
+
+/* News feed styles */
+.news-feed {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px; /* Gap between articles */
+}
+
+.article {
+    width: calc(33.33% - 20px); /* Ensure 3 columns in a row */
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    position: relative;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    border: 2px solid transparent; /* Default border */
+}
+
+.article:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    border-color: #ffa500; /* Change border color on hover */
+}
+
+.article img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+    filter: grayscale(50%); /* Add grayscale filter to image */
+    border-radius: 5px; /* Add border-radius */
+    transition: all 0.3s ease; /* Smooth transition */
+}
+
+.article h3 {
+    font-size: 18px;
+    margin: 0;
+    color: inherit; /* Use the same color as parent */
+}
+
+.article p {
+    margin: 5px 0;
+    opacity: 0.8; /* Reduced opacity for better readability */
+    transition: opacity 0.3s ease; /* Smooth transition */
+    color: inherit; /* Use the same color as parent */
+}
+
+.article:hover p {
+    opacity: 1; /* Restore opacity on hover */
+}
+
+.pagination {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.pagination a {
+    display: inline-block;
+    margin: 0 5px;
+    padding: 5px 10px;
+    background-color: #333;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.pagination a:hover {
+    background-color: #555;
+}
+
+/* Positioning of toggle icons */
+#mode-toggle {
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+#logout-button {
+    cursor: pointer;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+}
+
+/* Language selection button */
+.language-select {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    display: inline-block;
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.language-select:hover {
+    background-color: #555;
+}
+
+.language-options {
+    position: absolute;
+    left: 0;
+    top: 40px;
+    display: none;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    z-index: 1;
+}
+
+.language-options a {
+    display: block;
+    color: #333;
+    text-decoration: none;
+    padding: 5px 0;
+}
+
+.language-options a:hover {
+    background-color: #f0f0f0;
+}
+
+/* Tab styles */
+.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+.tab button:hover {
+    background-color: #ddd;
+}
+
+.tab button.active {
+    background-color: #ccc;
+}
+
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+
+.spacer {
+    height: 5px;
+    background-color: transparent;
+}
+
+/* Font Colors */
+body {
+    color: #333; /* Default font color */
+}
+
+body.dark-mode {
+    color: #ddd; /* Font color in dark mode */
+}
+
+header a {
+    color: #fff; /* Link color in normal mode */
+}
+
+body.dark-mode header a {
+    color: #ddd; /* Link color in dark mode */
+}
+
+label {
+    color: #333; /* Form label color in normal mode */
+}
+
+body.dark-mode label {
+    color: #ddd; /* Form label color in dark mode */
+}
+
+/* Updated CSS for Hamburger Menu */
+.menu-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.bar {
+    background-color: white;
+    display: block;
+    height: 2px;
+    margin : 4px 0;
+    transition: 0.4s;
+    width: 25px;
+}
+
+.bar:nth-child(2) {
+    width: 20px;
+}
+
+.bar:nth-child(3) {
+    width: 15px;
+}
+
+.menu-open .bar:nth-child(1) {
+    transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.menu-open .bar:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-open .bar:nth-child(3) {
+    transform: rotate(45deg) translate(-5px, -6px);
+}
+
+/* Updated CSS for Google Translate Widget and Header */
+.header {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    position: relative;
+}
+
+.translate-widget {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 10; /* Ensure the widget is above other content */
+}
+
+.options {
+    display: none;
+    position: absolute;
+    right: 10px;
+    top: 40px;
+    background-color: #333;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+}
+
+.options ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.options li {
+    margin-bottom: 5px;
+}
+
+.options a {
+    color: white;
+    text-decoration: none;
+}
+
+.options a:hover {
+    color: #ddd;
+}
+
+/* Updated CSS for pagination */
+.pagination {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.pagination a {
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin: 0 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.pagination a:hover {
+    background-color: #555;
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+/* Center the pagination links */
+.prev, .next {
+    display: inline-block;
+}
+
+/* Space the pagination links */
+.prev {
+    margin-right: 20px;
+}
+
+/*############################################################*/
+/* CSS styles specific to the country form in index.html */
+.country-form {
+    margin-bottom: 20px;
+    text-align: center;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Add shadow effect */
+    padding: 15px; /* Add padding for better spacing */
+}
+
+.country-form label {
+    font-weight: bold;
+}
+
+.country-form select {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin: 0 10px;
+}
+
+.country-form button {
+    padding: 8px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s; /* Add transition for smooth color change */
+    position: relative; /* Position icon relative to the button */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.country-form button:hover {
+    background-color: #00b33c;
+    border-color: red;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Change button border color when focused */
+.country-form button:focus {
+    border-color: rgb(255, 174, 0);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Add animation for hover effect on button icon */
+.country-form button:hover .toggle-icon {
+    animation: rotateIcon 0.5s infinite alternate; /* Rotate icon on hover */
+}
+
+/* Additional CSS for other elements */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.news-feed {
+    margin-top: 20px;
+}
+
+.pagination {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.pagination a {
+    margin: 0 5px;
+    text-decoration: none;
+    color: #007bff;
+}
+
+.pagination a:hover {
+    text-decoration: underline;
+}
+
+.pagination .page-link {
+    font-weight: bold;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+}
+
+.spacer {
+    height: 50px;
+}
+
+/* Dark mode styles */
+.dark-mode {
+    background-color: #333;
+    color: #fff;
+}
+
