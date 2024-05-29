@@ -1,0 +1,188 @@
+/* Typography */
+body {
+    font-family: 'Roboto', sans-serif; /* Use Roboto font for body text */
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif; /* Use Montserrat font for headings */
+}
+
+/* Color Scheme */
+:root {
+    --primary-color: #007bff; /* Define primary color */
+    --secondary-color: #6c757d; /* Define secondary color */
+    --text-color: #333; /* Define text color */
+    --background-gradient: linear-gradient(to right, #E0D2C7, #44B09E); /* Define background gradient */
+    --background-dark: #000; /* Define dark mode background color */
+}
+
+/* Global Styles */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Open Sans', sans-serif; /* Use Open Sans font for general text */
+    overflow-x: hidden; /* Prevent horizontal overflow */
+    background: var(--background-gradient); /* Use background gradient */
+}
+
+.container {
+    width: 90%;
+    margin: 0 auto;
+}
+
+/* Header Styles */
+header {
+    background-color: var(--primary-color); /* Use primary color for header background */
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+    position: relative;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+header a {
+    color: #fff;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+/* Main Content Styles */
+main {
+    margin-top: 80px; /* Adjust margin to accommodate header */
+    margin-bottom: 100px;
+    padding-bottom: 100px;
+    display: flex;
+    justify-content: center;
+}
+
+section {
+    width: 90%; /* Adjust width for better responsiveness */
+    max-width: 1200px; /* Limit width for larger screens */
+}
+
+/* Footer Styles */
+footer {
+    background-color: var(--primary-color);
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+/* Responsive Design */
+@media only screen and (max-width: 768px) {
+    header {
+        padding: 10px 0; /* Adjust header padding for smaller screens */
+    }
+
+    main {
+        margin-top: 60px; /* Adjust main margin for smaller screens */
+    }
+
+    section {
+        width: 100%; /* Adjust section width for smaller screens */
+    }
+}
+
+/* Dark mode styles */
+.dark-mode {
+    background: var(--background-dark); /* Use dark background color */
+    color: #d1ff03; /* Light text color */
+}
+
+/* Update background color for the entire screen in dark mode */
+.dark-mode body {
+    background: var(--background-dark); /* Black background color */
+}
+
+/* Article Styles */
+.articles {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.article {
+    width: calc(33.33% - 50px);
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #ffffffa4;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    position: relative;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    border: 2px solid transparent;
+    display: flex; /* Make the article box flex container */
+    flex-direction: column-reverse; /* Stack content vertically */
+    height: 350px;
+}
+
+.article:hover {
+    border: 2px solid var(--primary-color); /* Add border color on hover */
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.article h2 {
+    font-size: 1.5rem;
+    margin: 0 0 10px 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.article p {
+    margin: 10px 0;
+    flex-grow: 1; /* Allow paragraph to expand to fill remaining space */
+    overflow: hidden; /* Hide overflow text */
+    text-overflow: ellipsis; /* Add ellipsis for long text */
+}
+
+.article .author {
+    font-style: italic;
+    color: #555;
+}
+
+.options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+}
+
+.options a,
+.options button {
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.options a:hover,
+.options button:hover {
+    background-color: var(--primary-color);
+    color: #fff;
+}
+
+/* Image and Video Styles */
+.article img,
+.article video {
+    max-width: 100%;
+    height: auto;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    object-fit: cover; /* Ensure the image or video covers the entire container */
+}
