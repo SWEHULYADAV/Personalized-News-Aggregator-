@@ -135,162 +135,154 @@
     
 </head>
 <body>
-    {% for mess in get_flashed_messages() %}
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            {{ mess }}
-        </div>
-    {% endfor %}
-
-    <div class="container">
-        <div class="tab">
-            <button class="tablinks" onclick="openForm(event, 'login')">Login</button>
-            <button class="tablinks" onclick="openForm(event, 'signup')">Signup</button>
-            <button class="tablinks" onclick="openForm(event, 'admin_login')">Admin Login</button>
-        </div>
-
-        <!-- Login Form -->
-        <div id="login" class="tabcontent">
-            <div class="user signinbox">
-                <div class="imgbox"><img src="{{ url_for('static', filename='images/login.jpeg') }}" alt="Login Image"></div>
-                <div class="formbox">
-                    <form method="POST" action="{{ url_for('login') }}">
-                        <div class="form-group">
-                            <label for="username_or_email">Username or Email</label>
-                            <input type="text" name="username_or_email" class="form-control" id="username_or_email" placeholder="Enter username or email">
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Password</label>
-                            <input type="password" name="password" class="form-control" id="password" placeholder="Password">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Login</button>
-                    </form>
-                     
-                </div>
+        {% for mess in get_flashed_messages() %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                {{ mess }}
             </div>
-        </div>
-
-<!-- Signup Form -->
-<div id="signup" class="tabcontent">
-    <div class="user signupbox">
-        <div class="formbox">
-            <form method="post" action="{{ url_for('signup') }}" enctype="multipart/form-data">
-                <h2>Create an account</h2>
-                <div class="form-group">
-                    <div class="form-group">
-                        <input type="text" name="username" placeholder="Unique Username" required aria-label="Username">
+        {% endfor %}
+    
+        <div class="container">
+            <div class="tab">
+                <button class="tablinks" onclick="openForm(event, 'login')">Login</button>
+                <button class="tablinks" onclick="openForm(event,'signup')">Signup</button>
+                <button class="tablinks" onclick="openForm(event, 'admin_login')">Admin Login</button>
+            </div>
+    
+            <!-- Login Form -->
+            <div id="login" class="tabcontent">
+                <div class="user signinbox">
+                    <div class="imgbox"><img src="{{ url_for('static', filename='images/login.jpeg') }}" alt="Login Image"></div>
+                    <div class="formbox">
+                        <form method="POST" action="{{ url_for('login') }}">
+                            <div class="form-group">
+                                <label for="username_or_email">Username or Email</label>
+                                <input type="text" name="username_or_email" id="username_or_email" placeholder="Enter username or email" autocomplete="username">
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" name="password" id="password" placeholder="Password" autocomplete="current-password">
+                            </div>
+                            <button type="submit">Login</button>
+                        </form>
                     </div>
-                    <input type="text" name="usrname" placeholder="Full Name" required aria-label="Name">
-                </div>
-                <div class="form-group">
-                    <input type="email" name="email" placeholder="Email" required aria-label="Email">
-                </div>
-                <div class="form-group">
-                    <input type="tel" name="mobile_number" placeholder="Mobile Number" required aria-label="Mobile Number">
-                </div>
-                <!-- Add this div for the password strength popup -->
-                <div id="passwordStrengthPopup" class="password-strength-popup">
-                    Password Should Contain Min 8 Chars Including ABCabc123
-                </div>
-                
-                <!-- Modify the password input field to trigger the popup -->
-                <div class="form-group">
-                    <input type="password" id="pd1" name="password" placeholder="Create Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required aria-label="Create Password" onfocus="showPasswordStrengthPopup()" onblur="hidePasswordStrengthPopup()">
-                </div>
-                <div class="form-group">
-                    <input type="password" id="pd2" name="confirm_password" placeholder="Confirm Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required aria-label="Confirm Password">
-                </div>
-                <input type="submit" value="Sign Up">
-                <p class="signup">Already have an account? <a href="#" onclick="openForm(event, 'login');">Sign In</a></p>
-            </form>
-        </div>
-        <div class="imgbox"><img src="{{ url_for('static', filename='images/signup.jpg') }}" alt="Signup Image"></div>
-    </div>
-</div>
-
-
-
-
-        <!-- Admin Login Form -->
-        <div id="admin_login" class="tabcontent">
-            <div class="user signinbox">
-                <div class="imgbox"><img src="{{ url_for('static', filename='images/login.jpeg') }}" alt="Admin Login Image"></div>
-                <div class="formbox">
-                    <form action="{{ url_for('admin_login') }}" method="post" enctype="multipart/form-data">
-                        <h2>Admin Login</h2>
-                        <div class="form-group">
-                            <input type="text" name="username" placeholder="Username" required aria-label="Username">
-                        </div>
-                        <div class="form-group">
-                            <input type="password" name="admin_password" placeholder="Admin Password" required aria-label="Admin Password">
-                        </div>
-                        <input type="submit" value="Login">
-                    </form>
                 </div>
             </div>
-        </div>
-
-           <!-- Forgot Password Form -->
-           <div id="forgot_password" class="tabcontent">
-            <div class="user signinbox">
-                <div class="imgbox"><img src="{{ url_for('static', filename='images/login.jpeg') }}" alt="Forgot Password Image"></div>
-                <div class="formbox">
-                    <form action="{{ url_for('changepass') }}" method="post" enctype="multipart/form-data">
-                        <h2>Forgot Password</h2>
-                        <div class="form-group">
-                            <input type ="email" name="femail" placeholder="Enter email here" required aria-label="Email">
-                        </div>
-                        <input type="submit" value="Next">
-                    </form>
+    
+            <!-- Signup Form -->
+            <div id="signup" class="tabcontent">
+                <div class="user signupbox">
+                    <div class="formbox">
+                        <form method="post" action="{{ url_for('signup') }}" enctype="multipart/form-data">
+                            <h2>Create an account</h2>
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <input type="text" name="username" placeholder="Unique Username" required aria-label="Username" autocomplete="username">
+                                </div>
+                                <input type="text" name="usrname" placeholder="Full Name" required aria-label="Name">
+                            </div>
+                            <div class="form-group">
+                                <input type="email" name="email" placeholder="Email" required aria-label="Email" autocomplete="email">
+                            </div>
+                            <div class="form-group">
+                                <input type="tel" name="mobile_number" placeholder="Mobile Number" required aria-label="Mobile Number" autocomplete="tel">
+                            </div>
+                            <div id="passwordStrengthPopup" class="password-strength-popup">
+                                Password Should Contain Min 8 Chars Including ABCabc123
+                            </div>
+                            <div class="form-group">
+                                <input type="password" id="pd1" name="password" placeholder="Create Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required aria-label="Create Password" onfocus="showPasswordStrengthPopup()" onblur="hidePasswordStrengthPopup()" autocomplete="new-password">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" id="pd2" name="confirm_password" placeholder="Confirm Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required aria-label="Confirm Password" autocomplete="new-password">
+                            </div>
+                            <input type="submit" value="Sign Up">
+                            <p class="signup">Already have an account? <a href="#" onclick="openForm(event, 'login');">Sign In</a></p>
+                        </form>
+                    </div>
+                    <div class="imgbox"><img src="{{ url_for('static', filename='images/signup.jpg') }}" alt="Signup Image"></div>
                 </div>
             </div>
-        </div>
-
-
-        <!-- Admin Dashboard Content -->
-        {% if session.logged_in and session.username == 'SWEHUL' %}
-        <div id="admin_dashboard" class="tabcontent">
-            <h1>Welcome to the Admin Dashboard</h1>
-            <!-- Add your admin dashboard content here -->
-        </div>
-        {% endif %}
-    </div>
-    <script type="text/javascript">
-        function openForm(evt, formName) {
-            var i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tabcontent");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
-            }
-            tablinks = document.getElementsByClassName("tablinks");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].classList.remove("active");
-            }
-            document.getElementById(formName).style.display = "block";
-            evt.currentTarget.classList.add("active");
-        }
     
-        function toggleForm() {
-            var container = document.querySelector('.container');
-            container.classList.toggle('active');
-        }
+            <!-- Admin Login Form -->
+            <div id="admin_login" class="tabcontent">
+                <div class="user signinbox">
+                    <div class="imgbox"><img src="{{ url_for('static', filename='images/login.jpeg') }}" alt="Admin Login Image"></div>
+                    <div class="formbox">
+                        <form action="{{ url_for('admin_login') }}" method="post" enctype="multipart/form-data">
+                            <h2>Admin Login</h2>
+                            <div class="form-group">
+                                <input type="text" name="username" placeholder="Username" required aria-label="Username" autocomplete="username">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" name="admin_password" placeholder="Admin Password" required aria-label="Admin Password" autocomplete="current-password">
+                            </div>
+                            <input type="submit" value="Login">
+                        </form>
+                    </div>
+                </div>
+            </div>
     
-        window.history.forward();
-        function noBack() {
+            <!-- Forgot Password Form -->
+            <div id="forgot_password" class="tabcontent">
+                <div class="user signinbox">
+                    <div class="imgbox"><img src="{{ url_for('static', filename='images/login.jpeg') }}" alt="Forgot Password Image"></div>
+                    <div class="formbox">
+                        <form action="{{ url_for('changepass') }}" method="post" enctype="multipart/form-data">
+                            <h2>Forgot Password</h2>
+                            <div class="form-group">
+                                <input type="email" name="femail" placeholder="Enter email here" required aria-label="Email" autocomplete="email">
+                            </div>
+                            <input type="submit" value="Next">
+                        </form>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Admin Dashboard Content -->
+            {% if session.logged_in and session.username == 'SWEHUL' %}
+            <div id="admin_dashboard" class="tabcontent">
+                <h1>Welcome to the Admin Dashboard</h1>
+                <!-- Add your admin dashboard content here -->
+            </div>
+            {% endif %}
+        </div>
+        <script type="text/javascript">
+            function openForm(evt, formName) {
+                var i, tabcontent, tablinks;
+                tabcontent = document.getElementsByClassName("tabcontent");
+                for (i = 0; i < tabcontent.length; i++) {
+                    tabcontent[i].style.display = "none";
+                }
+                tablinks = document.getElementsByClassName("tablinks");
+                for (i = 0; i < tablinks.length; i++) {
+                    tablinks[i].classList.remove("active");
+                }
+                document.getElementById(formName).style.display = "block";
+                evt.currentTarget.classList.add("active");
+            }
+        
+            function toggleForm() {
+                var container = document.querySelector('.container');
+                container.classList.toggle('active');
+            }
+        
             window.history.forward();
-        }
-
-        function showPasswordStrengthPopup() {
-            var passwordStrengthPopup = document.getElementById("passwordStrengthPopup");
-            passwordStrengthPopup.style.display = "block";
-        }
-
-        function hidePasswordStrengthPopup() {
-            var passwordStrengthPopup = document.getElementById("passwordStrengthPopup");
-            passwordStrengthPopup.style.display = "none";
-        }
-    </script>    
-</body>
-</html>
+            function noBack() {
+                window.history.forward();
+            }
+    
+            function showPasswordStrengthPopup() {
+                var passwordStrengthPopup = document.getElementById("passwordStrengthPopup");
+                passwordStrengthPopup.style.display = "block";
+            }
+    
+            function hidePasswordStrengthPopup() {
+                var passwordStrengthPopup = document.getElementById("passwordStrengthPopup");
+                passwordStrengthPopup.style.display = "none";
+            }
+        </script>    
+    </body>
+    </html>

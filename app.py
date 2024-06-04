@@ -92,7 +92,7 @@ def is_logged_in():
     return session.get('logged_in')
 
 def is_admin():
-    return session.get('is_admin')
+    return 'username' in session and session['username'] == 'SWEHUL'
 
 # Function to fetch top headlines from News API
 def get_top_headlines(api_key, selected_country, page_size=10, page_number=1):
@@ -164,12 +164,13 @@ def admin_login():
         if username == 'SWEHUL' and password == 'ADMIN':
             session['username'] = username  # Set the username in the session
             flash('You have successfully logged in as admin!', 'success')
-            return redirect(url_for('user_articles'))  # Redirect to admin_dashboard
+            return redirect(url_for('user_articles'))  # Redirect admin to admin_dashboard
         else:
             flash('Invalid admin credentials. Please try again.', 'danger')
     
     # If login fails or method is not POST, redirect back to the login page
     return redirect(url_for('login'))
+
 
 # Route user_articles READ ARTICLES
 @app.route('/user_articles')
@@ -188,9 +189,24 @@ def user_articles():
             flash('No articles found.', 'info')
             csrf_token = generate_csrf()  # Generate CSRF token
             return render_template('user_articles.html', user_articles=[], csrf_token=csrf_token)
+    elif is_admin():
+        conn = get_db()
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM articles")
+        all_articles = cursor.fetchall()
+        conn.close()
+        
+        if all_articles:
+            csrf_token = generate_csrf()  # Generate CSRF token
+            return render_template('user_articles.html', user_articles=all_articles, csrf_token=csrf_token)
+        else:
+            flash('No articles found.', 'info')
+            csrf_token = generate_csrf()  # Generate CSRF token
+            return render_template('user_articles.html', user_articles=[], csrf_token=csrf_token)
     else:
         flash('You need to login first to view your articles.', 'danger')
         return redirect(url_for('login'))
+
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
@@ -275,7 +291,7 @@ def login():
     # If GET request or login fails, render the login form
     return render_template('login_signup.html')
 
-
+#Change Passowrd
 @app.route('/changepass', methods=['POST'])
 def changepass():
     # Your view logic here
@@ -328,7 +344,7 @@ def article_detail(article_id):
 # Articles route
 @app.route('/articles', methods=['GET', 'POST'])
 def articles():
-    if is_logged_in():
+    if is_logged_in() or is_admin():
         if request.method == 'POST':
             # Form data received, save or update the article in the database
             title = request.form['title']
@@ -363,7 +379,7 @@ def articles():
     else:
         flash('You need to login first to view articles.', 'danger')
         return redirect(url_for('login'))
-
+    
 
 # Route for handling article submission
 @app.route('/submit_article', methods=['POST'])
@@ -540,6 +556,7 @@ def init_db_and_files():
     init_db()
     articles = fetch_articles_from_database()
     save_data_to_files(articles, 'articles.json')
+    
 
 # Get the directory path of the current script (app.py)
 script_dir = os.path.dirname(__file__)
@@ -575,18 +592,17 @@ def view_table(table_name):
 # Admin Dashboard route
 @app.route('/admin_dashboard')
 def admin_dashboard():
-    if 'username' in session and session['username'] == 'SWEHUL':
+    print(session)  # Debugging: Print session variables
+    if is_admin():
+        print("User is an admin")  # Debugging: Print a message if user is admin
+        # Fetch all articles from the database
         conn = get_db()
         cursor = conn.cursor()
         cursor.execute("SELECT * FROM articles")
         articles = cursor.fetchall()
         conn.close()
 
-        # Assuming you have the table_name and record_id available
-        table_name = "your_table_name"  # Replace with actual table name
-        record_id = 123  # Replace with actual record ID
-
-        return render_template('AdminDBManage.html', articles=articles, table_name=table_name, record_id=record_id)
+        return render_template('admin_dashboard.html', articles=articles)
     else:
         flash('You need to log in as admin to access the dashboard.', 'danger')
         return redirect(url_for('login'))
@@ -780,8 +796,24 @@ def delete_user_article(user_id, article_id):
 ###################################################
 @app.route('/AdminDBManage')
 def admin_db_manage():
-    # Function logic here
-    return render_template('AdminDBManage.html')
+    try:
+        conn = get_db()
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM articles")  # Change 'articles' to your table name
+        data = cursor.fetchall()
+        conn.close()
+        
+        print("Data Retrieved:", data)  # Debug print
+        
+        if data:
+            return render_template('AdminDBManage.html', data=data)
+        else:
+            return "No data found in the database."
+
+    except Exception as e:
+        print("An error occurred:", e)  # Debug print
+        return f"An error occurred: {str(e)}"
+
 
 @app.route('/show_database_data')
 def show_database_data():

@@ -4,208 +4,253 @@
     <meta charset="UTF-8">
     <title>Admin Database Management</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
-        }
+    /* Typography */
+body {
+    font-family: 'Roboto', sans-serif; /* Use Roboto font for body text */
+    line-height: 1.6; /* Improved line height for better readability */
+}
 
-        h1, h2 {
-            color: #333;
-            margin-bottom: 10px;
-        }
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif; /* Use Montserrat font for headings */
+}
 
-        #table-list, #table-view, #add-record, #edit-record {
-            margin: 20px;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+/* Color Scheme */
+:root {
+    --primary-color: #007bff; /* Define primary color */
+    --secondary-color: #6c757d; /* Define secondary color */
+    --text-color: #333; /* Define text color */
+    --background-gradient: linear-gradient(to right, #E0D2C7, #44B09E); /* Define background gradient */
+    --background-dark: #000; /* Define dark mode background color */
+    --accent-color: #ff5e00; /* Define accent color for animations */
+}
 
-        #table-list ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
+/* Global Styles */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Open Sans', sans-serif; /* Use Open Sans font for general text */
+    overflow-x: hidden; /* Prevent horizontal overflow */
+    background: var(--background-gradient); /* Use background gradient */
+    color: var(--text-color); /* Set text color */
+    transition: background-color 0.3s ease; /* Smooth transition for background color */
+}
 
-        #table-list li {
-            margin-bottom: 10px;
-        }
+/* Header Styles */
+header {
+    background-color: var(--primary-color); /* Use primary color for header background */
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+    position: relative;
+}
 
-        #table-list a {
-            text-decoration: none;
-            color: #337ab7;
-        }
+header h1 {
+    margin: 0;
+    font-size: 2.5rem; /* Increase font size for header */
+    animation: fadeInDown 1s ease; /* Fade in animation for header */
+}
 
-        #table-list a:hover {
-            color: #23527c;
-        }
+/* Main Content Styles */
+main {
+    padding: 20px;
+}
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
+.container {
+    max-width: 1200px; /* Limit container width for better readability */
+    margin: 0 auto; /* Center container horizontally */
+}
 
-        th, td {
-            padding: 8px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
+/* Section Styles */
+section {
+    margin-bottom: 40px; /* Add space between sections */
+    animation: fadeInUp 1s ease; /* Fade in animation for sections */
+}
 
-        th {
-            background-color: #f2f2f2;
-        }
+/* Article Styles */
+.article-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
 
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
+.article {
+    background-color: #ffffff62;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
 
-        tr:hover {
-            background-color: #f2f2f2;
-        }
+.article:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(255, 0, 0, 0.2);
+    border: #44B09E;
+}
 
-        form {
-            margin-bottom: 20px;
-        }
+.article-id {
+    font-size: 16px;
+    color: var(--secondary-color); /* Use secondary color for article id */
+    margin-bottom: 8px;
+}
 
-        form input[type="text"], form input[type="submit"] {
-            padding: 10px;
-            margin: 5px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
+.article-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
 
-        form input[type="submit"] {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
+.article-content {
+    font-size: 16px;
+    color: #666;
+}
 
-        form input[type="submit"]:hover {
-            background-color: #45a049;
-        }
+/* Footer Styles */
+footer {
+    background-color: var(--primary-color);
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+    animation: fadeInUp 1s ease; /* Fade in animation for footer */
+}
 
-        label {
-            display: block;
-            margin-bottom: 10px;
-        }
+/* Responsive Design */
+@media only screen and (max-width: 768px) {
+    header {
+        padding: 10px 0; /* Adjust header padding for smaller screens */
+    }
 
-        label input[type="text"] {
-            width: 100%;
-        }
+    main {
+        padding: 10px; /* Adjust main padding for smaller screens */
+    }
 
-        /* Dynamic styling for table */
-        table {
-            font-size: 0.8em;
-        }
+    .article-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Adjust grid for smaller screens */
+    }
 
-        @media (min-width: 768px) {
-            table {
-                font-size: 1em;
-            }
-        }
+    section {
+        width: 100%; /* Adjust section width for smaller screens */
+    }
+}
 
-        @media (min-width: 1024px) {
-            table {
-                font-size: 1.2em;
-            }
-        }
+/* Keyframe animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
     </style>
 </head>
 <body>
-    <h1>Admin Database Management</h1>
+    <header>
+        <h1>Admin Database Management</h1>
+    </header>
 
-    <!-- Section to display list of tables -->
-    <div id="table-list">
-        <h2>Databases</h2>
-        <ul>
-            {% for database in databases %}
-                <li><a href="{{ url_for('view_database', database_name=database.name) }}">{{ database.name }}</a></li>
-            {% endfor %}
-        </ul>
-    </div>
-
-    <!-- Section to display records of a specific database -->
-    <div id="database-view" style="display: none;">
-        <h2>Database: {{ database_name }}</h2>
-        <a href="{{ url_for('add_record', table_name=table_name) }}">Add Record</a>
-        <table>
-            <tr>
-                {% for field in fields %}
-                    <th>{{ field }}</th>
-                {% endfor %}
-                <th>Actions</th>
-            </tr>
-            {% for record in records %}
-                <tr>
-                    {% for value in record %}
-                        <td>{{ value }}</td>
+    <main>
+        <div class="container">
+            <!-- Section to display list of tables -->
+            <div id="table-list">
+                <h2>Databases</h2>
+                <ul>
+                    {% for database in databases %}
+                        <li><a href="{{ url_for('view_database', database_name=database.name) }}">{{ database.name }}</a></li>
                     {% endfor %}
-                    <td>
-                        <a href="{{ url_for('edit_record', database_name=database_name, record_id=record.record_id) }}">Edit</a>
-                        <form action="{{ url_for('delete_record', database_name=database_name, record_id=record['id']) }}" method="post">
-                            <button type="submit">Delete</button>
-                        </form>
-                    </td>
-                </tr>
-            {% endfor %}
-        </table>
-    </div>
+                </ul>
+            </div>
 
-    <!-- Section to add a new record -->
-    <div id="add-record" style="display: none;">
-        <h2>Add Record to {{ table_name }}</h2>
-        <form action="{{ url_for('add_record', table_name=table_name) }}" method="post">
-            {% for column, name in columns %}
-                {% if column != 'id' %}
-                    <label for="{{ column }}">{{ name }}</label>
-                    <input type="text" name="{{ column }}" id="{{ column }}">
+            <!-- Section to display records of a specific database -->
+            <div id="database-view" style="display: none;">
+                <h2>Database: {{ database_name }}</h2>
+                <a href="{{ url_for('add_record', table_name=table_name) }}">Add Record</a>
+                <table>
+                    <tr>
+                        {% for field in fields %}
+                            <th>{{ field }}</th>
+                        {% endfor %}
+                        <th>Actions</th>
+                    </tr>
+                    {% for record in records %}
+                        <tr>
+                            {% for value in record %}
+                                <td>{{ value }}</td>
+                            {% endfor %}
+                            <td>
+                                <a href="{{ url_for('edit_record', database_name=database_name, record_id=record.record_id) }}">Edit</a>
+                                <form action="{{ url_for('delete_record', database_name=database_name, record_id=record['id']) }}" method="post">
+                                    <button type="submit">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+
+            <!-- Section to add a new record -->
+            <div id="add-record" style="display: none;">
+                <h2>Add Record to {{ table_name }}</h2>
+                <form action="{{ url_for('add_record', table_name=table_name) }}" method="post">
+                    {% for column, name in columns %}
+                        {% if column != 'id' %}
+                            <label for="{{ column }}">{{ name }}</label>
+                            <input type="text" name="{{ column }}" id="{{ column }}">
+                        {% endif %}
+                    {% endfor %}
+                    <input type="submit" value="Add Record">
+                </form>
+            </div>
+
+            <div id="article-wrapper">
+                <h2>Articles</h2>
+                <div class="article">
+                    {% for row in data %}
+                        <div class="article-item">
+                            <div class="article-id">{{ row[0] }}</div>
+                            <div class="article-title">{{ row[1] }}</div>
+                            <div class="article-content">{{ row[2] }}</div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Section to edit an existing record -->
+            <div id="edit-record" style="display: none;">
+                <h2>Edit Record in {{ database_name }}</h2>
+                {% if record_id %}
+                    <form action="{{ url_for('edit_record', database_name=database_name, record_id=record_id) }}" method="post">
+                        {% for column, value in columns|zip_lists(record) %}
+                            {% if column != 'id' %}
+                                <label for="{{ column }}">{{ column }}</label>
+                                <input type="text" name="{{ column }}" id="{{ column }}" value="{{ value }}">
+                            {% endif %}
+                        {% endfor %}
+                        <input type="submit" value="Update Record">
+                    </form>
+                {% else %}
+                    <p>No record selected for editing.</p>
                 {% endif %}
-            {% endfor %}
-            <input type="submit" value="Add Record">
-        </form>
-    </div>
+            </div>
+        </div>
+    </main>
 
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Title</th>
-                <th>Content</th>
-                <!-- Add more table headers as needed -->
-            </tr>
-        </thead>
-        <tbody>
-            {% for row in data %}
-            <tr>
-                <td>{{ row[0] }}</td> <!-- Assuming the ID is the first column -->
-                <td>{{ row[1] }}</td> <!-- Assuming the Title is the second column -->
-                <td>{{ row[2] }}</td> <!-- Assuming the Content is the third column -->
-                <!-- Add more table cells as needed -->
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>    
-
-    <!-- Section to edit an existing record -->
-    <div id="edit-record" style="display: none;">
-        <h2>Edit Record in {{ database_name }}</h2>
-        {% if record_id %}
-            <form action="{{ url_for('edit_record', database_name=database_name, record_id=record_id) }}" method="post">
-                {% for column, value in columns|zip_lists(record) %}
-                    {% if column != 'id' %}
-                        <label for="{{ column }}">{{ column }}</label>
-                        <input type="text" name="{{ column }}" id="{{ column }}" value="{{ value }}">
-                    {% endif %}
-                {% endfor %}
-                <input type="submit" value="Update Record">
-            </form>
-        {% else %}
-            <p>No record selected for editing.</p>
-        {% endif %}
-    </div>
+    <footer>
+        <p>&copy; 2024 Admin Database Management</p>
+    </footer>
       <script>
         // JavaScript to handle showing/hiding different sections
         const urlParams = new URLSearchParams(window.location.search);
@@ -234,5 +279,6 @@
         updateTableFontSize();
         window.addEventListener('resize', updateTableFontSize);
     </script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
